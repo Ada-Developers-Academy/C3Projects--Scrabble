@@ -3,7 +3,7 @@ module Scrabble
   # require_relative 'scrabble/whatevs'
   class Scrabble
 
-      
+
 
     def self.score(word)
       return "1" if word == "A"
