@@ -1,4 +1,4 @@
-# Scrabble
+# Scrabble - Corinne Pingul
 
 Use TDD to create classes that would be used to build a scrabble game. Don't actually build an interactive game (yet)!
 
