@@ -2,16 +2,23 @@ module Scrabble
   # require your gems and classes here
   # require_relative 'scrabble/whatevs'
 
-  # ONE_POINT = [
-  #   {"A": }
-  #
-  # ]
-
   class Scrabble
+
+    ONE_POINT = {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T" => 1}
+    ONE_POINT = {1 => ["A", "B", "C"]}
+    %w(A B C D)
+    TWO_POINTS = {"D", "G"}
+    THREE_POINTS = {"B", "C", "M", "P"}
+    FOUR_POINTS = {"F", "H", "V", "W", "Y"}
+    FIVE_POINTS = {"K"}
+    EIGHT_POINTS = {"J", "X"}
+    TEN_POINTS = {"Q", "Z"}
+
     def self.score(word)
       # returns the total score value for the given word.
       # The word is input as a string (case insensitive).
       # The chart below shows the point value for a given letter.
+      return ONE_POINT.
     end
 
     def self.highest_score_from(array_of_words)

@@ -12,7 +12,14 @@ describe Scrabble::Scrabble do
       expect(Scrabble::Scrabble).to respond_to :highest_score_from
     end
 
-    # it ""
+    [
+      [5, "cat"],
+      [12, "kitty"],
+    ].each do |value, word|
+      it "returns #{value} for #{word}" do
+        expect(Scrabble::Scrabble.score(word)).to eq(value)
+      end
+    end
 
     # it "self.score method should return an Int" do
     #   expect(Scrable::Scrabble.score("cat")).to equal
