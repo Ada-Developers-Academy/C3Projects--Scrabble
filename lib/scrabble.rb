@@ -4,15 +4,14 @@ module Scrabble
 
   class Scrabble
 
-    ONE_POINT = {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T" => 1}
-    ONE_POINT = {1 => ["A", "B", "C"]}
-    %w(A B C D)
-    TWO_POINTS = {"D", "G"}
-    THREE_POINTS = {"B", "C", "M", "P"}
-    FOUR_POINTS = {"F", "H", "V", "W", "Y"}
-    FIVE_POINTS = {"K"}
-    EIGHT_POINTS = {"J", "X"}
-    TEN_POINTS = {"Q", "Z"}
+    ONE_POINT = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"]
+    ONE_POINT = %w(A E I O U L N R S T)
+    TWO_POINTS = ["D", "G"]
+    THREE_POINTS = ["B", "C", "M", "P"]
+    FOUR_POINTS = ["F", "H", "V", "W", "Y"]
+    FIVE_POINTS = ["K"]
+    EIGHT_POINTS = ["J", "X"]
+    TEN_POINTS = ["Q", "Z"]
 
     def self.score(word)
       # returns the total score value for the given word.
