@@ -1,4 +1,4 @@
-module Scrabble
+class Scrabble
   # require your gems and classes here
   # require_relative 'scrabble/whatevs'
   
@@ -12,16 +12,19 @@ module Scrabble
   	10 	=> "qz"
   }
 
-  def self.score(word)
-
-	SCORES.each do |score, letter_list|
-		if letter_list.split("").include?(word)
-			return score
-		end
-	end
-
+  def initialize
   end
 
-  # puts SCORES[1]
-
+  def self.score(word)
+  	word_score = 0
+  	# puts word.split("").class
+  	word.split("").each do |letter|
+		SCORES.each do |points, letter_list|
+			if letter_list.split("").include?(letter)
+				word_score += points
+			end
+		end
+  	end
+  	word_score
+  end
 end
