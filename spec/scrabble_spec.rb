@@ -4,6 +4,10 @@ describe 'Scoring words' do
 
 #Create a test for splitting the word into separate strings
 
+it "splits the word into an array of letters" do
+  expect(Scrabble::Scrabble.split_word("PLAY")).to eq(["P","L","A","Y"])
+end
+
 
 # Tests the SCORE_TABLE
   {
@@ -43,7 +47,6 @@ describe 'Scoring words' do
     it "returns #{score} for #{letter}" do
         expect(Scrabble::Scrabble.score(letter)).to eq(score)
     end
-
 
   end
 end

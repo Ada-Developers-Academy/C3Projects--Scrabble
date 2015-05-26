@@ -31,9 +31,14 @@ module Scrabble
 
   class Scrabble
 
-    def self.score(word)
+    def self.split_word(word)
       letters = word.upcase.split(//)
-      return SCORE_TABLE[letters[0]]
+      return letters
+    end
+
+    def self.score(word)
+      # split_word
+      return SCORE_TABLE[word]
     end
 
     def self.highest_score_from(array_of_words)
