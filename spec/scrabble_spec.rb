@@ -21,6 +21,10 @@ describe Scrabble::Scrabble do
       end
     end
 
+    it "should return 0 for a word longer than 7 letters" do
+      expect(Scrabble::Scrabble.score("supercalifragilisticexpialidocious")).to eq(0)
+    end
+
     # it "self.score method should return an Int" do
     #   expect(Scrable::Scrabble.score("cat")).to equal
     # end
