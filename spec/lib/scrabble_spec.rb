@@ -23,18 +23,19 @@ end
 
 describe "highest_score_from" do
   it "picks word with highest score" do
-    expect(Scrabble::Scrabble.highest_score_from(["hey", "qi", "deliver"])).to eq("deliver")
+    expect(Scrabble::Scrabble.highest_score_from(["hey", "cat", "deliver"])).to eq("deliver")
   end
 
   it "resolves a tie by picking the smaller word" do
-
+    expect(Scrabble::Scrabble.highest_score_from(["hate", "kid", "lame"])).to eq("kid")
   end
 
   it "resolves a tie with a seven letter word" do
-
+    # even if the other word is smaller
+    expect(Scrabble::Scrabble.highest_score_from(["deliver", "zit", "awesome"])).to eq("awesome")
   end
 
   it "resolves a tie with even length and score words" do
-
+    expect(Scrabble::Scrabble.highest_score_from(["out", "date", "gate"])).to eq("date")
   end
 end
