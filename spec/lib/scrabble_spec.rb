@@ -55,8 +55,14 @@ describe "Determining scoring for tiles" do
       expect(Scrabble::Scrabble.score("sad")).to eq (4)
     end
 
-    
   end
+
+  context "self.highest_score_from method" do
+    it "returns word with fewer letters if points are tied" do
+      expect(Scrabble::Scrabble.highest_score_from(["CAMP", "Q", "no"])).to eq ("Q")
+    end
+  end
+
 
 
 
