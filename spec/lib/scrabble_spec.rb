@@ -1,6 +1,6 @@
 require './lib/scrabble/scrabble'
 
-describe Scrabble::Scrabble.score do
+describe "score method" do
   it "returns the total score for a word" do
     expect(Scrabble::Scrabble.score("play")).to eq(9)
     expect(Scrabble::Scrabble.score("awesome")).to eq(12)
@@ -21,9 +21,9 @@ describe Scrabble::Scrabble.score do
   end
 end
 
-describe Scrabble::Scrabble.highest_score_from do
+describe "highest_score_from" do
   it "picks word with highest score" do
-
+    expect(Scrabble::Scrabble.highest_score_from(["hey", "qi", "deliver"])).to eq("deliver")
   end
 
   it "resolves a tie by picking the smaller word" do
