@@ -19,9 +19,15 @@ module Scrabble
     end
 
     def self.score(word)
-      # returns the total score value for the given word
-      # word is input as string (case sensitive)
-      
+      @letter_array = word.split(//)
+      POINT_CONVERSIONS.select do |letters, points|
+        @letter_array.each do |letter|
+          while letter == letters
+            @score = @score + points
+          end
+        end
+      end
+      return @score
     end
 
     def self.highest_score_from(array_of_words)
