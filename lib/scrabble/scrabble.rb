@@ -12,14 +12,20 @@ module Scrabble
   class Scrabble
 
     def self.score(word)
+      return nil if word == ""
+
       word = word.upcase.split("")
       score = 0
 
       word.each do |letter|
-        CHARACTER_VALUES.each do |score_value, characters|
-          if characters.include?(letter)
-            score += score_value
+        if %w(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z).include?(letter)
+          CHARACTER_VALUES.each do |score_value, characters|
+            if characters.include?(letter)
+              score += score_value
+            end
           end
+        else
+          return nil
         end
       end
 
