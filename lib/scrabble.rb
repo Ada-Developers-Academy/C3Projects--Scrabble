@@ -1,4 +1,4 @@
-POINTS_CONVERSIONS = [
+POINT_CONVERSIONS = [
   [%w(A E I O U L N R S T), 1],
   [%w(D G), 2],
   [%w(B C M P), 3],
@@ -11,13 +11,17 @@ POINTS_CONVERSIONS = [
 module Scrabble
   # require your gems and classes here
   class Score
-    def initialize
 
+    attr_reader :score
+
+    def initialize
+      @score = 0
     end
 
     def self.score(word)
       # returns the total score value for the given word
       # word is input as string (case sensitive)
+      
     end
 
     def self.highest_score_from(array_of_words)
