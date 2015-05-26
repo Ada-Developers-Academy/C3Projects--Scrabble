@@ -4,7 +4,7 @@ module Scrabble
 	  # require your gems and classes here
 	  # require_relative 'scrabble/whatevs'
 	  
-	  SCORES = {
+	  POINTS = {
 	  	1 	=> "aeioulnrst",
 	  	2 	=> "dg",
 	  	3 	=> "bcmp",
@@ -13,16 +13,30 @@ module Scrabble
 	  	8 	=> "jx",
 	  	10 	=> "qz"
 	  }
-
+	  VALID_LETTERS = "abcdefghijklmnopqrstuvwxyz"
+	
 	  def initialize
 	  end
 
+	  def self.valid_input?(word)
+	  	valid = true
+	  	word_letters = word.split("")
+		word_letters.each do |letter|
+  			if !(VALID_LETTERS.include?(letter))
+  				valid = false
+  			end
+  		end
+	  	return valid
+	  end
+
 	  def self.score(word)
+	  	# guard clause for non-alphabetic user input
+  		return "ERROR" unless self.valid_input?(word.downcase)
+
 	  	word_score = 0
 	  	word_letters = word.downcase.split("")
-	  	# puts word.split("").class
 	  	word_letters.each do |letter|
-			SCORES.each do |points, letter_list|
+			POINTS.each do |points, letter_list|
 				if letter_list.include?(letter)
 					word_score += points
 				end
