@@ -1,0 +1,23 @@
+self.score(word)
+
+self.score("play")
+=> 9
+"play"
+(3,1,1,4)
+
+self.highest_score_from(array) ["apple", "app", "yum"]
+=>"apple"
+
+if two words have the same score, the one with fewer tiles wins UNLESS all seven tiles are played (word.length == 7)
+
+
+Edge/Cases
+*user provides:
+  numbers, nothing, nil,""
+  special characters
+  case sensitivity
+  more than 7 characters (word.length > 7)
+
+-max of 7 letters for each word
+must input array hash
+tiles array
