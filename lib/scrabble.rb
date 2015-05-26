@@ -1,9 +1,11 @@
 module Scrabble
   # require your gems and classes here
+
   # hash for keep tracking of point value for each letter
 
   class Scrabble
-    # hash to hold point value => corresponding letters w/ point value
+
+    # hash to hold point value => corresponding letters
     SCORE_CHART = {
       1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
       2 => ["D", "G"],
@@ -12,6 +14,7 @@ module Scrabble
       5 => ["K"],
       8 => ["J", "X"]
     }
+
 
     # method to determine score of individual letter
     def self.score_letter(letter)
@@ -23,6 +26,7 @@ module Scrabble
         end
       end
     end
+
 
     # method to return the total score of a word
     def self.score(word)
@@ -41,7 +45,21 @@ module Scrabble
 
       return total_word_score
     end
-    
+
+
+    def self.highest_score_from(array_of_words)
+      # create hash using given array
+      # ["cat", "dog"] => {"cat": total_points, "dog": total_points}
+      word_points_hash = { }
+
+      array_of_words.each do |word|
+        word_points_hash[word] = self.score(word)
+      end
+
+      # search through hash and return word with highest point value
+      # highest_scoring_word = word_points_hash.max_by {|word, total_points| total_points}
+    end
+
 
   end
 end
