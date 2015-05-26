@@ -19,8 +19,11 @@ module Scrabble
 	  end
 
 	  def self.valid_input?(word)
+	  	# guard clause for empty string or nil input
+	  	return false if word == "" || word == nil
+
 	  	valid = true
-	  	word_letters = word.split("")
+	  	word_letters = word.downcase.split("")
 		word_letters.each do |letter|
   			if !(VALID_LETTERS.include?(letter))
   				valid = false
@@ -31,7 +34,7 @@ module Scrabble
 
 	  def self.score(word)
 	  	# guard clause for non-alphabetic user input
-  		return "ERROR" unless self.valid_input?(word.downcase)
+  		return "ERROR" unless self.valid_input?(word)
 
 	  	word_score = 0
 	  	word_letters = word.downcase.split("")

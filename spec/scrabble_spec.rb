@@ -38,11 +38,19 @@ end
 describe "validate user input" do
 
 	[
-		["a1pple",	"ERROR"]
+		["a1pple",	"ERROR"],
+		["a#1pple",	"ERROR"],
+		["ap ple", 	"ERROR"],
+		["",		"ERROR"],
+		[nil,		"ERROR"]
 	].each do |word, error|
-		it "does not allow non-alphabetic characters in input" do
+		it "returns #{error} when user input is #{word}" do
 			expect(Scrabble::Scrabble.score(word)).to eq(error)
 		end
+	end
+
+	it "disallows words over 7 letters long" do
+		expect(Scrabble::Scrabble.score("elephant")).to eq("ERROR -- too long")
 	end
 
 end
