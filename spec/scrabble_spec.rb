@@ -13,5 +13,9 @@ describe "scoring words in Scrabble" do
 			expect(Scrabble.score(word)).to eq(score)
 		end
 	end
+
+	it "is case insensitive for input words" do
+		expect(Scrabble.score("potato")).to eq(Scrabble.score("POTATO"))
+	end
 	
 end

@@ -17,6 +17,7 @@ class Scrabble
 
   def self.score(word)
   	word_score = 0
+  	word = word.downcase
   	# puts word.split("").class
   	word.split("").each do |letter|
 		SCORES.each do |points, letter_list|
