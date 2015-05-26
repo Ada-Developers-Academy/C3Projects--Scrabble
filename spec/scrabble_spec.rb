@@ -2,6 +2,10 @@ require './lib/scrabble'
 
 describe 'Scoring words' do
 
+#Create a test for splitting the word into separate strings
+
+
+# Tests the SCORE_TABLE
   {
   "A" => 1,
   "E" => 1,
@@ -11,6 +15,22 @@ describe 'Scoring words' do
   "L" => 1,
   "N" => 1,
   "R" => 1,
+  "D" => 2,
+  "G" => 2,
+  "B" => 3,
+  "C" => 3,
+  "M" => 3,
+  "P" => 3,
+  "F" => 4,
+  "H" => 4,
+  "V" => 4,
+  "W" => 4,
+  "Y" => 4,
+  "K" => 5,
+  "J" => 8,
+  "X" => 8,
+  "Q" => 10,
+  "Z" => 10,
   # 1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
   # 2 => ["D", "G"],
   # 3 => ["B", "C", "M", "P"],
