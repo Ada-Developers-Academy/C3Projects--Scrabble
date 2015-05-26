@@ -1,0 +1,1 @@
+Loraine Kanervisto - SCRABBLE RUBRIC
