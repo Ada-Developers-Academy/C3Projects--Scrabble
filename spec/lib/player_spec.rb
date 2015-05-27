@@ -11,14 +11,15 @@ end
 
 describe "#play(word)" do
   it "plays the word" do
-    expect(patricia.plays("hike")).to #include "hike"
+    patricia.play("hike")
+
+    expect(patricia.played).to eq(["hike"])
   end
 
   it "returns false if the player already won" do
-    patricia.play = ["buoy"]
-    patricia.plays("buoy")
+    patricia.playing = false
 
-    expect(patricia.plays("booey")).to eq(false)
+    expect(patricia.play("buoy")).to eq(false)
   end
 end
 
@@ -28,6 +29,6 @@ describe "#plays" do
     patricia.play("game")
     patricia.play("girl")
 
-    expect(patricia.plays).to eq(["good", "game", "girl"])
+    expect(patricia.plays).to eq(["hike", "buoy", "good", "game", "girl"])
   end
 end
