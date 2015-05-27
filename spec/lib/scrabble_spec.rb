@@ -53,6 +53,43 @@ describe "Scoring words played in Scrabble." do
 			expect(Scrabble::Scrabble.score(4)).to eq("This game only includes letters a-z.")
 		end
 	end
+end
 
+describe "Selecting the highest point option to play in Scrabble" do
+
+	context "Each word needs to have its score evaluated and mapped to itself" do
+		it "calculates each word's score and adds word and score to a hash as a key/value pair" do
+			expect(Scrabble::Scrabble.multi_score(["hello","hi","bonjour","ciao"])).to include("hello" => 8, "hi" => 5, "bonjour" => 16, "ciao" => 6)
+		end
+	end
+
+	context "The word with the highest score wins" do
+		it "returns 16 as the winner of this array ['hello','hi','bonjour','ciao']" do
+			expect(Scrabble::Scrabble.highest_score_from(["hello","hi","bonjour","ciao"])).is eq(16)
+		end
+	end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

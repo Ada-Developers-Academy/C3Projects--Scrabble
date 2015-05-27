@@ -52,6 +52,30 @@ module Scrabble
 			end
 		end
 
+		def self.multi_score(array_of_words)
+			hash_of_word_scores = {}
+
+			array_of_words.each do |word|
+				word_score = Scrabble.score(word)
+				hash_of_word_scores.merge!(word => word_score)
+			end
+
+			return hash_of_word_scores
+		end
+
+		def self.highest_score_from(array_of_words)
+			hash_of_word_scores = Scrabble.multi_score(array_of_words)
+
+			hash_of_word_scores.each do |word, score|
+				if 
+			end
+
+
+
+			# winner = hash_of_word_scores.max_by{|word,score| score}
+
+		end
+
 
 	end # end Scrabble class
 
