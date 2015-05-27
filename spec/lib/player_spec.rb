@@ -1,7 +1,13 @@
 require './lib/scrabble/player'
 
 describe "Player class" do
-  let(:patricia) { Scrabble::Player.new("Patricia") }
+  let(:patricia) {
+    x = Scrabble::Player.new("Patricia")
+    x.play("good") # 6 pts
+    x.play("game") # 7 pts
+    x.play("girl") # 5 pts
+    return x
+    }
 
   describe "self.new(name)" do
 
@@ -12,9 +18,9 @@ describe "Player class" do
 
   describe "#play(word)" do
     it "plays the word" do
-      patricia.play("hike")
+      patricia.play("hike") # 11 pts
 
-      expect(patricia.played).to eq(["hike"])
+      expect(patricia.played_words).to eq(["good", "game", "girl", "hike"])
     end
 
     # `context` creates a new level of scope
@@ -33,15 +39,63 @@ describe "Player class" do
 
   describe "#plays" do
     it "returns words played by the player" do
-      patricia.play("good")
-      patricia.play("game")
-      patricia.play("girl")
-
       expect(patricia.plays).to eq(["good", "game", "girl"])
     end
   end
 
   describe "#total_score" do
+    it "returns the total score of the player's words" do
+      # 6 + 7 + 5 = 18 pts
+      expect(patricia.total_score).to eq(18)
+    end
+  end
 
+  describe "#won?" do
+    context "when player has > 100 points" do
+      let(:patricia) {
+        x = Scrabble::Player.new("Patty")
+        9.times do
+          x.play("quit") # 13 pts
+        end
+        return x
+      }
+
+      it "stops playing Scrabble" do
+        # need to call to activate re-assignment
+        patricia.won?
+
+        expect(patricia.playing).to eq(false)
+      end
+
+      it "returns true" do
+        expect(patricia.won?).to eq(true)
+      end
+    end
+
+    context "when player has < 100 points" do
+      let(:ron) {
+        x = Scrabble::Player.new("Ron")
+        4.times do
+          x.play("boo") # 5 pts
+        end
+        return x
+      }
+
+      it "returns false" do
+        expect(ron.won?).to eq(false)
+      end
+    end
+  end
+
+  describe "#highest_scoring_word" do
+    it "returns the player's highest scoring word" do
+      expect(patricia.highest_scoring_word).to eq("game")
+    end
+  end
+
+  describe "#highest_word_score" do
+    it "returns the score of the highest_scoring_word" do
+      expect(patricia.highest_word_score).to eq(7)
+    end
   end
 end
