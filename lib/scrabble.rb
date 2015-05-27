@@ -12,6 +12,27 @@ module Scrabble
     EIGHT_POINTS = ["J", "X"]
     TEN_POINTS = ["Q", "Z"]
 
+    one_point_letters = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"]
+    two_point_letters = ["D", "G"]
+    three_point_letters = ["B", "C", "M", "P"]
+    four_point_letters = ["F", "H", "V", "W", "Y"]
+    five_point_letters = ["K"]
+    eight_point_letters = ["J", "X"]
+    ten_point_letters = ["Q", "Z"]
+
+    one_point = Hash.new {|hash, key| hash[key] = 1}
+    two_points = Hash.new {|hash, key| hash[key] = 2}
+    three_points = Hash.new {|hash, key| hash[key] = 3}
+    four_points = Hash.new {|hash, key| hash[key] = 4}
+    five_points = Hash.new {|hash, key| hash[key] = 5}
+    eight_points = Hash.new {|hash, key| hash[key] = 8}
+    ten_points = Hash.new {|hash, key| hash[key] = 10}
+
+    one_point_letters.each do |letter|
+      one_point[letter]
+    end
+    ONE = one_point  # should look like {"A"=>1, "E"=>1, "I"=>1, "O"=>1, "U"=>1, "L"=>1, "N"=>1, "R"=>1, "S"=>1, "T"=>1}
+
     # RETURNS THE SCORE OF THE WORD
     def self.score(word)
       return 0 if word.length > 7  # "guard clause" for zero
