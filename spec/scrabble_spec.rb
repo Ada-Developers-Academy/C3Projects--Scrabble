@@ -4,12 +4,12 @@ require "./lib/scrabble"
 describe Scrabble::Scrabble do
   # expected functionality of Scrabble class
 
-  # edge cases
-  # context "input will only be letters" do
-  #   it "return a message if enter 7" do
-  #     expect(Scrabble::Scrabble.is_valid?(7)).to eq("error")
-  #   end
-  # end
+  #  edge cases
+  context "input will only be letters" do
+    it "return a message if enter 7" do
+      expect(Scrabble::Scrabble.is_valid?(7)).to eq("error")
+    end
+  end
 
 
   before :each do
@@ -34,23 +34,29 @@ describe Scrabble::Scrabble do
 
   # end
 
-  context "determing highest score of two words" do
+  describe "determines highest score of two words" do
 
     it "returns the word with the highest score" do
       array = ["A", "APE"]
       expect(Scrabble::Scrabble.highest_score_from(array)).to eq("APE")
     end
+
+
+    context "if scores are tied" do
+      context "and both words are less than 7 tiles" do
+        it "returns the word with the fewest tiles" do
+          array = ["KK", "Z"]
+          expect(Scrabble::Scrabble.highest_score_from(array)).to eq("Z")
+        end
+      end
+    end
+
   end
-
-    # context "if scores are tied" do
-    #   it "returns the word with the fewest tiles" do
-    #     array = ["KK", "Z"]
-    #     expect(Scrabble::Scrabble.highest_score_from(array)). to eq("Z")
-    #   end
-
-      # it "returns the word with 7 tiles used" do
-      # end
-
-
+      context "and one word is 7 letters long" do
+        it "returns the word with 7 tiles used" do
+          array = ["QWITFHX", "APE"]
+          expect(Scrabble::Scrabble.highest_score_from(array)).to eq("QWITFHX")
+        end
+      end
 
 end
