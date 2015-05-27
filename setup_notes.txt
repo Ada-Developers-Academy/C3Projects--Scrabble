@@ -21,3 +21,15 @@ Edge/Cases
 -max of 7 letters for each word
 must input array hash
 tiles array
+
+
+OLD CODE:
+    VALUES = {
+      1 => ['a','e','i','o','u','l','n','r','s','t'],
+      2 => ['d','g'],
+      3 => ['b','c','m','p'],
+      4 => ['f','h','v','w','y'],
+      5 => ['k'],
+      8 => ['j','x'],
+      10 => ['q','z']
+    }

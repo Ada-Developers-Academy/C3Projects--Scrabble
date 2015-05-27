@@ -6,7 +6,4 @@ module Scrabble
   require ROOT_DIR.join('lib/scrabble/scrabble')
   require ROOT_DIR.join('lib/scrabble/player')
 
-my_scrabble = Scrabble.new
-my_player = Player.new
-
 end
