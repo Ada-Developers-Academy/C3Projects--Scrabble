@@ -30,6 +30,13 @@ module Scrabble
       "Z" => 10,
     }
 
+    #this function will take the word user puts in ()
+    #and will use the split method to break up the word
+    #into separate letters in an array and then perform a
+    #loop that will run through each letter and get a value
+    #from the conversion table and add each value together to
+    #get a total sum of points for entire word and then returns
+    #that total value
     def self.score (word)
       sum = 0
       word = word.upcase
@@ -39,6 +46,17 @@ module Scrabble
       return sum
     end
 
+    #this function takes user input of words in the form of
+    #an array. User must input in this way (["word1","word2","word3"])
+    #user can input as many words as they want. Each needs to be in a
+    #string and whole array must be in parens.
+    #function will call on the score method on each word in the array.
+    #the word that returns the highest word score will be returned with
+    #a couple of exceptions. If there is a tie, the word with the
+    #fewest tiles used to achieve that score will be picked unless the
+    #other word uses 7 characters. Then the word with 7 characters wins
+    #and is returned. In the event a tie occurs and the words are the
+    #same length, whichever word is listed first in the array is returned.
     def self.highest_score_from(array_of_words)
       high_score = 0
       high_score_word = nil
