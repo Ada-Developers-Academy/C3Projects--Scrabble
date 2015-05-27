@@ -13,8 +13,9 @@ module Scrabble
 	  	8 	=> "jx",
 	  	10 	=> "qz"
 	  }
-	  VALID_LETTERS = "abcdefghijklmnopqrstuvwxyz"
-	
+		
+	  VALID_LETTERS = POINTS.values.reduce(:+)
+
 	  def initialize
 	  end
 
