@@ -39,6 +39,12 @@ describe "Determining scoring for tiles" do
       end
     end
 
+    Scrabble::Scrabble::SCORE_CHART[10].each do |letter|
+      it "returns point value of 10 for letter #{letter}" do
+        expect(Scrabble::Scrabble.score_letter(letter)).to eq (10)
+      end
+    end
+
   end
 
 
@@ -65,6 +71,15 @@ describe "Determining scoring for tiles" do
     it "returns word with fewer letters if points are tied" do
       expect(Scrabble::Scrabble.highest_score_from(["CAMP", "Q", "no"])).to eq ("Q")
     end
+
+    it "returns word with 7 letters if points are tied" do
+     expect(Scrabble::Scrabble.highest_score_from(["ABCDEFG", "JX"])).to eq ("ABCDEFG")
+    end
+
+    it "returns first word if two words have the same score and length" do
+      expect(Scrabble::Scrabble.highest_score_from(["CAT", "BAT", "AT"])).to eq ("CAT")
+    end
+
   end
 
 

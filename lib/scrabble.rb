@@ -7,12 +7,12 @@ module Scrabble
 
     # hash to hold point value => corresponding letters
     SCORE_CHART = {
-      1 => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
-      2 => ["D", "G"],
-      3 => ["B", "C", "M", "P"],
-      4 => ["F", "H", "V", "W", "Y"],
-      5 => ["K"],
-      8 => ["J", "X"],
+      1  => ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+      2  => ["D", "G"],
+      3  => ["B", "C", "M", "P"],
+      4  => ["F", "H", "V", "W", "Y"],
+      5  => ["K"],
+      8  => ["J", "X"],
       10 => ["Q", "Z"]
     }
 
@@ -41,7 +41,6 @@ module Scrabble
       word.split("").each do |letter|
         # gets the score value for the letter and adds it to the total word score
         letter_score = score_letter(letter)
-        puts letter_score
         total_word_score += letter_score
       end
 
@@ -49,6 +48,7 @@ module Scrabble
     end
 
 
+    # method to determine which word from an array has the highest score
     def self.highest_score_from(array_of_words)
       # create hash using given array
       # ["cat", "dog"] => {total_points: "cat", total_points: "dog"}
@@ -56,27 +56,29 @@ module Scrabble
 
       # sorts through the keys in the hash to find largest point value
       # returns an array of word(s) that have the largest point value
+      # .max_by returns an array like so: [4, ["cat", "dog"]]
+      # need to use index [1] to access just the words
       highest_scoring_words = word_points_hash.max_by {|k, v| k }[1]
 
-      # if array contains more than one element
+      # if array of words contains more than one element
       if highest_scoring_words.length > 1
-        # return the word in the array with the least amount of letters
-        highest_scoring_words.min_by {|word| word.length}
+
+        # go through each element in the array
+        highest_scoring_words.each do |word|
+          # if the word has 7 letters, return this word
+          if word.length == 7
+            return word
+          end
+        end
+
+        # otherwise, return the word in the array with the least amount of letters
+        # this also returns the first instance in the array with the least amount of letters
+        return highest_scoring_words.min_by {|word| word.length}
+
+      # if the array does not contain more than one element, just return the first/only element
       else
-        return highest_scoring_words[0]
-
+        highest_scoring_words[0]
       end
-
-      # #
-      # return word_points_hash[highest_score]
-      # return max_word[1]
-      # array_of_words.each do |word|
-      #   word_points_hash[word] = self.score(word)
-      # end
-
-
-      # search through hash and return word with highest point value
-      # highest_scoring_word = word_points_hash.max_by {|word, total_points| total_points}
     end
 
 
