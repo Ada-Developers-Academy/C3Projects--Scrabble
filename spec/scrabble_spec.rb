@@ -50,11 +50,11 @@ end
 describe "validate user input" do
 
 	[
-		["a1pple",	"ERROR"],
-		["a#1pple",	"ERROR"],
-		["ap ple", 	"ERROR"],
-		["",		"ERROR"],
-		[nil,		"ERROR"],
+		["a1pple",	"ERROR -- invalid input"],
+		["a#1pple",	"ERROR -- invalid input"],
+		["ap ple", 	"ERROR -- invalid input"],
+		["",		"ERROR -- invalid input"],
+		[nil,		"ERROR -- invalid input"],
 		["apple",	9]
 	].each do |word, error|
 		it "returns #{error} when user input is #{word}" do

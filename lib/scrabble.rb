@@ -4,29 +4,49 @@ module Scrabble
 	  # require your gems and classes here
 	  # require_relative 'scrabble/whatevs'
 	  
-	  POINTS = {
-	  	1 	=> "aeioulnrst",
-	  	2 	=> "dg",
-	  	3 	=> "bcmp",
-	  	4 	=> "fhvwy",
-	  	5 	=> "k",
-	  	8 	=> "jx",
-	  	10 	=> "qz"
-	  }
+	  # POINTS = {
+	  # 	1 	=> "aeioulnrst",
+	  # 	2 	=> "dg",
+	  # 	3 	=> "bcmp",
+	  # 	4 	=> "fhvwy",
+	  # 	5 	=> "k",
+	  # 	8 	=> "jx",
+	  # 	10 	=> "qz"
+	  # }
 		
-	  VALID_LETTERS = POINTS.values.reduce(:+)
+		POINTS = {
+		  	"aeioulnrst" 	=> 1,
+		  	"dg"			=> 2,
+		  	"bcmp"		 	=> 3,
+		  	"fhvwy" 		=> 4,
+		  	"k"			 	=> 5,
+		  	"jx"		 	=> 8,
+		  	"qz"		 	=> 10
+	  	}
+
+	  VALID_LETTERS = POINTS.keys.reduce(:+)
 
 	  def initialize
 	  end
+
+	 #  def self.valid_input?(word)
+	 #  	# guard clause for empty string or nil input
+	 #  	return false if word == "" || word == nil
+
+	 #  	word_letters = word.downcase.split("")
+		# word_letters.each do |letter|
+  # 			return false if !(VALID_LETTERS.include?(letter))
+  # 		end
+	 #  	true
+	 #  end
 
 	  def self.valid_input?(word)
 	  	# guard clause for empty string or nil input
 	  	return false if word == "" || word == nil
 
 	  	word_letters = word.downcase.split("")
-		word_letters.each do |letter|
-  			return false if !(VALID_LETTERS.include?(letter))
-  		end
+	  	return false if word_letters.find { |letter| !VALID_LETTERS.include?(letter) }
+		
 	  	true
 	  end
 
@@ -35,22 +55,33 @@ module Scrabble
 	  	true
 	  end
 
+	  # def self.get_points(word)
+	  # 	word_score = 0
+	  # 	word_letters = word.downcase.split("")
+	  # 	word_letters.each do |letter|
+			# POINTS.each do |points, letter_list|
+			# 	if letter_list.include?(letter)
+			# 		word_score += points
+			# 	end
+			# end
+	  # 	end
+	  # 	word_score
+	  # end
+
 	  def self.get_points(word)
 	  	word_score = 0
 	  	word_letters = word.downcase.split("")
+
 	  	word_letters.each do |letter|
-			POINTS.each do |points, letter_list|
-				if letter_list.include?(letter)
-					word_score += points
-				end
-			end
+			letter_list, points = POINTS.find { |letter_list, points| letter_list.include?(letter)}
+			word_score += points
 	  	end
 	  	word_score
 	  end
 
 	  def self.score(word)
 	  	# guard clause for non-alphabetic user input
-  		return "ERROR" unless self.valid_input?(word)
+  		return "ERROR -- invalid input" unless self.valid_input?(word)
 
   		# guard clause for word over 7 letters
   		return "ERROR -- too long" unless self.check_length(word)
