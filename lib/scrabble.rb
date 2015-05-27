@@ -31,14 +31,33 @@ module Scrabble
 
   class Scrabble
 
+    #Turns the word into an array
     def self.split_word(word)
       letters = word.upcase.split(//)
-      return letters
     end
 
+    def self.convert_scores(word)
+      tile_scores = []
+      letter_array = split_word(word)
+      letter_array.each do |letter|
+        tile_scores.push(SCORE_TABLE[letter])
+      end
+        # Now create the sum of the array
+      sum = 0
+      tile_scores.each do |score|
+        sum += score
+      end
+      return sum
+    end
+
+
     def self.score(word)
-      # split_word
-      return SCORE_TABLE[word]
+
+      return "Not a word!" unless word.to_i == 0
+      return "Yeah, silence is golden. But I still need a word" if word == nil 
+
+      split_word(word)
+      convert_scores(word)
     end
 
     def self.highest_score_from(array_of_words)
