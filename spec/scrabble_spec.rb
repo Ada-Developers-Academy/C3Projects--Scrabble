@@ -1,4 +1,4 @@
-require './lib/scrabble.rb'
+require './lib/scrabble/scrabble.rb'
 
 describe "scoring words in Scrabble" do
 
