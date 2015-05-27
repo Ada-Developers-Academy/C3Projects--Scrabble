@@ -11,24 +11,24 @@ module Scrabble
       [10, ["Q", "Z"]]
     ]
 
-    def initialize
-      @array_of_words = ["stop", "go", "peanut", "candy", "zoo", "sailing"]
-    end
+    array_of_words = ["shotgun", "stop", "go", "peanut", "candy", "zoo", "sailing"]
 
     def self.score(word)
       total_points = 0
-      word.split.each do |letter|
-        letter_to_point(letter)
+      word.split(//).each do |letter_in_word|
+        point = self.letter_to_point(letter_in_word)
         total_points += point
       end
       return total_points
     end
 
-    def self.highest_score_from(array_of_words)
-      
-    end
+  #  def self.highest_score_from(array_of_words)
+  #    (array_of_words).each do |word_from_array|
+  #      self.score(word_from_array)
+  #    end
+  #  end
 
-    def letter_to_point(letter)
+    def self.letter_to_point(letter)
       CONVERSIONS.find do |point, letter_array|
         if letter_array.include?(letter)
           return point
