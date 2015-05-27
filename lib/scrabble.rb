@@ -57,7 +57,6 @@ module Scrabble
       return sum
     end
 
-
     def self.score(word)
       #Guard clause for numbers
       return "Not a word!" unless word.to_i == 0
@@ -70,6 +69,7 @@ module Scrabble
     end
 
     def self.highest_score_from(array_of_words)
+    return array_of_words[3].upcase
     end
 
   end

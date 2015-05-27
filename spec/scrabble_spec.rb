@@ -2,7 +2,7 @@ require './lib/scrabble'
 
 describe 'Scrabble::Scrabble.score' do
 
-  context 'Method operations'
+  context 'Method operations' do
 
     it "Splits the word into an array of letters" do
       expect(Scrabble::Scrabble.split_word("PLAY")).to eq(["P","L","A","Y"])
@@ -15,9 +15,10 @@ describe 'Scrabble::Scrabble.score' do
     it "Returns the total score for the word" do
     expect(Scrabble::Scrabble.score("ax")).to eq(9)
     end
+
   end
 
-  describe "Checking word edge cases" do
+  context "Checking word edge cases" do
 
     it "Returns error with numerical entries" do
     expect(Scrabble::Scrabble.score("4")).to eq("Not a word!")
@@ -29,13 +30,31 @@ describe 'Scrabble::Scrabble.score' do
 
     it "Returns error with nil entry" do
     expect(Scrabble::Scrabble.score(nil)).to eq("Yeah, silence is golden. But I still need a word")
-
     expect(Scrabble::Scrabble.score("")).to eq("Yeah, silence is golden. But I still need a word")
     end
 
-  describe 'Scrabble::Scrabble.highest_score_from'
+  end
+end
 
 
+
+describe 'Scrabble::Scrabble.highest_score_from' do
+
+  context "Method operations" do
+
+    it "Displays one element from an array of words" do
+    expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "blah", "quackier"])).to eq("QUACKIER")
+    end
+
+    it "Collects scores for all array words" do
+    end
+
+    it "Pushes scores and words into array" do
+    end
+
+    it "Returns the first element" do
+    end
+  end
 end
 
 
