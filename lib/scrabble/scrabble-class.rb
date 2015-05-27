@@ -1,29 +1,13 @@
 class Scrabble
-
-  ONE_POINT = ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"]
-  TWO_POINTS = ["d", "g"]
-  THREE_POINTS = ["b", "c", "m", "p"]
-  FOUR_POINTS = ["f", "h", "v", "w", "y"]
-  FIVE_POINTS = ["k"]
-  EIGHT_POINTS = ["j", "x"]
-  TEN_POINTS = ["q", "z"]
-
-  SCORES = [
-    {score: 1,
-    letters: ONE_POINT},
-    {score: 2,
-    letters: TWO_POINTS},
-    {score: 3,
-    letters: THREE_POINTS},
-    {score: 4,
-    letters: FOUR_POINTS},
-    {score: 5,
-    letters: FIVE_POINTS},
-    {score: 8,
-    letters: EIGHT_POINTS},
-    {score: 10,
-    letters: TEN_POINTS}
-  ]
+  SCORES = {
+    1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"],
+    2 => ["d", "g"],
+    3 => ["b", "c", "m", "p"],
+    4 => ["f", "h", "v", "w", "y"],
+    5 => ["k"],
+    8 =>["j", "x"],
+    10 => ["q", "z"]
+  }
 
   def self.score(word)
     # Edge case - no input, less than 8 letters
@@ -37,12 +21,12 @@ class Scrabble
 
     # Count points letter by letter
     word.each_char do |char|
-      # Edge case - no numbers in your inputed word
+      # Edge case - no numbers/spaces/weird things in your inputed word
       if (char >= "a") && (char <= "z")
         # Add the points associated with the letter "char" to the word_score
-        SCORES.each do |hash|
-          if hash[:letters].include?(char)
-            word_score += hash[:score]
+        SCORES.select do |key, value|
+          if value.include?(char)
+            word_score += key
           end
         end
       else
@@ -59,10 +43,17 @@ class Scrabble
 
     array_of_words.each do |current_word|
       current_word_score = score(current_word)
+      # Replaces best_word if the current_word has a higher score
       if current_word_score > highest_score
+        highest_score = current_word_score
+        best_word = current_word
+      # If the words have the same score, it will take the shortest word or 7 letter word
+      elsif current_word_score == highest_score && current_word.length < best_word.length && best_word.length != 7
         highest_score = current_word_score
         best_word = current_word
       end
     end
+
+    return best_word
   end
 end
