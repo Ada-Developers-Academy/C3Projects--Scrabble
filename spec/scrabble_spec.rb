@@ -33,6 +33,10 @@ describe 'Scrabble::Scrabble.score' do
     expect(Scrabble::Scrabble.score("")).to eq("Yeah, silence is golden. But I still need a word")
     end
 
+    it "Returns error when word exceeds 7 letters" do
+    expect(Scrabble::Scrabble.score("sesquipedalian")).to eq("Your word exceeds 7 letters! What are you, a sesquipedalian (a person who uses big words)?")
+    end
+
   end
 end
 
@@ -43,11 +47,11 @@ describe 'Scrabble::Scrabble.highest_score_from' do
   context "Method operations" do
 
     it "Matches scores with their corresponding array words" do
-      expect(Scrabble::Scrabble.match_scores_and_words(["ax", "play", "blah", "quackier"])).to eq(["9 : ax", "9 : play", "9 : blah", "23 : quackier"])
+      expect(Scrabble::Scrabble.match_scores_and_words(["ax", "play", "blah", "quack"])).to eq(["9 : ax", "9 : play", "9 : blah", "20 : quack"])
     end
 
     it "Displays the winning word" do
-      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "blah", "quackier"])).to eq("quackier")
+      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "blah", "quack"])).to eq("quack")
     end
   end
 end

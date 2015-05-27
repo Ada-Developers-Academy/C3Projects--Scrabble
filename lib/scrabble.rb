@@ -64,6 +64,9 @@ module Scrabble
       #Guard clause for nil
       return "Yeah, silence is golden. But I still need a word" if word == nil || word == ""
 
+      #Guard clause for over seven letters
+      return "Your word exceeds 7 letters! What are you, a sesquipedalian (a person who uses big words)?" if word.length > 7
+
       split_word(word)
       convert_scores(word)
     end
