@@ -114,14 +114,14 @@ describe "Converting letters to values" do
   end
 end
 
-  describe "Returning values for Words" do
+  describe "Returning Values for Words" do
     context "Words have values" do |word|
       it "Returns a score of 25 for the word Pizza" do
         expect(Scrabble::Scrabble.score("Pizza")).to eq(25)
       end
     end
 
-describe "Testing values for Words" do
+describe "Testing Values for Words" do
   context "Words have values" do |word|
     it "Returns highest scoring word from array" do
       expect(Scrabble::Scrabble.highest_score_from(["ten", "kite", "hat"])).to eq("kite")
