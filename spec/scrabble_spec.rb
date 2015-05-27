@@ -57,6 +57,8 @@ describe "Checking word edge cases" do
 
   it "Returns error with nil entry" do
   expect(Scrabble::Scrabble.score(nil)).to eq("Yeah, silence is golden. But I still need a word")
+
+  expect(Scrabble::Scrabble.score("")).to eq("Yeah, silence is golden. But I still need a word")
   end
 
 

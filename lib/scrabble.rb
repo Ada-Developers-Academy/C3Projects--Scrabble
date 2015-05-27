@@ -52,15 +52,16 @@ module Scrabble
 
 
     def self.score(word)
-
+      #Guard clauses
       return "Not a word!" unless word.to_i == 0
-      return "Yeah, silence is golden. But I still need a word" if word == nil 
+      return "Yeah, silence is golden. But I still need a word" if word == nil || word == ""
 
       split_word(word)
       convert_scores(word)
     end
 
     def self.highest_score_from(array_of_words)
+
     end
 
   end
