@@ -12,8 +12,11 @@ module Scrabble
     EIGHT_POINTS = ["J", "X"]
     TEN_POINTS = ["Q", "Z"]
 
+    # RETURNS THE SCORE OF THE WORD
     def self.score(word)
-      word_array = word.upcase.split(//)
+      return 0 if word.length > 7  # "guard clause" for zero
+
+      word_array = word.upcase.split(//)  # breaks word into an array of letters
       score = 0
 
       # Adds respective value to score if letter is included in the constant.
@@ -27,51 +30,35 @@ module Scrabble
         score += 10 if TEN_POINTS.include?(letter)
       end
 
-      # Gives us the score for the word, which was added up in the do loop above.
       return score
     end
 
+    # RETURNS THE WORD IN THE ARRAY WITH THE HIGHEST SCORE
     def self.highest_score_from(array_of_words)
-      # returns the word in the array with the highest score.
+      best_word = array_of_words[0].upcase
+
+      array_of_words.each do |word|
+        if score(best_word) < score(word)
+          best_word = word.upcase
+        elsif score(best_word) == score(word)
+          if best_word.length == 7 && word.length == 7
+            best_word = best_word.upcase
+          elsif best_word.length < 7 && word.length == 7
+            best_word = word.upcase
+          elsif best_word.length == 7 && word.length < 7
+            best_word = best_word.upcase
+          elsif best_word.length > word.length
+            best_word = word.upcase
+          end
+        end
+      end
+
+      return best_word
     end
 
     # Note that it’s better to use fewer tiles, so if the top score is tied between multiple words, pick the one with the fewest letters.
     # Note that there is a greater bonus for using all seven letters. If the top score is tied between multiple words and one used all seven letters, choose the one with seven letters over the one with fewer tiles.
     # If the there are multiple words that are the same score and same length, pick the first one in supplied list
-  end
-end
+  end # class Scrabble
 
-
-# self.score(word)
-#
-# self.highest_score_from(array)
-#   return the word with the highest score--not the numeric value of the score (you get the word itself)
-#   better to use better tiles: three letter word scores better than four letter words (prefer fewer tiles) BUT
-#     if you use seven letters that's better than 1..6
-#     if same socre & same length, pick the first one in the list
-#
-#     cases
-#       -empty array / nil
-#       -any array items like in the below edge cases (array items matching sort cases)
-#       -must input Array (no hash or int/String/etc)
-#
-#
-# "play"
-# p = 3
-# l = 1
-# a = 1
-# y = 4
-#
-# self.score("play")
-# => 9
-# Edge Cases
-#   Test
-#   -User provides
-#     #s
-#     special characs
-#     spaces
-#     nothing -> "", nil
-#     case senstivitiy
-#     more than 7 letters
-#
-# -max of 7 letters for each word
+end # module Scrabble
