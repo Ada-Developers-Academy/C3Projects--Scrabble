@@ -47,59 +47,40 @@ module Scrabble
     end
 
     def self.highest_score_from(array_of_words)
-
       scrabble_hash = {}
 
       array_of_words.each do |word|
         score = 0
-
-        score = word.score
+        # calling class method score to score the words from array
+        score = score(word)
         length = word.length
         scrabble_hash[word] = [score, length]
       end
 
-      hi_score = scrabble_hash.max_by {|word, (score, length)| score}
-      # returns a hash with the hi scoring key/values
-      hi_score_hash = scrabble_hash.find_all {|word, (score, length)| score == hi_score}
+      hi_score = scrabble_hash.max_by {|word, (score, length)| score} # returns array
 
-      # returns the hash/value pair for the winning word
-      winning_word = hi_score_hash.min_by {|word, (score, length)| length}
+      hi_score_array = []
 
-      # need to say what
-      return hi_score_hash.key([winning_word])
+      scrabble_hash.each do |word, (score, length)|
+        if score == hi_score[1][0]
+          hi_score_array.push(word)
+        end
+      end
 
+      hi_score_array.each do |word|
 
+        if word.length == 7
+          return word
+        end
+      end
 
-
-
-
-
-
-      # word_lengths = []
-      # score_array = []
-      # array_of_words.each do |word|
-      #   word_lengths.push(word.length)
-      #   # check the score for each word in the array
-      #   word_score = Scrabble.score(word)
-      #   score_array.push(word_score)
-      # end
-      #
-      # if word_lengths.include?(7)
-      #   index = 0
-      #   index = word_lengths.index(7)
-      #   return array_of_words[index]
-      #
-      # else
-      #
-      #   hi_score = 0
-      #   index = 0
-      #   hi_score = score_array.max
-      #   index = score_array.index(hi_score)
-      #   return array_of_words[index]
-      # end
+      winner_word =  hi_score_array.min_by {|word| word.length}
+      return winner_word
 
     end
 
   end
 
 end
+
+x = Scrabble::Scrabble.highest_score_from(["KK", "Z"])
