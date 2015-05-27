@@ -29,17 +29,6 @@ module Scrabble
 	  def initialize
 	  end
 
-	 #  def self.valid_input?(word)
-	 #  	# guard clause for empty string or nil input
-	 #  	return false if word == "" || word == nil
-
-	 #  	word_letters = word.downcase.split("")
-		# word_letters.each do |letter|
-  # 			return false if !(VALID_LETTERS.include?(letter))
-  # 		end
-	 #  	true
-	 #  end
-
 	  def self.valid_input?(word)
 	  	# guard clause for empty string or nil input
 	  	return false if word == "" || word == nil
@@ -54,19 +43,6 @@ module Scrabble
 	  	return false unless word.length <= 7
 	  	true
 	  end
-
-	  # def self.get_points(word)
-	  # 	word_score = 0
-	  # 	word_letters = word.downcase.split("")
-	  # 	word_letters.each do |letter|
-			# POINTS.each do |points, letter_list|
-			# 	if letter_list.include?(letter)
-			# 		word_score += points
-			# 	end
-			# end
-	  # 	end
-	  # 	word_score
-	  # end
 
 	  def self.get_points(word)
 	  	word_score = 0
@@ -90,10 +66,11 @@ module Scrabble
   		self.get_points(word)
 	  end
 
-
 	  def self.highest_score_from(array_of_words)
 	  	all_scores = []
 	  	array_of_words.each do |word|
+	  		# guard clause for invalid word in array
+	  		return "ERROR -- invalid word in input" if Scrabble.score(word) == "ERROR -- invalid input"
 	  		all_scores << [Scrabble.score(word), word]
 	  	end
 
