@@ -7,19 +7,21 @@ describe Scrabble::Scrabble do
       expect(Scrabble::Scrabble).to respond_to :score
     end
 
-    context "non-word is entered" do
-      it "returns error when parameter is empty" do
-        expect(Scrabble::Scrabble.score("")).to eq("ERROR: Please enter a word.")
+    context "score parameter is invalid" do
+      ["", nil].each do |invalid_input|
+        it "returns error message when input is empty or nil" do
+        expect(Scrabble::Scrabble.score(invalid_input)).to eq("ERROR: Invalid input. Scrabble uses WORDS.")
+        end
       end
 
-      it "returns error when parameter = nil" do
-        expect(Scrabble::Scrabble.score(nil)).to eq("ERROR: Please enter a word.")
+      [3423, 2].each do |invalid_input|
+        it "returns error message when input is #{invalid_input}" do
+        expect(Scrabble::Scrabble.score(invalid_input)).to eq("ERROR: Invalid input. Scrabble uses WORDS.")
+        end
       end
 
-      it "returns error when parameter is a number" do
-        expect(Scrabble::Scrabble.score(12342)).to eq("ERROR: Please enter a word.")
-      end
     end
+
 
     [
       [1, "a"],
@@ -35,17 +37,34 @@ describe Scrabble::Scrabble do
       end
     end
 
+    it "responds to 'highest_score_from'" do
+      expect(Scrabble::Scrabble).to respond_to :highest_score_from
+    end
+
+    [
+      ["highest", ["a", "an", "dog", "highest"]]
+    ].each do |highest, array_of_words|
+      it "returns #{highest} for #{array_of_words}." do
+        expect(Scrabble::Scrabble.highest_score_from(array_of_words)).to eq(highest)
+      end
+    end
+
+    context "parameter is invalid" do
+      [
+        [""],
+        ["dog", "unicorn", "", "splat"],
+        [nil],
+        ["taco", nil, "cheese"],
+        [3423],
+        [23, "what", "hello", ""]
+      ].each do |invalid_input|
+        it "returns error message when input is #{invalid_input}" do
+        expect(Scrabble::Scrabble.highest_score_from(invalid_input)).to eq("ERROR: Invalid input. Scrabble uses WORDS.")
+        end
+      end
+    end
 
 
   end
-
-  # describe "class attributes" do
-  #   let(:game) { Scrabble::Scrabble.score("a") }
-  #
-  #   it "creates array of letters in word" do
-  #     expect(game.word_array).to be_instance_of(Array)
-  #   end
-  #
-  # end
 
 end

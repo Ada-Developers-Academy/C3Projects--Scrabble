@@ -5,3 +5,6 @@ module Scrabble
   # require dependent files
   require_relative 'scrabble-project/scrabble-class'
 end
+
+x = Scrabble::Scrabble.highest_score_from(["dog", "elephant"])
+puts x
