@@ -26,11 +26,23 @@ describe "picks the word with the highest score from a list" do
 
 	[
 		["apple", 	["apple", "a", "ap"]],
-		["zzz", 	["cab", "pig", "zzz", "zamboni"]]
+		["zzz", 	["cab", "pig", "zzz", "zamboni"]],
 	].each do |word, list|
 		it "returns #{word} from list of: #{list}" do
 			expect(Scrabble::Scrabble.highest_score_from(list)).to eq(word)
 		end
+	end
+
+	it "in a score tie, chooses shorter word" do
+		expect(Scrabble::Scrabble.highest_score_from(["paper", "ox", "cow"])).to eq("ox")
+	end
+
+	it "in a score tie, chooses a 7 letter word over a shorter word" do
+		expect(Scrabble::Scrabble.highest_score_from(["company", "joph", "apple", "ax"])).to eq("company")
+	end
+
+	it "in a score/length tie, picks first word" do
+		expect(Scrabble::Scrabble.highest_score_from(["cat", "bane", "pane"])).to eq("bane")
 	end
 
 end
@@ -42,14 +54,15 @@ describe "validate user input" do
 		["a#1pple",	"ERROR"],
 		["ap ple", 	"ERROR"],
 		["",		"ERROR"],
-		[nil,		"ERROR"]
+		[nil,		"ERROR"],
+		["apple",	9]
 	].each do |word, error|
 		it "returns #{error} when user input is #{word}" do
 			expect(Scrabble::Scrabble.score(word)).to eq(error)
 		end
 	end
 
-	it "disallows words over 7 letters long" do
+	it "rejects words over 7 letters long" do
 		expect(Scrabble::Scrabble.score("elephant")).to eq("ERROR -- too long")
 	end
 

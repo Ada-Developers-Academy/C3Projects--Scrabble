@@ -22,20 +22,19 @@ module Scrabble
 	  	# guard clause for empty string or nil input
 	  	return false if word == "" || word == nil
 
-	  	valid = true
 	  	word_letters = word.downcase.split("")
 		word_letters.each do |letter|
-  			if !(VALID_LETTERS.include?(letter))
-  				valid = false
-  			end
+  			return false if !(VALID_LETTERS.include?(letter))
   		end
-	  	return valid
+	  	true
 	  end
 
-	  def self.score(word)
-	  	# guard clause for non-alphabetic user input
-  		return "ERROR" unless self.valid_input?(word)
+	  def self.check_length(word)
+	  	return false unless word.length <= 7
+	  	true
+	  end
 
+	  def self.get_points(word)
 	  	word_score = 0
 	  	word_letters = word.downcase.split("")
 	  	word_letters.each do |letter|
@@ -48,13 +47,34 @@ module Scrabble
 	  	word_score
 	  end
 
+	  def self.score(word)
+	  	# guard clause for non-alphabetic user input
+  		return "ERROR" unless self.valid_input?(word)
 
-	  def self.highest_score_from(list_of_words)
+  		# guard clause for word over 7 letters
+  		return "ERROR -- too long" unless self.check_length(word)
+
+  		# return score for valid word
+  		self.get_points(word)
+	  end
+
+
+	  def self.highest_score_from(array_of_words)
 	  	all_scores = []
-	  	list_of_words.each do |word|
+	  	array_of_words.each do |word|
 	  		all_scores << [Scrabble.score(word), word]
 	  	end
-	  	return all_scores.max.last
+
+	  	high_scores = all_scores.find_all { |score, word| score == all_scores.max[0] }
+
+	  	seven_letter_word = high_scores.find { |score, word| word.length == 7 }
+	  	if seven_letter_word
+	  			return seven_letter_word.last
+	  	else
+	  		highest_word = high_scores.min_by { |score, word| word.length }
+	  		highest_word.last
+	  	end
+
 	  end
 
 	end
