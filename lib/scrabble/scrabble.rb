@@ -36,29 +36,51 @@ module Scrabble
       return 0 if valid_array?(array_of_words)
 
       array_of_words.each { |word| word.upcase! }  # upcase every word
-      best_word = array_of_words[0]
+      # highest_scoring_word = array_of_words[0]
+      #
+      # array_of_words.each do |word|
+      #   if score(highest_scoring_word) < score(word)  # checks if the score of the highest scoring word is less than the word
+      #     highest_scoring_word = word                 # if so, make the word the new highest scoring word
+      #   elsif score(highest_scoring_word) == score(word)  # if the scores of the words are equal
+      #     if highest_scoring_word.length < 7 && word.length == 7
+      #       highest_scoring_word = word
+      #     elsif highest_scoring_word.length == 7 && word.length < 7
+      #       highest_scoring_word = highest_scoring_word
+      #     elsif highest_scoring_word.length > word.length
+      #       highest_scoring_word = word
+      #     end
+      #   end
+      # end
 
+      highest_scoring_word = array_of_words[0]
+      highest_scoring_words = []
       array_of_words.each do |word|
-        if score(best_word) < score(word)
-          best_word = word
-        elsif score(best_word) == score(word)
-          if best_word.length == 7 && word.length == 7
-            best_word = best_word
-          elsif best_word.length < 7 && word.length == 7
-            best_word = word.upcase
-          elsif best_word.length == 7 && word.length < 7
-            best_word = best_word
-          elsif best_word.length > word.length
-            best_word = word.upcase
+        if score(highest_scoring_word) < score(word)
+          highest_scoring_words = word
+        elsif score(highest_scoring_word) == score(word)
+          highest_scoring_words.push(word)
+        end
+      end
+
+      highest_scoring_word = highest_scoring_words[0]
+      if highest_scoring_words.length > 1
+        highest_scoring_words.each do |word|
+          if highest_scoring_word.length < 7 && word.length == 7
+            highest_scoring_word = word
+          elsif highest_scoring_word.length == 7 && word.length < 7
+            highest_scoring_word = highest_scoring_word
+          elsif highest_scoring_word.length > word.length
+            highest_scoring_word = word
           end
         end
       end
 
-      return best_word
+      return highest_scoring_word
     end
 
-    # CHECKS FOR EDGE CASES OF THE WORD
+    # CHECKS FOR EDGE CASES: CHECKS TO MAKE SURE THE WORD IS A VALID WORD
     def self.valid?(word)
+      return false if word.class != String
       return false if word == nil
       return false if word.length < 1
       return false if word.length > 7
@@ -71,6 +93,7 @@ module Scrabble
       end
     end
 
+    # CHECKS FOR EDGE CASES: MAKES SURE THE ARRAY IS AN ARRAY & IS VALID
     def self.valid_array?(array_of_words)
       return false if array_of_words.class != Array
       return false if array_of_words == nil
