@@ -13,12 +13,38 @@ describe Scrabble::Scrabble do
 
   end
 
-  # describe "Handling for user input in .score" do
-  #   context "word contains numbers" do
-  #     word {Scrabble::Scrabble.score(@word)}
-  #     expect(Scrabble::Scrabble.score(word)).include?(Fixnum)
-  #     puts "Please enter a valid word"
-  #   end
-  # end
+  describe "Handling for user input in .score" do
+    let(:input) { Scrabble::Scrabble.score("zenith")}
+    # z= 10, e= 1, n= 1, i= 1, t= 1, h= 4 total_points = 18
+
+    it "returns 18 points total" do
+      expect(input).to eq 18
+    end
+
+    it "raises an ArgumentError if string contains numbers"  do
+      expect {Scrabble::Scrabble.score("405rt")}.to raise_error(ArgumentError)
+    end
+
+    it "raises an ArgumentError if string contains symbols"  do
+      expect {Scrabble::Scrabble.score("résumé")}.to raise_error(ArgumentError)
+    end
+
+    it "raises an ArgumentError if parameter is a Fixnum"  do
+      expect {Scrabble::Scrabble.score(4983)}.to raise_error(ArgumentError)
+    end
+
+    it "raises an ArgumentError if parameter is not a string"  do
+      expect {Scrabble::Scrabble.score(nil)}.to raise_error(ArgumentError)
+    end
+  end
+
+  describe "Returning highest scoring word in .highest_score_from method" do
+    # let(:input) { Scrabble::Scrabble.score("zenith")}
+    # z= 10, e= 1, n= 1, i= 1, t= 1, h= 4 total_points = 18
+
+    it "returns the word with the top score" do
+      expect(Scrabble::Scrabble.highest_score_from(["wow", "cow", "sow"])).to eq ("wow")
+    end
+  end
 
 end
