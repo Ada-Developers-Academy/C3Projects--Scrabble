@@ -51,22 +51,42 @@ module Scrabble
       # convert to string, make letters lower case, & push letters to array
       word_array = word.to_s.downcase.split("").push
 
+      # error if invalid input
       if self.valid_input?(word) == false
         WORD_ERROR
+      # run get_points if valid input
       else
         self.get_points(word_array)
       end
     end
 
     def self.highest(array_of_words)
+      # create empty hash
       hash_of_scores = {}
+
+      # for each word, get points, add word => point pairs to hash
       array_of_words.each { |word, score|
         score = self.get_points(word.to_s.downcase.split("").push)
         hash_of_scores[word] = score
-
         }
-      max = hash_of_scores.key(hash_of_scores.values.max)
-      return max
+
+      # group by score
+      grouped_hash = hash_of_scores.group_by { |key, value| value }
+
+      # create max_group, the hash item with the max value.
+      max_group = grouped_hash.max[1]
+      # distill max_group down to only the words.
+      max_group = max_group.map {|item| item[0]}
+
+      # if there is a word in the max_group with length of 7, return it
+      if max_group.find { |word| word.length == 7 }
+        return max_group.find { |word| word.length == 7}
+
+      # otherwise, return the shortest word in group.
+      else
+        return max_group.min_by {|word| word.length}
+      end
+
     end
 
     def self.highest_score_from(array_of_words)
