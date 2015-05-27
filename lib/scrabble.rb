@@ -88,7 +88,10 @@ module Scrabble
 
     def self.highest_score_from(array_of_words)
       high_score = match_scores_and_words(array_of_words)
-      high_score.sort.first
+
+      win_word = high_score.sort.first.split(" : ")
+
+      win_word[1]
     end
 
   end

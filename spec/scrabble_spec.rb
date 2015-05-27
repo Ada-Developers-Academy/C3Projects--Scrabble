@@ -28,7 +28,7 @@ describe 'Scrabble::Scrabble.score' do
     expect(Scrabble::Scrabble.split_word("pl@y")).to eq("That's not a word!")
     end
 
-    it "Returns error with nil entry" do
+    it "Returns error with nil or empty entry" do
     expect(Scrabble::Scrabble.score(nil)).to eq("Yeah, silence is golden. But I still need a word")
     expect(Scrabble::Scrabble.score("")).to eq("Yeah, silence is golden. But I still need a word")
     end
