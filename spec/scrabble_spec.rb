@@ -48,6 +48,10 @@ describe Scrabble::Scrabble do
         expect(Scrabble::Scrabble.highest_score_from(["cat", "horse", "farm", "piglet", "tractor", "spider"])).to eq("tractor")
       end
 
+      it "returns an error message when an empty array is passed" do
+        expect(Scrabble::Scrabble.highest_score_from([])).to eq("Error, please provide an array of words.")
+      end
+
     end
   end
 end

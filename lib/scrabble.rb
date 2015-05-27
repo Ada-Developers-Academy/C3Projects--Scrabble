@@ -45,6 +45,9 @@ module Scrabble
     # Unless the word has 7 characters
     def self.highest_score_from(array_of_words)
       # array_of_words = %w(cat horse farm piglet tractor spider)
+      if (array_of_words == []) || (array_of_words.empty? == true)
+        return "Error, please provide an array of words."
+      end
       sorted_array = array_of_words.sort_by do |word|
         word.length
       end
