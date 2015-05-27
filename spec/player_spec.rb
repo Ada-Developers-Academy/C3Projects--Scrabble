@@ -63,6 +63,13 @@ describe "Player behavior" do
 			player.play("donkey")
 			expect(player.won?).to be false
 		end
+
+		it "can return highest scoring word" do
+			player.play("pickle")
+			player.play("horse")
+			player.play("zydeco")
+			expect(player.highest_scoring_word).to eq("zydeco")
+		end
 	end
 
 end

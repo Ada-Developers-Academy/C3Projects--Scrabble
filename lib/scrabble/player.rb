@@ -26,5 +26,10 @@ module Scrabble
 			return true if total_score >= 100
 			false
 		end
+
+		def highest_scoring_word
+			return false if plays == []
+			Scrabble.highest_score_from(plays)
+		end
 	end
 end
