@@ -13,10 +13,10 @@ module Scrabble
   class Scrabble
 
     def get_conversion_for(letter)
-    CONVERSIONS.find do |point, letter_array|
-      if letter_array.include?(letter)
-        return point
-      end
+      CONVERSIONS.find do |point, letter_array|
+        if letter_array.include?(letter)
+          return point
+        end
       end
     end
 
