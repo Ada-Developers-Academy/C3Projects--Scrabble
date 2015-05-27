@@ -7,18 +7,19 @@ describe Scrabble::Scrabble do
       expect(Scrabble::Scrabble).to respond_to :score
     end
 
-    context "empty string entered" do
-      it "returns error message" do
+    context "non-word is entered" do
+      it "returns error when parameter is empty" do
         expect(Scrabble::Scrabble.score("")).to eq("ERROR: Please enter a word.")
       end
-    end
 
-    context "word is nil" do
-      it "returns error message" do
+      it "returns error when parameter = nil" do
         expect(Scrabble::Scrabble.score(nil)).to eq("ERROR: Please enter a word.")
       end
-    end
 
+      it "returns error when parameter is a number" do
+        expect(Scrabble::Scrabble.score(12342)).to eq("ERROR: Please enter a word.")
+      end
+    end
 
     [
       [1, "a"],

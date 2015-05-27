@@ -1,7 +1,7 @@
 module Scrabble
 
   class Scrabble
-    # Set constants with general error message and point values of each letter
+    # Set constants with general error message, point values of each letter, all letters
     WORD_ERROR = "ERROR: Please enter a word."
     POINTS = {
       1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"],
@@ -13,7 +13,7 @@ module Scrabble
       7 => ["q", "z"]
     }
 
-    # LETTERS = ("a".."z").to_a
+    LETTERS = ("a".."z").to_a
 
     # attr_accessor :score, :word_array
     #
@@ -22,27 +22,34 @@ module Scrabble
     #   @word_array = []
     # end
 
-    def self.score(word)
-      # error if empty string or nil
-      return WORD_ERROR if word == "" || word == nil
+    # def self.get_points(word)
+    #
+    # end
 
-      # make all letters lower case, then push letters to array
-      word = word.downcase
+    def self.score(word)
+      # convert to string, make letters lower case, & push letters to array
+      word = word.to_s.downcase
       word_array = word.split("").push
 
       # set initial value of score
       score = 0
 
-      # for each letter in word_array, check POINTS and add to total to create score
-      word_array.each do |letter|
-        for num in 1..7
-          if POINTS[num].include?(letter)
-            score += num
+      # guard against empty, nil, or invalid parameter
+      if word == "" || word == nil || word.split("").all? { |letter| !LETTERS.include?(letter) }
+        WORD_ERROR
+
+      else
+        # for each letter in word_array, check POINTS and add to total to create score
+        word_array.each do |letter|
+          for num in 1..7
+            if POINTS[num].include?(letter)
+              score += num
+            end
           end
         end
-      end
+        return score
 
-      return score
+      end
 
     end
 
