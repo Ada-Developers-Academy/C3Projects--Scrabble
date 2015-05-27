@@ -1,3 +1,4 @@
+
 module Scrabble
 
 	LETTER_VALUES = [
@@ -10,7 +11,7 @@ module Scrabble
 		[10, "q", "z"]
 	]
 
-	SPECIAL_CHARACTERS = w%(\!\?\<\>\'\,\?\[\]\}\{\=\-\)\(\*\&\^\%\$\#\`\~\{\})
+	SPECIAL_CHARACTERS = %w(! ? < > \' , ? [ ] } { = - \) ( * & ^ % $ # ` ~ { })
 	
 
 	class Scrabble
