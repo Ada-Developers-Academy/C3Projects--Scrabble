@@ -10,8 +10,6 @@ module Scrabble
 		[8, "j", "x"],
 		[10, "q", "z"]
 	]
-
-	SPECIAL_CHARACTERS = %w(! ? < > \' , ? [ ] } { = - \) ( * & ^ % $ # ` ~ { })
 	
 
 	class Scrabble
@@ -25,7 +23,7 @@ module Scrabble
 		end
 
 		def self.score(word)
-			word = word.downcase
+			word = word.to_s.downcase
 
 			word_score = 0
 
@@ -33,27 +31,26 @@ module Scrabble
 
 			if word_array.length > 7
 				return "Please enter a word that has 7 or fewer characters."
+
 			elsif word_array.include?(" ")
 				return "Please only enter one word."
+
 			elsif word_array.length == 0
 				return "Please enter at least one letter."
-			elsif # any character in the user's input is a special character 
-				word_array.each do |letter|
-					if SPECIAL_CHARACTERS.include?(letter)
-						return "This game only includes letters a-z."
-					end
-				end
+
 			else
 				word_array.each do |letter|
-					letter_score = Scrabble.value_of(letter)
+					if ("a".."z").include?(letter)
+						letter_score = Scrabble.value_of(letter)
 
-					word_score += letter_score
+						word_score += letter_score
+					else
+						return "This game only includes letters a-z."
+					end
 				end
 					return word_score
 			end
 		end
-
-
 
 
 	end # end Scrabble class

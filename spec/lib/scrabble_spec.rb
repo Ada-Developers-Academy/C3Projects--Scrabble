@@ -44,9 +44,13 @@ describe "Scoring words played in Scrabble." do
 		end
 	end
 
-	context "Scrabble tiles do not include special characters." do
+	context "Scrabble tiles do not include special characters or numbers." do
 		it "returns an error message if the user inputs a special character" do
-			expect(self.score("!")).to eq("This game only includes letters a-z.")
+			expect(Scrabble::Scrabble.score("!")).to eq("This game only includes letters a-z.")
+		end
+
+		it "returns an error message if the user inputs a number" do
+			expect(Scrabble::Scrabble.score(4)).to eq("This game only includes letters a-z.")
 		end
 	end
 
