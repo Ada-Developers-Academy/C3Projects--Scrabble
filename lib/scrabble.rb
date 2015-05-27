@@ -12,32 +12,33 @@ module Scrabble
     EIGHT_POINTS = ["J", "X"]
     TEN_POINTS = ["Q", "Z"]
 
-    one_point_letters = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"]
-    two_point_letters = ["D", "G"]
-    three_point_letters = ["B", "C", "M", "P"]
-    four_point_letters = ["F", "H", "V", "W", "Y"]
-    five_point_letters = ["K"]
-    eight_point_letters = ["J", "X"]
-    ten_point_letters = ["Q", "Z"]
-
-    one_point = Hash.new {|hash, key| hash[key] = 1}
-    two_points = Hash.new {|hash, key| hash[key] = 2}
-    three_points = Hash.new {|hash, key| hash[key] = 3}
-    four_points = Hash.new {|hash, key| hash[key] = 4}
-    five_points = Hash.new {|hash, key| hash[key] = 5}
-    eight_points = Hash.new {|hash, key| hash[key] = 8}
-    ten_points = Hash.new {|hash, key| hash[key] = 10}
-
-    one_point_letters.each do |letter|
-      one_point[letter]
-    end
-    ONE = one_point  # should look like {"A"=>1, "E"=>1, "I"=>1, "O"=>1, "U"=>1, "L"=>1, "N"=>1, "R"=>1, "S"=>1, "T"=>1}
+    # one_point_letters = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"]
+    # two_point_letters = ["D", "G"]
+    # three_point_letters = ["B", "C", "M", "P"]
+    # four_point_letters = ["F", "H", "V", "W", "Y"]
+    # five_point_letters = ["K"]
+    # eight_point_letters = ["J", "X"]
+    # ten_point_letters = ["Q", "Z"]
+    #
+    # one_point = Hash.new {|hash, key| hash[key] = 1}
+    # two_points = Hash.new {|hash, key| hash[key] = 2}
+    # three_points = Hash.new {|hash, key| hash[key] = 3}
+    # four_points = Hash.new {|hash, key| hash[key] = 4}
+    # five_points = Hash.new {|hash, key| hash[key] = 5}
+    # eight_points = Hash.new {|hash, key| hash[key] = 8}
+    # ten_points = Hash.new {|hash, key| hash[key] = 10}
+    #
+    # one_point_letters.each do |letter|
+    #   one_point[letter]
+    # end
+    # ONE = one_point  # should look like {"A"=>1, "E"=>1, "I"=>1, "O"=>1, "U"=>1, "L"=>1, "N"=>1, "R"=>1, "S"=>1, "T"=>1}
 
     # RETURNS THE SCORE OF THE WORD
     def self.score(word)
-      return 0 if word.length > 7  # "guard clause" for zero
+      return 0 if valid?(word) == false
+      word.upcase!  # done so I don't need to .upcase every time
 
-      word_array = word.upcase.split(//)  # breaks word into an array of letters
+      word_array = word.split(//)  # breaks word into an array of letters
       score = 0
 
       # Adds respective value to score if letter is included in the constant.
@@ -56,18 +57,21 @@ module Scrabble
 
     # RETURNS THE WORD IN THE ARRAY WITH THE HIGHEST SCORE
     def self.highest_score_from(array_of_words)
-      best_word = array_of_words[0].upcase
+      return 0 if valid_array?(array_of_words)
+
+      array_of_words.each { |word| word.upcase! }  # upcase every word
+      best_word = array_of_words[0]
 
       array_of_words.each do |word|
         if score(best_word) < score(word)
-          best_word = word.upcase
+          best_word = word
         elsif score(best_word) == score(word)
           if best_word.length == 7 && word.length == 7
-            best_word = best_word.upcase
+            best_word = best_word
           elsif best_word.length < 7 && word.length == 7
             best_word = word.upcase
           elsif best_word.length == 7 && word.length < 7
-            best_word = best_word.upcase
+            best_word = best_word
           elsif best_word.length > word.length
             best_word = word.upcase
           end
@@ -75,6 +79,26 @@ module Scrabble
       end
 
       return best_word
+    end
+
+    # CHECKS FOR EDGE CASES OF THE WORD
+    def self.valid?(word)
+      return false if word == nil
+      return false if word.length < 1
+      return false if word.length > 7
+
+      word.upcase!
+      valid_letters = ("A".."Z")
+
+      word.each_char do |char|
+        return false unless valid_letters.include?(char)
+      end
+    end
+
+    def self.valid_array?(array_of_words)
+      return false if array_of_words.class != Array
+      return false if array_of_words == nil
+      return false if array_of_words.length < 1
     end
 
     # Note that it’s better to use fewer tiles, so if the top score is tied between multiple words, pick the one with the fewest letters.

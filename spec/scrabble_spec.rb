@@ -26,17 +26,6 @@ describe Scrabble::Scrabble do
       expect(Scrabble::Scrabble.score("supercalifragilisticexpialidocious")).to eq(0)
     end
 
-
-
-    # it "self.score method should return an Int" do
-    #   expect(Scrable::Scrabble.score("cat")).to equal
-    # end
-
-    # context "Attributes" do
-    #   it "returns a value of 1" do
-    #     expect(convert(0)).to eq("1")
-    #   end
-    # end
   end # describe Breakfast #score...
 
   describe "Breakfast: Scrabble#highest_score_from" do
@@ -70,5 +59,37 @@ describe Scrabble::Scrabble do
     end
 
   end # describe Breakfast #highest...
+
+  describe "Breakfast: Scrabble#valid?" do
+
+    it "returns false if the input is not a valid character (A..Z)" do
+      expect(Scrabble::Scrabble.valid?("#")).to eq (false)
+    end
+
+    it "returns false if an invalid character is present in the word" do
+      expect(Scrabble::Scrabble.valid?("cat#")).to eq(false)
+    end
+
+    it "returns false if input is a space" do
+      expect(Scrabble::Scrabble.valid?("")).to eq(false)
+    end
+
+    it "returns false if input is nil" do
+      expect(Scrabble::Scrabble.valid?(nil)).to eq(false)
+    end
+
+  end # describe Breakfast #valid...
+
+  describe "Breakfast: Scrabble#valid_array?" do
+
+    it "returns false if there is no entries in the array" do
+      expect(Scrabble::Scrabble.valid_array?([])).to eq(false)
+    end
+
+    it "returns false if input is not an array" do
+      expect(Scrabble::Scrabble.valid_array?({})).to eq(false)
+    end
+
+  end # describe Breakfast #valid_array...
 
 end # describe Scrabble::Scrabble
