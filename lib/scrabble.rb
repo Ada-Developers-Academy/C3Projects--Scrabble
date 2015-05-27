@@ -34,13 +34,20 @@ module Scrabble
     #Turns the word into an array
     def self.split_word(word)
       letters = word.upcase.split(//)
+
+      # Guard clause for weird characters
+      letters.each {|letter|
+        unless letter >= "A" && letter <= "z"
+          return "That's not a word!"
+        end
+      }
     end
 
     def self.convert_scores(word)
       tile_scores = []
       letter_array = split_word(word)
       letter_array.each do |letter|
-        tile_scores.push(SCORE_TABLE[letter])
+      tile_scores.push(SCORE_TABLE[letter])
       end
         # Now create the sum of the array
       sum = 0
@@ -52,8 +59,10 @@ module Scrabble
 
 
     def self.score(word)
-      #Guard clauses
+      #Guard clause for numbers
       return "Not a word!" unless word.to_i == 0
+
+      #Guard clause for nil
       return "Yeah, silence is golden. But I still need a word" if word == nil || word == ""
 
       split_word(word)
@@ -61,7 +70,6 @@ module Scrabble
     end
 
     def self.highest_score_from(array_of_words)
-
     end
 
   end
