@@ -55,6 +55,10 @@ describe "Determining scoring for tiles" do
       expect(Scrabble::Scrabble.score("sad")).to eq (4)
     end
 
+    it "returns score of 10 for CAMP" do
+      expect(Scrabble::Scrabble.score("CAMP")).to eq (10)
+    end
+
   end
 
   context "self.highest_score_from method" do
