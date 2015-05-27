@@ -1,14 +1,5 @@
-# Create a Player class with a minimum of 11 specs. The class should have the following class and instance methods:
-#
-# !Q self.new(name): creates a new instance with the instance variable name assigned
-# #name: returns the @name instance variable
-# #plays: returns an Array of the words played by the player
-# #play(word): Adds the input word to the plays Array
-# Returns false if player has already won
-# #total_score: Sums up and returns the score of the players words
-# #won?: If the player has over 100 points, returns true, otherwise returns 'false'
-# #highest_scoring_word: Returns the highest scoring word the user has played.
-# #highest_word_score: Returns the highest_scoring_word score.
+# #tiles a collection of letters that the player can play (max 7)
+# #draw_tiles(tile_bag) fills tiles array until it has 7 letters from the given tile bag
 
 require "./lib/scrabble/player"
 
@@ -19,19 +10,45 @@ describe "PLAYER" do
   end
 
   context "CAN HAS EXIST! (Player.new)" do
-    it "with a provided name" do
+    it "is an instance of Player." do
+      expect(@player).to be_an_instance_of(Scrabble::Player)
+    end
+
+    it "has a provided name." do
       expect(@player.name).to eq("George")
 
       new_player = Scrabble::Player.new("Larry Hotter")
       expect(new_player.name).to eq("Larry Hotter")
     end
 
-    it "with zero plays to start." do
+    it "has zero plays to start." do
       expect(@player.plays.length).to eq(0)
     end
 
-    it "and as a result hasn't won the game yet!" do
+    it "as a result, hasn't won the game yet." do
       expect(@player.won?).to eq(false)
+    end
+  end
+
+  context "CAN HAS TILES!" do
+    before :each do
+      @bag_o_tiles = Scrabble::TileBag.new
+    end
+
+    it "has the ability to draw tiles." do
+      @player.draw_tiles(@bag_o_tiles)
+
+      # actual test
+      expect(@player.tiles.length).to eq(7)
+    end
+
+    it "cannot draw past 7 tiles." do
+      # !Q how to prove?
+      3.times do
+        @player.draw_tiles(@bag_o_tiles)
+      end
+
+      expect(@player.tiles.length).to eq(7)
     end
   end
 

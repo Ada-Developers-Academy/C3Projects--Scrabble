@@ -1,31 +1,26 @@
-# Create a Player class with a minimum of 11 specs. The class should have the following class and instance methods:
-#
-# self.new(name): creates a new instance with the instance variable name assigned DONE
-# #name: returns the @name instance variable DONE
-# #plays: returns an Array of the words played by the player INITIALIZED
-# #play(word): Adds the input word to the plays Array DONE
-# Returns false if player has already won DONE
-# #total_score: Sums up and returns the score of the players words DONE
-# #won?: If the player has over 100 points, returns true, otherwise returns 'false' DONE
-# #highest_scoring_word: Returns the highest scoring word the user has played. DONE
-# #highest_word_score: Returns the highest_scoring_word score. DONE
-
 module Scrabble
   class Player
-    attr_reader :name, :plays, :records
+    attr_reader :name, :plays, :tiles
+
+    ## -------------------------------------------------------------------------
+    # CLASS METHODS
+
+    def initialize(name)
+      @bag_o_tiles = TileBag.new
+      @name = name
+      @plays = []
+      @tiles = []
+
+      # draw_tiles(@bag_o_tiles)
+    end
 
     ## -------------------------------------------------------------------------
     # INSTANCE METHODS
 
-    def initialize(name)
-      @name = name
-      @plays = []
-    end
-
-
     def play(word)
       unless won?
-      # do this stuff inside _unless the player has already won_
+      # do this stuff inside _unless player has already won_.
+      # then return true to indicate that the word was played. :)
 
         score = Scrabble.score(word)
 
@@ -40,7 +35,7 @@ module Scrabble
         return true
 
       else
-      # otherwise (if the player has won), return false.
+      # otherwise (if player has won), return false, since no word was played.
         return false
       end
     end
@@ -79,6 +74,32 @@ module Scrabble
         return false
       end
     end
+
+
+    # Create specs for (minimum 2) and add to the Player class the following instance methods:
+    # #tiles a collection of letters that the player can play (max 7)
+    # #draw_tiles(tile_bag) fills tiles array until it has 7 letters from the given tile bag
+
+    def draw_tiles(tile_bag) #!Q do I need to check whether tile bag is a real tile bag?
+      max_tiles = 7
+
+      tiles_count = @tiles.length
+
+      if tiles_count < max_tiles
+        new_tiles = tile_bag.draw_tiles(max_tiles - tiles_count)
+
+        new_tiles.each do |tile|
+          @tiles.push(tile)
+        end
+
+        print @tiles
+
+        return true
+      else
+        return false
+      end
+    end
+
 
     # private
     ## -------------------------------------------------------------------------
