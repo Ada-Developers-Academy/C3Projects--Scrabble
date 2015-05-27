@@ -22,35 +22,31 @@ describe "Player behavior" do
 			expect(player.play("appl!e")).to eq("ERROR -- invalid input")
 		end
 
-		context "player has played pickle, horse, zydeco" do
+		context "player has not yet won" do
 			before(:each) do
 				player.play("pickle")
 				player.play("horse")
 				player.play("zydeco")
 			end
 
-			it "can return highest scoring word" do
+			it "can return #plays" do
+				expect(player.plays).to eq(["pickle", "horse", "zydeco"])
+			end
+
+			it "can return #highest_scoring_word" do
 				expect(player.highest_scoring_word).to eq("zydeco")
 			end
 
-			it "it can return highest word score" do
+			it "it can return #highest_word_score" do
 				expect(player.highest_word_score).to eq(21)
-			end
-		end
-
-		context "player has not yet won" do
-			before(:each) do
-				player.play("pickle")
-				player.play("horse")
-				player.play("donkey")
 			end
 
 			it "can add plays to #plays" do
-				expect(player.plays).to eq(["pickle", "horse", "donkey"])
+				expect(player.play("cow")).to eq(["pickle", "horse", "zydeco", "cow"])
 			end
 
 			it "can return total score" do
-				expect(player.total_score).to eq(14+8+14)
+				expect(player.total_score).to eq(14+8+21)
 			end
 
 			it "can return false if player has not won" do
@@ -67,12 +63,12 @@ describe "Player behavior" do
 				player.play("zydeco")
 			end
 
-			it "can return false if player has already won" do
-				expect(player.play("pickle")).to be false
-			end
-
 			it "can report win" do
 				expect(player.won?).to be true
+			end
+
+			it "cannot #play(word) if player has already won" do
+				expect(player.play("pickle")).to be false
 			end
 		end
 	end

@@ -4,11 +4,6 @@ module Scrabble
 		attr_accessor :plays
 		attr_reader :name
 
-		# def initialize(player_hash)
-		# 	@name = player_hash[:name]
-		# 	@plays = []
-		# end
-
 		def initialize(name)
 			@name = name
 			@plays = []
