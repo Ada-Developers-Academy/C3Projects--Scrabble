@@ -19,16 +19,6 @@ module Scrabble
 	  	def initialize
 	  	end
 
-		# def self.valid_input?(word)
-	 #  		# guard clause for empty string or nil input
-		#   	return false if word == "" || word == nil
-
-		#   	word_letters = word.downcase.split("")
-		#   	return false if word_letters.find { |letter| !VALID_LETTERS.include?(letter) }
-			
-		#   	true
-	 #  	end
-
 	 	def self.process_input(word)
 	 		word_letters = word.downcase.split("")
 	 	end
@@ -51,7 +41,7 @@ module Scrabble
 
 	  	def self.get_points(word)
 		  	word_score = 0
-		  	word_letters = self.process_input(word)
+		  	word_letters = Scrabble.process_input(word)
 
 		  	word_letters.each do |letter|
 				letter_list, points = POINTS.find { |letter_list, points| letter_list.include?(letter)}
@@ -60,26 +50,15 @@ module Scrabble
 		  	word_score
 		end
 
-	  	# def self.score(word)
-		  # 	# guard clause for non-alphabetic user input
-	  	# 	return "ERROR -- invalid input" unless self.valid_input?(word)
-
-	  	# 	# guard clause for word over 7 letters
-	  	# 	return "ERROR -- too long" unless self.check_length(word)
-
-	  	# 	# return score for valid word
-	  	# 	self.get_points(word)
-	  	# end
-
 	  	def self.score(word)
 		  	# guard clause for non-alphabetic user input
-	  		return "ERROR -- invalid input" unless self.valid_input?(word)
+	  		return "ERROR -- invalid input" unless Scrabble.valid_input?(word)
 
 	  		# guard clause for word over 7 letters
-	  		return "ERROR -- too long" unless self.check_length(word)
+	  		return "ERROR -- too long" unless Scrabble.check_length(word)
 
 	  		# return score for valid word
-	  		self.get_points(word)
+	  		Scrabble.get_points(word)
 	  	end
 
 
@@ -88,15 +67,18 @@ module Scrabble
 		  	array_of_words.each do |word|
 		  		# guard clause for invalid word in array
 		  		return "ERROR -- invalid word in input" unless Scrabble.valid_input?(word)
-		  		
+
 		  		all_scores << [Scrabble.score(word), word]
 		  	end
 
+		  	# find the set of words with the highest score
 		  	high_scores = all_scores.find_all { |score, word| score == all_scores.max[0] }
 
+		  	# pick a seven-letter word in case of a tie
 		  	seven_letter_word = high_scores.find { |score, word| word.length == 7 }
 		  	if seven_letter_word
 		  			return seven_letter_word.last
+		  	# pick the shortest word
 		  	else
 		  		highest_word = high_scores.min_by { |score, word| word.length }
 		  		highest_word.last
