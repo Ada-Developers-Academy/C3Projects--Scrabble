@@ -11,8 +11,6 @@ module Scrabble
       [10, ["Q", "Z"]]
     ]
 
-    array_of_words = ["shotgun", "stop", "go", "peanut", "candy", "zoo", "sailing"]
-
     def self.score(word)
       total_points = 0
       word.upcase.split(//).each do |letter_in_word|
@@ -22,10 +20,13 @@ module Scrabble
       return total_points
     end
 
-   def self.highest_score_from(array_of_words)
+   def self.highest_score_from(*array_of_words)
+     word_value_pairs = []
      (array_of_words).each do |word_from_array|
-       self.score(word_from_array)
+       score = self.score(word_from_array)
+       word_value_pairs << [score, word_from_array]
      end
+     return word_value_pairs
    end
 
     def self.letter_to_point(letter)
