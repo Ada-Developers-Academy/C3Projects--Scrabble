@@ -42,17 +42,12 @@ describe 'Scrabble::Scrabble.highest_score_from' do
 
   context "Method operations" do
 
-    it "Displays one element from an array of words" do
-    expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "blah", "quackier"])).to eq("QUACKIER")
+    it "Matches scores with their corresponding array words" do
+      expect(Scrabble::Scrabble.match_scores_and_words(["ax", "play", "blah", "quackier"])).to eq(["9 : ax", "9 : play", "9 : blah", "23 : quackier"])
     end
 
-    it "Collects scores for all array words" do
-    end
-
-    it "Pushes scores and words into array" do
-    end
-
-    it "Returns the first element" do
+    it "Displays the winning word" do
+      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "blah", "quackier"])).to eq("quackier")
     end
   end
 end

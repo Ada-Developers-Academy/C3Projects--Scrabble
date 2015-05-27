@@ -68,8 +68,27 @@ module Scrabble
       convert_scores(word)
     end
 
+
+    def self.match_scores_and_words(word_array)
+      # This adds scores to a new array
+      match_array = []
+      word_array.each {|word|
+        match_array.push(score(word))
+      }
+      # return match_array
+
+      # This matches scores to words
+      match_array.length.times do |index|
+      match_array[index] = match_array[index].to_s + " : " + word_array[index]
+      end
+
+      match_array
+
+    end
+
     def self.highest_score_from(array_of_words)
-    return array_of_words[3].upcase
+      high_score = match_scores_and_words(array_of_words)
+      high_score.sort.first
     end
 
   end
