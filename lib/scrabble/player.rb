@@ -10,6 +10,7 @@ module Scrabble
 		end
 
 		def play(word)
+			return false if won? == true
 			plays << word
 		end
 
@@ -19,6 +20,11 @@ module Scrabble
 				total_score += Scrabble.score(word)
 			end
 			total_score
+		end
+
+		def won?
+			return true if total_score >= 100
+			false
 		end
 	end
 end

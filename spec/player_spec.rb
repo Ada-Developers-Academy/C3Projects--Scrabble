@@ -38,6 +38,31 @@ describe "Player behavior" do
 			player.play("donkey")
 			expect(player.total_score).to eq(14+8+14)
 		end
+
+		it "can return false if player has already won" do
+			player.play("zydeco")
+			player.play("zamboni")
+			player.play("zydeco")
+			player.play("zydeco")
+			player.play("zydeco")
+			expect(player.play("pickle")).to be false
+		end
+
+		it "can report win" do
+			player.play("zydeco")
+			player.play("zamboni")
+			player.play("zydeco")
+			player.play("zydeco")
+			player.play("zydeco")
+			expect(player.won?).to be true
+		end
+
+		it "can return false if player has not won" do
+			player.play("pickle")
+			player.play("horse")
+			player.play("donkey")
+			expect(player.won?).to be false
+		end
 	end
 
 end
