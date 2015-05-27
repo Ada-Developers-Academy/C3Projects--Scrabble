@@ -52,27 +52,72 @@ module Scrabble
 			end
 		end
 
-		def self.multi_score(array_of_words)
-			hash_of_word_scores = {}
+		# def self.multi_score(array_of_words)
+		# 	hash_of_word_scores = {}
+
+		# 	array_of_words.each do |word|
+		# 		word_score = Scrabble.score(word)
+		# 		hash_of_word_scores.merge!(word => word_score)
+		# 	end
+
+		# 	return hash_of_word_scores
+		# end
+
+
+		def self.array_of_words_by_letter(array_of_words)
+			array_of_words_by_letter = []
+			
+			array_of_words.each do |word|
+				word = word.to_s.downcase
+
+				word_array = word.chars.to_a
+				array_of_words_by_letter.push(word_array)
+			end
+
+			return array_of_words_by_letter
+		end
+
+		def self.array_of_word_scores(array_of_words)
+			array_of_word_scores = []
 
 			array_of_words.each do |word|
 				word_score = Scrabble.score(word)
-				hash_of_word_scores.merge!(word => word_score)
+				array_of_word_scores.push(word_score)
 			end
 
-			return hash_of_word_scores
+			return array_of_word_scores
 		end
 
-		def self.highest_score_from(array_of_words)
-			hash_of_word_scores = Scrabble.multi_score(array_of_words)
 
-			hash_of_word_scores.each do |word, score|
-				if 
+		def self.highest_score_from(array_of_words)
+
+			array_of_words_by_letter = Scrabble.array_of_words_by_letter(array_of_words)
+			array_of_word_scores = Scrabble.array_of_word_scores(array_of_words)
+
+			# if one of the words has 7 letters, then it automatically wins
+			array_of_words_by_letter.each do |letter_array|
+				if letter_array.length == 7
+					winning_word = letter_array.join
+					return winning_word
+				end
 			end
 
+			winning_score = 0
+			winning_index = 0
 
+			# finds the highest word score and returns the corresponding word
+			array_of_word_scores.each_index do |index|
 
-			# winner = hash_of_word_scores.max_by{|word,score| score}
+				if array_of_word_scores[index.to_i] > winning_score
+					winning_index = index.to_i
+					winning_score = array_of_word_scores[index.to_i]
+				end
+			
+			end
+
+			winning_word = array_of_words_by_letter[winning_index.to_i].join
+
+			return winning_word
 
 		end
 
@@ -80,3 +125,11 @@ module Scrabble
 	end # end Scrabble class
 
 end # end Scrabble module
+
+
+
+
+
+
+
+
