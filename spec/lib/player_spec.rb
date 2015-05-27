@@ -7,17 +7,20 @@ describe "Player class" do
     x.play("game") # 7 pts
     x.play("girl") # 5 pts
     return x
-    }
+  }
 
   describe "self.new(name)" do
+    it "creates a new instance of Player" do
+      expect(patricia.class).to eq(Scrabble::Player)
+    end
 
-    it "creates a new instance with name variable assigned" do
+    it "creates an instance with a name variable assigned" do
       expect(patricia.name).to eq("Patricia")
     end
   end
 
   describe "#play(word)" do
-    it "plays the word" do
+    it "archives the word" do
       patricia.play("hike") # 11 pts
 
       expect(patricia.played_words).to eq(["good", "game", "girl", "hike"])
@@ -31,7 +34,7 @@ describe "Player class" do
         return x
       }
 
-      it "return false" do
+      it "returns false" do
         expect(patty.play("buoy")).to eq(false)
       end
     end
