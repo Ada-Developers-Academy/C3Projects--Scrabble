@@ -1,34 +1,47 @@
 require './lib/scrabble/player'
 
-patricia = Scrabble::Player.new("Patricia")
+describe "Player class" do
+  let(:patricia) { Scrabble::Player.new("Patricia") }
 
+  describe "self.new(name)" do
 
-describe "self.new(name)" do
-  it "creates a new instance with name variable assigned" do
-    expect(patricia.name).to eq("Patricia")
-  end
-end
-
-describe "#play(word)" do
-  it "plays the word" do
-    patricia.play("hike")
-
-    expect(patricia.played).to eq(["hike"])
+    it "creates a new instance with name variable assigned" do
+      expect(patricia.name).to eq("Patricia")
+    end
   end
 
-  it "returns false if the player already won" do
-    patricia.playing = false
+  describe "#play(word)" do
+    it "plays the word" do
+      patricia.play("hike")
 
-    expect(patricia.play("buoy")).to eq(false)
+      expect(patricia.played).to eq(["hike"])
+    end
+
+    # `context` creates a new level of scope
+    context "when player has already won" do
+      let(:patty) {
+        x = Scrabble::Player.new("Patty")
+        x.playing = false
+        return x
+      }
+
+      it "return false" do
+        expect(patty.play("buoy")).to eq(false)
+      end
+    end
   end
-end
 
-describe "#plays" do
-  it "returns words played by the player" do
-    patricia.play("good")
-    patricia.play("game")
-    patricia.play("girl")
+  describe "#plays" do
+    it "returns words played by the player" do
+      patricia.play("good")
+      patricia.play("game")
+      patricia.play("girl")
 
-    expect(patricia.plays).to eq(["hike", "buoy", "good", "game", "girl"])
+      expect(patricia.plays).to eq(["good", "game", "girl"])
+    end
+  end
+
+  describe "#total_score" do
+
   end
 end
