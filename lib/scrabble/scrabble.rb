@@ -35,17 +35,20 @@ module Scrabble
     def self.highest_score_from(array_of_words)
       scores = {}
       array_of_words.each do |word|
-        scores[word] = word.score
+        scores[word] = score(word)
       end
 
-      # if the highest score matches a key's value
-      # return the key
-      # if the key is seven letters, that is the winning word
-      scores.keep_if { |key, value| value == scores.values.max }
-      scores.each do |word, score|
-        if word.length == 7
-          return word
-        end
+      winning_score = scores.values.max
+      # removes all pairs that don't have a winning score
+      # (so weird – without winning_score, keep_if returns "cat"; same with select!)
+      scores.keep_if { |key, value| value == winning_score }
+
+      if scores.length == 1
+        return scores.keys[0]
+      else
+        scores.each { |word, score| return word if word.length == 7 }
+
+        return scores.keys.min_by { |word| word.length }
       end
     end
 
