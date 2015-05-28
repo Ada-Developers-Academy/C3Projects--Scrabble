@@ -36,12 +36,15 @@ describe "Letters & Scores" do
   end
 
   it "gets the score for each letter in word" do
-    expect(Scrabble::Scrabble.convert_letter_score("dog")).to eq(5)
+    expect(Scrabble::Scrabble.score("dog")).to eq(5)
+  end
+
+  it "gets the highest score from array of words" do
+    expect(Scrabble::Scrabble.highest_score_from(["dog", "apple"])).to eq("apple")
+  end
+
+  it "break a tie with the winner using fewer tiles" do
+    expect(Scrabble::Scrabble.highest_score_from(["kk", "z"])).to eq("z")
   end
 
 end
-
-
-# it "returns #{letter_score} for #{word}" do
-#   expect(self.score(word)).to eq letter_score #except calling score when call A equal to 1
-# end
