@@ -21,5 +21,15 @@ describe "TileBag behavior" do
 		it "returns number of random tiles from tiles_remaining" do
 			expect(tilebag.draw_tiles(5).count).to eq(5) 
 		end
+
+		context "has selected z" do
+			before(:each) do
+				tilebag.draw_tiles(5)
+			end
+
+			it "removes tiles from collection after selection" do
+				expect(tilebag.tiles_remaining).to eq(93)
+			end
+		end
 	end
 end

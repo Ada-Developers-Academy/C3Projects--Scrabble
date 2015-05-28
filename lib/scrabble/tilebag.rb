@@ -40,15 +40,18 @@ module Scrabble
 		end
 
 		def draw_tiles(number)
-			tiles = []
+			drawn_tiles = []
 			number.times do
-				tiles << select_tile
+				tile, index = select_tile
+				drawn_tiles << tile
+				tiles.delete_at(index)
 			end
-			tiles
+			drawn_tiles
 		end
 
 		def select_tile
-			tiles[rand(tiles_remaining + 1)]
+			index = rand(tiles_remaining + 1)
+			return tiles[index], index
 		end
 	end
 end
