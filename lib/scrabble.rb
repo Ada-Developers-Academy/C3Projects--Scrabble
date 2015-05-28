@@ -79,7 +79,6 @@ module Scrabble
       word_array.each {|word|
         match_array.push(score(word))
       }
-      # return match_array
 
       # This matches scores to words
       match_array.length.times do |index|
@@ -90,15 +89,34 @@ module Scrabble
 
     end
 
+    def self.check_for_seven(array_of_words)
+      array_of_words.sort_by! {|words| words.length}
+      if array_of_words.last.length == 7
+        return true
+      else
+        return false
+      end
+    end
+
     def self.choose_short_word(array_of_words)
     #Guard clause
     match_array = match_scores_and_words(array_of_words)
 
     same_scores = match_array.select {|pair| pair.include? "20"}
     same_scores.sort_by! {|pair| pair.length}
-    win_word = same_scores.first.split(" : ")
-    win_word[1]
+
+    short_word = same_scores.first.split(" : ")
+    long_word = same_scores.last.split(" : ")
+
+    if long_word[1].length == 7
+      return "Congrats, seven word bonus!"
+    else
+      short_word[1]
+      end
+
     end
+
+
 
     def self.top_word(array_of_words)
       high_score = match_scores_and_words(array_of_words)

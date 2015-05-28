@@ -66,6 +66,9 @@ describe 'Scrabble::Scrabble.highest_score_from' do
       expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "quick", "hafiz"])).to eq("quick")
     end
 
+    it "Checks for seven" do
+      expect(Scrabble::Scrabble.choose_short_word(["ax", "play", "quick", "hafiz", "zamboni"])).to eq("Congrats, seven word bonus!")
+    end
   end
 
 end
@@ -104,3 +107,13 @@ end
   #     end
   #
   #   end
+
+
+  # def self.check_for_seven(array_of_words)
+  #   array_of_words.sort_by! {|words| words.length}
+  #   if array_of_words.last.length == 7
+  #     return true
+  #   else
+  #     false
+  #   end
+  # end
