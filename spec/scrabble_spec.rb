@@ -16,12 +16,13 @@ describe Scrabble::Scrabble do
   describe "Handling for user input in .score" do
 
     # z= 10, e= 1, n= 1, i= 1, t= 1, h= 4 total_points = 18
-    it "zenith returns 18 points total" do
+    it "'zenith' returns 18 points total" do
       expect(Scrabble::Scrabble.score("zenith")).to eq 18
     end
 
-    it "returns 18 points total" do
-      expect(Scrabble::Scrabble.score("zenith")).to eq 18
+    # g= 2, l= 1, a= 1, d= 2 total_points = 6
+    it "'glad' returns 6 points total" do
+      expect(Scrabble::Scrabble.score("glad")).to eq 6
     end
 
     it "raises an ArgumentError if string contains numbers"  do
@@ -43,19 +44,31 @@ describe Scrabble::Scrabble do
 
 
   describe "Returning highest scoring word in .highest_score_from method" do
-    # let(:input) { Scrabble::Scrabble.score("zenith")}
-    # z= 10, e= 1, n= 1, i= 1, t= 1, h= 4 total_points = 18
 
+    # added shuffle to spec examples to make sure it is not just returning the first valid value
     it "returns the word with the top score" do
-      expect(Scrabble::Scrabble.highest_score_from(["wow", "cow", "sow"])).to eq("wow")
+      expect(Scrabble::Scrabble.highest_score_from(["wow", "cow", "sow"].shuffle)).to eq("wow")
     end
 
+    # both louder and cub are 7
     it "returns the shorter word if two scores match" do
-      expect(Scrabble::Scrabble.highest_score_from(["cowl", "wow", "sow"].shuffle)).to eq("wow")
+      expect(Scrabble::Scrabble.highest_score_from(["louder", "cub", "late"].shuffle)).to eq("cub")
     end
 
+    # both loudest and club are 8
+    it "returns the 7-letter word if two scores match" do
+      expect(Scrabble::Scrabble.highest_score_from(["loudest", "club", "bar"].shuffle)).to eq("loudest")
+    end
+
+    # loudest, club and 8
+    it "returns the 7-letter word if three scores match" do
+      expect(Scrabble::Scrabble.highest_score_from(["loudest", "club", "cow"].shuffle)).to eq("loudest")
+    end
+
+    # leap and name are 6 points and 4 letters
+    it "returns the first word if two scores and lengths match" do
+      expect(Scrabble::Scrabble.highest_score_from(["leap", "name", "nil"])).to eq("leap")
+    end
   end
 
 end
-
-# let(:input) { Scrabble::Scrabble.score("zenith")}
