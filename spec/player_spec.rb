@@ -3,16 +3,19 @@ require './lib/player'
 describe Scrabble::Player do
 
   describe "Creating a player for Scrabble" do
-    context "Scrabble needs players with names" do
     let(:player) { Scrabble::Player.new("Samanfar") }
-      it "has the name 'Samanfar'" do
-        expect(player.name).to eq "Samanfar"
+    context "Scrabble needs players with names" do
+      it "has a player named 'Samanfar'" do
+        expect(player.name).to eq("Samanfar")
       end
     end
 
-    it "returns ['cat', 'horse', 'piglet', 'farm']" do
-      expect(player)
-    end
+  # describe "Instance Methods"
+  #   context "Player respond to call of plays method - collects words in Array" do
+  #     it "responds to :plays" do
+  #       expect(player).to respond_to :plays
+  #     end
+  #   end
 
   end
 end

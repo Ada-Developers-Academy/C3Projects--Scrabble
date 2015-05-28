@@ -4,7 +4,7 @@ describe Scrabble::Scrabble do
 
   describe "This method returns the score of a given word" do
 
-    context "Scrabble scores each letter of a word with a specific point value" do
+    context "Scrabble scores each letter in the word" do
       it "returns 5 points for the word 'cat'" do
         expect(Scrabble::Scrabble.score("cat")).to eq(5)
       end
@@ -42,19 +42,19 @@ describe Scrabble::Scrabble do
   describe "This method returns the word in a provided array with the highest score" do
     
     context "In Scrabble, the highest score wins" do
-      it "returns the word (horse) with the highest score" do
+      it "returns the word 'horse' with the highest score" do
         expect(Scrabble::Scrabble.highest_score_from(["cat", "horse"])).to eq("horse")
       end
     end
 
     context "If multiple words have the same score, the one with fewer tiles is preferred" do
-      it "returns the word with fewer tiles (farm) if multiple words have the same score" do
+      it "returns the word 'farm', both 'farm' and 'piglet' have a score of 9" do
         expect(Scrabble::Scrabble.highest_score_from(["cat", "horse", "piglet", "farm"])).to eq("farm")
       end
     end
 
     context "7 letter words receive a bonus in Scrabble" do
-      it "returns the 7 letter word (tractor) when other words have the same score" do
+      it "returns the word 'tractor' because it received a 7 letter bonus" do
         expect(Scrabble::Scrabble.highest_score_from(["cat", "horse", "farm", "piglet", "tractor", "spider"])).to eq("tractor")
       end
     end
