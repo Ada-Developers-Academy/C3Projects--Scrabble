@@ -2,16 +2,7 @@ module Scrabble
   # require your gems and classes here
   # require_relative 'scrabble/whatevs'
   class Scrabble
-    # def initialize
-    #   @value = { a: 1, e: 1, i: 1, o: 1, u: 1, l: 1, n: 1, r: 1, s: 1, t: 1, 
-    #              d: 2, g: 2, 
-    #              b: 3, c: 3, m: 3, p: 3,
-    #              f: 4, h: 4, v: 4, w: 4, y: 4,
-    #              k: 5,
-    #              j: 8, x: 8,
-    #              q: 10, z: 10
-    #   }
-    # end
+
     def self.score(word)
       value = { 
                  1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"],
@@ -23,19 +14,49 @@ module Scrabble
                  10 => ["q", "z"]
                 }
 
-        count = 0
-        word.each_char do |l|
-          #check if each char is a letter
-          value.select do |k, v|
-            if v.include?(l)
-              count += k
+      count = 0
+        word_array = word.to_s.downcase.split(//)
+        return "too many letters" if word_array.length > 7 
+        return "error" if word.to_s.strip.empty?
+        word_array.each do |l|
+          if ("a".."z").include?(l) 
+            value.select do |k, v|
+              if v.include?(l)
+                count += k
+              end
             end
+          else
+            return "error"
           end
         end
         return count
-      else
-        "error"
+    end
+
+    def self.highest_score_from(array_of_words)
+      winner_word = []
+      high_score = 0
+      array_of_words.each_with_index do |word, index|
+        score = self.score(word)
+        if score > high_score
+          winner_word.replace([word])
+          high_score = score
+        elsif score == high_score
+          # if winner_word[0].length == 7
+          #   return winner_word[0]
+          if winner_word[0].length == word.length
+            winner_word_index = array_of_words.index(winner_word[0])
+            word_index = array_of_words.index(word)
+            index = [winner_word_index, word_index].min 
+            puts index
+            return array_of_words[index]
+          elsif word.length == 7
+            return word
+          elsif winner_word[0].length > word.length && winner_word[0].length != 7
+            return word
+          end
+        end
       end
+      return winner_word.pop
     end
 
   end
