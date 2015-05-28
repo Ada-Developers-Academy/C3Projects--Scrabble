@@ -41,4 +41,12 @@ describe "TileBag class" do
       end
     end
   end
+
+  describe "#tiles_remaining" do
+    it "reduces the correct amount of tiles" do
+      bag.draw_tiles(5)
+      # original num of tiles = 98
+      expect(bag.tiles_remaining).to eq(93)
+    end
+  end
 end
