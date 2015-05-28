@@ -1,6 +1,6 @@
 require './lib/scrabble/scrabble'
 
-describe "score method" do
+describe "#self.score" do
   it "returns the total score for a word" do
     expect(Scrabble::Scrabble.score("play")).to eq(9)
     expect(Scrabble::Scrabble.score("awesome")).to eq(12)
@@ -14,6 +14,7 @@ describe "score method" do
     expect(Scrabble::Scrabble.score("4ever")).to eq(nil)
     expect(Scrabble::Scrabble.score("sav0r")).to eq(nil)
     expect(Scrabble::Scrabble.score("f$%!")).to eq(nil)
+    expect(Scrabble::Scrabble.score("voilà")).to eq(nil)
   end
 
   it "unless user doesn't input anything" do

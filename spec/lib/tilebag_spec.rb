@@ -29,13 +29,16 @@ describe "TileBag class" do
       expect(num_of_tiles_left).to eq(91)
     end
 
-    # it "draws random tiles" do
-    # end
+    it "draws random tiles" do
+      expect(bag.draw_tiles(10)).to_not eq(bag.draw_tiles(10))
+    end
 
-    # it "removes the correct tiles" do
-    #   tile1 = drawn_tiles[0]
-    #
-    #   expect(tile_bag.tiles[tile1]).to eq()
-    # end
+    it "removes the correct tiles" do
+      bag2 = Scrabble::TileBag.new
+      drawn_tiles = bag.draw_tiles(5)
+      drawn_tiles.each do |tile|
+        expect(bag.tiles[tile]).to_not eq(bag2.tiles[tile])
+      end
+    end
   end
 end
