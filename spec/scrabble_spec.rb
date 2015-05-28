@@ -52,15 +52,23 @@ describe Scrabble::Scrabble do
     end
 
     it "returns the word with the highest score" do
-      x = ["cat", "dog", "mouse", "probably"]
-      expect(Scrabble::Scrabble.highest_score_from(x)).to eq("probably")
+      x = ["cat", "dog", "mouse", "quarter"]
+      expect(Scrabble::Scrabble.highest_score_from(x)).to eq("quarter")
     end
 
     context "when words have the same score" do
       it "assigns winner status to the smaller word" do
-        x = ["aeiou", "cat", "doe", "risen"]
-        expect(Scrabble::Scrabble.highest_score_from(x)).to eq("cat")
+        y = ["aeiou", "cat", "doe", "risen"]
+        expect(Scrabble::Scrabble.highest_score_from(y)).to eq("cat")
       end
     end
+
+    context "when two words have the same score, but one has 7 letters" do
+      it "assigns winner status to the word with seven letters" do
+        z = ["club", "loudest", "cat"]
+        expect(Scrabble::Scrabble.highest_score_from(z)).to eq("loudest")
+      end
+    end
+
 
 end

@@ -16,11 +16,9 @@ module Scrabble
       total_points = 0
       word = word.split(//)
       #This is for testing
-      # ap word
       word.each do |input|
         points = SCORE[input]
-          total_points += points
-        #puts points
+        total_points += points
       end
         return total_points
     end
@@ -30,17 +28,41 @@ module Scrabble
       array_of_words.each do |word|
         scored_words[word] = self.score(word)
       end
-      ap scored_words
+      if scored_words.empty?
+        return "Provide words please"
+      end
+        #because max_by automatically selects the first key value pair that fulfills it's requirements, I wanted to make sure that was also the smallest word by first sorting the array by the word.length and assigning it to an independent variable sorted_words
+
       sorted_words = scored_words.sort_by do |word, score|
         word.length
       end
+
+      seven_words = []
+      sorted_words.each do |word|
+        if word[0].length == 7
+          seven_words.push(word)
+        end
+      end
+
+      seven_winner = seven_words.max_by do |word|
+        word[1]
+      end
+
       winner_word = sorted_words.max_by do |word, score|
         score
       end
-      ap "Of the words #{scored_words.keys}, '#{winner_word[0]}' scores the highest!"
+
+      #implicitly handles words over 7 characters
+      if seven_winner
+        if winner_word[1] == seven_winner[1] || seven_winner[1] > winner_word[1]
+          winner_word = seven_winner
+        end
+      end
+
+
+      puts "Of the words #{scored_words.keys}, '#{winner_word[0]}' is the winner!"
       return winner_word[0]
     end
-
   end
 
 end
