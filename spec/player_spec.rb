@@ -80,20 +80,16 @@ describe "Player behavior" do
 				expect(player.tiles.length).to eq(0)
 			end
 
-			it "can draw tiles from tile bag" do
-				expect(player.draw_tiles(tilebag)).to_not be_nil
-			end
-
 			context "player has drawn tiles" do
 				
 				before(:each) do
 					player.draw_tiles(tilebag)
 				end
 
-				it "now has 7 tiles" do
+				it "player now has 7 tiles" do
 					expect(player.tiles.length).to eq(7)
 				end
-				## test for if 7 tiles already
+
 				it "can't draw more than seven tiles" do
 					expect(player.draw_tiles(tilebag)).to eq("You already have 7 tiles")
 				end
