@@ -56,11 +56,11 @@ describe Scrabble::Scrabble do
       expect(Scrabble::Scrabble.highest_score_from(x)).to eq("probably")
     end
 
-    #context "when words have the same score" do
-    #  it "assigns winner status to the smaller word" do
-    #    x = ["cat", "doe", "risen"]
-    #    expect(Scrabble::Scrabble.highest_score_from(x)).to eq("cat")
-    #  end
-    #end
+    context "when words have the same score" do
+      it "assigns winner status to the smaller word" do
+        x = ["aeiou", "cat", "doe", "risen"]
+        expect(Scrabble::Scrabble.highest_score_from(x)).to eq("cat")
+      end
+    end
 
 end

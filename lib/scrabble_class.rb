@@ -31,19 +31,14 @@ module Scrabble
         scored_words[word] = self.score(word)
       end
       ap scored_words
-      winner_word = scored_words.max_by{ |word, score|
-       score
-      }
-       return winner_word[0]
-        # score > score
-        #  return winner_word = word
-        #elsif score == score
-        #  scored_words.keys.min_by do |x|
-        #    x.length
-        #    return winner_word = x
-        #  end
-        #end
-        puts "Of the words #{scored_words.keys}, '#{winner_word}' scores the highest!"
+      sorted_words = scored_words.sort_by do |word, score|
+        word.length
+      end
+      winner_word = sorted_words.max_by do |word, score|
+        score
+      end
+      ap "Of the words #{scored_words.keys}, '#{winner_word[0]}' scores the highest!"
+      return winner_word[0]
     end
 
   end

@@ -3,6 +3,6 @@ module Scrabble
   require_relative './scrabble_class'
 end
 
-words = ["cat", "dog", "mouse"]
+words = ["cat", "dog", "hi"]
 puts Scrabble::Scrabble.highest_score_from(words)
 
