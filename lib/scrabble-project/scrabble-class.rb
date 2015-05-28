@@ -15,9 +15,13 @@ module Scrabble
 
     LETTERS = ("a".."z").to_a
 
-    def self.get_points(word_array)
+    def self.get_points(word)
       # set initial value of score
       score = 0
+
+      # convert to string, make letters lower case, & push letters to array
+      word_array = word.to_s.downcase.split("").push
+
       # for each letter in word_array, check POINTS and add to total to create score
       word_array.each do |letter|
         for num in 1..7
@@ -42,35 +46,24 @@ module Scrabble
     end
 
     def self.score(word)
-      # convert to string, make letters lower case, & push letters to array
-      word_array = word.to_s.downcase.split("").push
-
       # error if invalid input
       if self.valid_input?(word) == false
         WORD_ERROR
+
       # run get_points if valid input
       else
-        self.get_points(word_array)
+        self.get_points(word)
       end
     end
 
     def self.highest(array_of_words)
-      # create empty hash
-      hash_of_scores = {}
 
-      # for each word, get points, add word => point pairs to hash
-      array_of_words.each { |word, score|
-        score = self.get_points(word.to_s.downcase.split("").push)
-        hash_of_scores[word] = score
-        }
+      # score words and group by score value.
+      grouped_hash = array_of_words.group_by do |word|
+          score(word) end
 
-      # group by score
-      grouped_hash = hash_of_scores.group_by { |key, value| value }
-
-      # create max_group, the hash item with the max value.
+      # create max_group, the words from the hash item with the max value.
       max_group = grouped_hash.max[1]
-      # distill max_group down to only the words.
-      max_group = max_group.map {|item| item[0]}
 
       # if there is a word in the max_group with length of 7, return it
       if max_group.find { |word| word.length == 7 }
@@ -78,7 +71,7 @@ module Scrabble
 
       # otherwise, return the shortest word in group.
       else
-        return max_group.min_by {|word| word.length}
+        return max_group.min_by { |word| word.length }
       end
 
     end
