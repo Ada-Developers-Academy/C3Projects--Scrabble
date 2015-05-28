@@ -32,7 +32,6 @@ module Scrabble
 				"y", "y",
 				"z"
 			]
-
 		end
 
 		def tiles_remaining
@@ -50,7 +49,7 @@ module Scrabble
 		end
 
 		def select_tile
-			index = rand(tiles_remaining + 1)
+			index = rand(tiles_remaining - 1)
 			return tiles[index], index
 		end
 	end

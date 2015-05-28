@@ -22,13 +22,23 @@ describe "TileBag behavior" do
 			expect(tilebag.draw_tiles(5).count).to eq(5) 
 		end
 
-		context "has selected z" do
+		context "has selected 5 tiles" do
 			before(:each) do
 				tilebag.draw_tiles(5)
 			end
 
 			it "removes tiles from collection after selection" do
 				expect(tilebag.tiles_remaining).to eq(93)
+			end
+		end
+
+		context "has selected 98 tiles" do
+			before(:each) do
+				tilebag.draw_tiles(98)
+			end
+
+			it "collection is empty once all tiles selected" do
+				expect(tilebag.tiles_remaining).to eq(0)
 			end
 		end
 	end

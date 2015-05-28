@@ -8,7 +8,7 @@ describe "Player behavior" do
 	end
 
 	context "With any player it..." do
-		let(:player_options) { default_options }		
+		let(:player_options) { default_options }	
 
 		it "knows #name" do
 			expect(player.name).to eq(player_options)
@@ -71,7 +71,24 @@ describe "Player behavior" do
 				expect(player.play("pickle")).to be false
 			end
 		end
+		
+		# tile tests
+		context "player is drawing tiles" do
+			let(:tilebag) { Scrabble::TileBag.new}
+
+			before(:each) do
+				player.draw_tiles(tilebag)
+			end
+
+			it "has #tiles" do
+				expect(player.tiles.length).to eq(7)
+			end
+
+			it "can draw tiles from tile bag" do
+				expect(player.draw_tiles(tilebag)).to_not be_nil
+			end
+
+			## test for if 7 tiles already
+		end
 	end
-
-
 end
