@@ -2,7 +2,7 @@ module Scrabble
 
   class Player
 
-    attr_accessor :name, :plays
+    attr_accessor :name, :plays, :total_score
 
     def initialize(name)
       @name = name
@@ -16,7 +16,7 @@ module Scrabble
       return @plays
     end
 
-    def total_score     # This method doesn't work! I got as far as making it, but not as far as making it work. :)
+    def total_score     # This method doesn't work! I got as far as making it, but not as far as making it work. 
       @plays.each do |word|
       @total_score += (Scrabble::Scrabble.score(word))
       end
