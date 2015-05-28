@@ -1,9 +1,9 @@
 describe Scrabble::Scrabble do
 
   describe 'class methods are defined' do
-    METHOD_LIST = [:score, :highest_score_from, :handle_ties, :seven_chars?, :handle_7_chars, :find_shortest, :find_first_in_original]
+    METHOD_LIST = [:handle_ties, :find_first_in_original]
     METHOD_LIST.each do |method_name|
-      it "`.#{method_name}`" do
+      it "responds to .#{method_name}" do
         expect(Scrabble::Scrabble).to respond_to method_name
       end
     end
