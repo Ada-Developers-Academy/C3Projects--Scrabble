@@ -36,39 +36,16 @@ module Scrabble
       return 0 if valid_array?(array_of_words)
 
       array_of_words.each { |word| word.upcase! }  # upcase every word
-      # highest_scoring_word = array_of_words[0]
-      #
-      # array_of_words.each do |word|
-      #   if score(highest_scoring_word) < score(word)  # checks if the score of the highest scoring word is less than the word
-      #     highest_scoring_word = word                 # if so, make the word the new highest scoring word
-      #   elsif score(highest_scoring_word) == score(word)  # if the scores of the words are equal
-      #     if highest_scoring_word.length < 7 && word.length == 7
-      #       highest_scoring_word = word
-      #     elsif highest_scoring_word.length == 7 && word.length < 7
-      #       highest_scoring_word = highest_scoring_word
-      #     elsif highest_scoring_word.length > word.length
-      #       highest_scoring_word = word
-      #     end
-      #   end
-      # end
-
       highest_scoring_word = array_of_words[0]
-      highest_scoring_words = []
-      array_of_words.each do |word|
-        if score(highest_scoring_word) < score(word)
-          highest_scoring_words = word
-        elsif score(highest_scoring_word) == score(word)
-          highest_scoring_words.push(word)
-        end
-      end
 
-      highest_scoring_word = highest_scoring_words[0]
-      if highest_scoring_words.length > 1
-        highest_scoring_words.each do |word|
+      array_of_words.each do |word|
+        if score(highest_scoring_word) < score(word)      # checks if the score of the highest scoring word is less than the word
+          highest_scoring_word = word                     # if so, make the word the new highest scoring word
+        elsif score(highest_scoring_word) == score(word)  # if the scores of the words are equal
           if highest_scoring_word.length < 7 && word.length == 7
             highest_scoring_word = word
           elsif highest_scoring_word.length == 7 && word.length < 7
-            highest_scoring_word = highest_scoring_word
+            highest_scoring_word = highest_scoring_word # redunant I know, easier for me to undestand the logic
           elsif highest_scoring_word.length > word.length
             highest_scoring_word = word
           end
