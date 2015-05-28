@@ -14,11 +14,14 @@ describe Scrabble::Scrabble do
   end
 
   describe "Handling for user input in .score" do
-    let(:input) { Scrabble::Scrabble.score("zenith")}
+
     # z= 10, e= 1, n= 1, i= 1, t= 1, h= 4 total_points = 18
+    it "zenith returns 18 points total" do
+      expect(Scrabble::Scrabble.score("zenith")).to eq 18
+    end
 
     it "returns 18 points total" do
-      expect(input).to eq 18
+      expect(Scrabble::Scrabble.score("zenith")).to eq 18
     end
 
     it "raises an ArgumentError if string contains numbers"  do
@@ -38,13 +41,21 @@ describe Scrabble::Scrabble do
     end
   end
 
+
   describe "Returning highest scoring word in .highest_score_from method" do
     # let(:input) { Scrabble::Scrabble.score("zenith")}
     # z= 10, e= 1, n= 1, i= 1, t= 1, h= 4 total_points = 18
 
     it "returns the word with the top score" do
-      expect(Scrabble::Scrabble.highest_score_from(["wow", "cow", "sow"])).to eq ("wow")
+      expect(Scrabble::Scrabble.highest_score_from(["wow", "cow", "sow"])).to eq("wow")
     end
+
+    it "returns the shorter word if two scores match" do
+      expect(Scrabble::Scrabble.highest_score_from(["cowl", "wow", "sow"].shuffle)).to eq("wow")
+    end
+
   end
 
 end
+
+# let(:input) { Scrabble::Scrabble.score("zenith")}
