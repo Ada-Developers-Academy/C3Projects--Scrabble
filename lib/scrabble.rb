@@ -71,6 +71,7 @@ module Scrabble
       convert_scores(word)
     end
 
+# ____________ARRAY OF WORDS__________
 
     def self.match_scores_and_words(word_array)
       # This adds scores to a new array
@@ -89,14 +90,41 @@ module Scrabble
 
     end
 
-    def self.highest_score_from(array_of_words)
+    def self.choose_short_word(array_of_words)
+    #Guard clause
+    match_array = match_scores_and_words(array_of_words)
+
+    same_scores = match_array.select {|pair| pair.include? "20"}
+    same_scores.sort_by! {|pair| pair.length}
+    win_word = same_scores.first.split(" : ")
+    win_word[1]
+    end
+
+    def self.top_word(array_of_words)
       high_score = match_scores_and_words(array_of_words)
-
       win_word = high_score.sort.first.split(" : ")
-
       win_word[1]
+    end
+
+    def self.highest_score_from(array_of_words)
+
+    words_scores = match_scores_and_words(array_of_words)
+
+    #Edge clause for short words and same scores
+    if words_scores.select {|pair| pair.include? "20"}
+      choose_short_word(array_of_words)
+    else
+      top_word(array_of_words)
+    end
+
+
     end
 
   end
 
 end
+
+# if same_scores[0].length == same_scores[1].length
+#   win_word = same_scores.first.split(": ")
+#   win_word[1]
+# end

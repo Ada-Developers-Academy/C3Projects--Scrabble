@@ -47,13 +47,27 @@ describe 'Scrabble::Scrabble.highest_score_from' do
   context "Method operations" do
 
     it "Matches scores with their corresponding array words" do
-      expect(Scrabble::Scrabble.match_scores_and_words(["ax", "play", "blah", "quack"])).to eq(["9 : ax", "9 : play", "9 : blah", "20 : quack"])
+      expect(Scrabble::Scrabble.match_scores_and_words(["ax", "play", "quick","hafiz", "jeez"])).to eq(["9 : ax", "9 : play", "20 : quick", "20 : hafiz", "20 : jeez"])
     end
 
     it "Displays the winning word" do
-      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "blah", "quack"])).to eq("quack")
+      expect(Scrabble::Scrabble.top_word(["ax", "play", "quick", "hafiz", "jeez"])).to eq("hafiz")
     end
   end
+
+
+  context "Edge cases" do
+
+    it "Chooses the shortest word" do
+      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "quick", "hafiz", "jeez"])).to eq("jeez")
+    end
+
+    it "Chooses the first word" do
+      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "quick", "hafiz"])).to eq("quick")
+    end
+
+  end
+
 end
 
 
