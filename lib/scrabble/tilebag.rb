@@ -35,23 +35,23 @@ module Scrabble
 		end
 
 		def tiles_remaining
-			tiles.count
+			@tiles.count
 		end
 
 		def draw_tiles(number)
-			return "ERROR -- not enough tiles" if tiles.length < number
+			return "ERROR -- not enough tiles" if @tiles.length < number
 			drawn_tiles = []
 			number.times do
 				tile, index = select_tile
 				drawn_tiles << tile
-				tiles.delete_at(index)
+				@tiles.delete_at(index)
 			end
 			drawn_tiles
 		end
 
 		def select_tile
 			index = rand(tiles_remaining - 1)
-			return tiles[index], index
+			return @tiles[index], index
 		end
 	end
 end
