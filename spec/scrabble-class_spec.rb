@@ -2,28 +2,32 @@ require './lib/scrabble/scrabble-class.rb'
 
 describe "Scrabble" do
   describe "score(word)" do
-    it "returns 7 for'aaaaaaa'" do
-      expect(Scrabble::Scrabble.score("aaaaaaa")).to eq(7)
+    context "for valid word input" do
+      it "returns 7 for'aaaaaaa'" do
+        expect(Scrabble::Scrabble.score("aaaaaaa")).to eq(7)
+      end
     end
 
-    it "returns 'ERROR' for numbers in input" do
-      expect(Scrabble::Scrabble.score("hel4lo")).to eq("ERROR")
-    end
+    context "for invalid word input" do
+      it "returns 'ERROR' for numbers in input" do
+        expect(Scrabble::Scrabble.score("hel4lo")).to eq("ERROR")
+      end
 
-    it "returns 'ERROR' for spaces in input" do
-      expect(Scrabble::Scrabble.score("he llo")).to eq("ERROR")
-    end
+      it "returns 'ERROR' for spaces in input" do
+        expect(Scrabble::Scrabble.score("he llo")).to eq("ERROR")
+      end
 
-    it "returns 'ERROR' for nothing in input" do
-      expect(Scrabble::Scrabble.score("")).to eq("ERROR")
-    end
+      it "returns 'ERROR' for nothing in input" do
+        expect(Scrabble::Scrabble.score("")).to eq("ERROR")
+      end
 
-    it "returns 'ERROR' for nil in input" do
-      expect(Scrabble::Scrabble.score(nil)).to eq("ERROR")
-    end
+      it "returns 'ERROR' for nil in input" do
+        expect(Scrabble::Scrabble.score(nil)).to eq("ERROR")
+      end
 
-    it "returns 'ERROR' if length of the word is > 7" do
-      expect(Scrabble::Scrabble.score("eightlet")).to eq("ERROR")
+      it "returns 'ERROR' if length of the word is > 7" do
+        expect(Scrabble::Scrabble.score("eightlet")).to eq("ERROR")
+      end
     end
   end
 
