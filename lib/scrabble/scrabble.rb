@@ -11,14 +11,8 @@ module Scrabble
 
     # .score(word): returns the total score value for the given word [breakfast]
     def self.score(word) # word is input as a string (case insensitive)
-      score = 0
       letters = word.downcase.chars
-
-      letters.each do |letter|
-        score += VALUES[letter.to_sym]
-      end
-
-      score
+      letters.inject(0){ |sum, letter| sum + VALUES[letter.to_sym] }
     end
 
     # .highest_score_from(array_of_words): returns the word in the array with the highest score [breakfast]
