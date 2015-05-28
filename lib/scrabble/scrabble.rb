@@ -26,7 +26,9 @@ module Scrabble
        score = self.score(word_from_array)
        word_value_pairs << [score, word_from_array]
      end
-     return word_value_pairs
+     score_hash = word_value_pairs.group_by { |pairs| pairs[0] }
+     final_array = score_hash.max_by{|score, pair| score}
+     final_array.flatten!.keep_if{|word| word.class == String}
    end
 
     def self.letter_to_point(letter)
