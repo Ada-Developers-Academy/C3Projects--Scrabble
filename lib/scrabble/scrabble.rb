@@ -4,15 +4,25 @@ module Scrabble
 	  # require your gems and classes here
 	  # require_relative 'scrabble/whatevs'
 	  	
-		POINTS = {
-		  	"aeioulnrst" 	=> 1,
-		  	"dg"			=> 2,
-		  	"bcmp"		 	=> 3,
-		  	"fhvwy" 		=> 4,
-		  	"k"			 	=> 5,
-		  	"jx"		 	=> 8,
-		  	"qz"		 	=> 10
+		# POINTS = {
+		#   	"aeioulnrst" 	=> 1,
+		#   	"dg"			=> 2,
+		#   	"bcmp"		 	=> 3,
+		#   	"fhvwy" 		=> 4,
+		#   	"k"			 	=> 5,
+		#   	"jx"		 	=> 8,
+		#   	"qz"		 	=> 10
+	 #  	}
+
+	 	POINTS = {
+		  	"a" => 1, "b" => 3, "c" => 3, "d" => 2, "e" => 1, "f" => 4,
+		  	"g" => 2, "h" => 4, "i" => 1, "j" => 8, "k" => 5, "l" => 1,
+		  	"m" => 3, "n" => 1, "o" => 1, "p" => 3, "q" => 10, "r" => 1,
+		  	"s" => 1, "t" => 1, "u" => 1, "v" => 4, "w" => 4, "x" => 8,
+		  	"y" => 4, "z" => 10
 	  	}
+
+	  	# VALID_LETTERS = POINTS.keys.reduce(:+)
 
 	  	VALID_LETTERS = POINTS.keys.reduce(:+)
 
@@ -24,7 +34,7 @@ module Scrabble
 	 	end
 
 
-		 def self.valid_input?(word)
+		def self.valid_input?(word)
 	  		# guard clause for empty string or nil input
 		  	return false if word == "" || word == nil
 
@@ -39,17 +49,25 @@ module Scrabble
 		  	true
 	  	end
 
-	  	def self.get_points(word)
-		  	word_score = 0
+	 #  	def self.get_points(word)
+		#   	word_score = 0
+		#   	word_letters = Scrabble.process_input(word)
+
+		#   	word_letters.each do |letter|
+		# 		letter_list, points = POINTS.find { 
+		# 			|letter_list, points| letter_list.include?(letter)
+		# 		}
+		# 		word_score += points
+		#   	end
+		#   	word_score
+		# end
+
+		def self.get_points(word)
 		  	word_letters = Scrabble.process_input(word)
 
-		  	word_letters.each do |letter|
-				letter_list, points = POINTS.find { 
-					|letter_list, points| letter_list.include?(letter)
-				}
-				word_score += points
+		  	word_score = word_letters.inject(0) do |sum, letter|
+		  		sum + POINTS[letter]
 		  	end
-		  	word_score
 		end
 
 	  	def self.score(word)

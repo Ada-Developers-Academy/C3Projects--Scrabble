@@ -1,5 +1,15 @@
 require './lib/scrabble/scrabble.rb'
 
+describe Scrabble::Scrabble do
+	it "responds to class method called score" do
+		expect(Scrabble::Scrabble).to respond_to :score
+	end
+
+	it "responds to class method called highest_score_from" do
+		expect(Scrabble::Scrabble).to respond_to :highest_score_from
+	end
+end
+
 describe "scoring words in Scrabble" do
 
 	[
