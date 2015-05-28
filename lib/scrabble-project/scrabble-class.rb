@@ -2,7 +2,7 @@ module Scrabble
 
   class Scrabble
     # Set constants with general error message, point values of each letter, all letters
-    WORD_ERROR = "ERROR: Invalid input. Scrabble uses WORDS."
+    WORD_ERROR = "ERROR: Invalid input. Either your word has more that 7 letters or you entered something ridiculous. You only have 7 tiles, and Scrabble uses WORDS!"
     POINTS = {
       1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"],
       2 => ["d", "g"],
@@ -29,11 +29,12 @@ module Scrabble
       return score
     end
 
-    # Check input to guard against empty, nil, or invalid parameter
+    # Check input to guard against empty, nil, or otherwise invalid parameter
+    # Word length cannot exceed 7
     def self.valid_input?(word)
       word = word.to_s.downcase
 
-      if (word == "") || (word == nil) || (word.split("").all? { |letter| !LETTERS.include?(letter) })
+      if (word == "") || (word == nil) || (word.length > 7) || (word.split("").all? { |letter| !LETTERS.include?(letter) })
         valid = false
       else
         valid = true

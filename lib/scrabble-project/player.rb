@@ -16,10 +16,9 @@ module Scrabble
       return @plays
     end
 
-    def total_score
+    def total_score     # This method doesn't work! I got as far as making it, but not as far as making it work. :)
       @plays.each do |word|
-      (Scrabble::Scrabble.score(word))
-      @total_score += word.score
+      @total_score += (Scrabble::Scrabble.score(word))
       end
       return @total_score
     end
