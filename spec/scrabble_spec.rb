@@ -53,7 +53,7 @@ describe 'Scrabble::Scrabble.highest_score_from' do
     end
 
     it "Displays the winning word without ties" do
-      expect(Scrabble::Scrabble.top_word(["ax", "play", "quick"])).to eq("quick")
+      expect(Scrabble::Scrabble.top_word(["yo", "play", "hafiz"])).to eq("hafiz")
     end
   end
 
