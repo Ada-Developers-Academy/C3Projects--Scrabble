@@ -39,5 +39,6 @@ module Scrabble
     def highest_word_score
       return Scrabble::Scrabble.score(Scrabble::Scrabble.highest_score_from(@plays_array))
     end
+
   end
 end
