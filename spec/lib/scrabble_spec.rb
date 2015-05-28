@@ -57,18 +57,6 @@ end
 
 describe "Given multiple user inputs, this will choose the winning word based on their scores and length." do
 
-	# context "Each word needs to have its score evaluated and mapped to itself" do
-	# 	it "calculates each word's score and adds word and score to a hash as a key/value pair" do
-	# 		expect(Scrabble::Scrabble.multi_score(["hello","hi","bonjour","ciao"])).to include("hello" => 8, "hi" => 5, "bonjour" => 16, "ciao" => 6)
-	# 	end
-	# end
-
-	# context "The word with the highest score wins" do
-	# 	it "returns 16 as the winner of this array ['hello','hi','bonjour','ciao']" do
-	# 		expect(Scrabble::Scrabble.highest_score_from(["hello","hi","bonjour","ciao"])).is eq(16)
-	# 	end
-	# end
-
 	it "returns an array of the word with each index being another array of the word's letters" do
 		expect(Scrabble::Scrabble.array_of_words_by_letter(['hi','bye'])).to eq([['h','i'],['b','y','e']])
 	end
@@ -78,13 +66,20 @@ describe "Given multiple user inputs, this will choose the winning word based on
 	end
 
 	it "returns the word in the array with the highest score" do
-		expect(Scrabble::Scrabble.highest_score_from(["hello","hi","bonjour"])).to eq("bonjour")
+		expect(Scrabble::Scrabble.highest_score_from(["hello","hi","zzzzzz"])).to eq("zzzzzz")
 	end
 
+	it "if two words tie with the highest score and have the same length, then it returns which one came first in the array" do
+		expect(Scrabble::Scrabble.highest_score_from(["hello","hi","qqqqqq","dog","zzzzzz","pie","apple"])).to eq("qqqqqq")
+	end
 
+	it "returns the word in the array with the highest score, unless a word has 7 letters, in which case, it wins" do
+		expect(Scrabble::Scrabble.highest_score_from(["hello","hi","bonjour","zzzzzz"])).to eq("bonjour")
+	end
 
-
-
+	it "if two words have the same score, it returns the word with fewer letters" do
+		expect(Scrabble::Scrabble.highest_score_from(["hello","hi","piglet","farm"])).to eq("farm")
+	end
 
 end
 

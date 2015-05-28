@@ -52,17 +52,6 @@ module Scrabble
 			end
 		end
 
-		# def self.multi_score(array_of_words)
-		# 	hash_of_word_scores = {}
-
-		# 	array_of_words.each do |word|
-		# 		word_score = Scrabble.score(word)
-		# 		hash_of_word_scores.merge!(word => word_score)
-		# 	end
-
-		# 	return hash_of_word_scores
-		# end
-
 
 		def self.array_of_words_by_letter(array_of_words)
 			array_of_words_by_letter = []
@@ -102,24 +91,54 @@ module Scrabble
 				end
 			end
 
-			winning_score = 0
-			winning_index = 0
+			#______________________________________________________
 
-			# finds the highest word score and returns the corresponding word
-			array_of_word_scores.each_index do |index|
+			# ANOTHER WAY OF FINDING THE MAX VALUE THAT I WAS PRETTY PROUD
+			# OF FIGURING OUT, BUT WAS MORE COMPLICATED THAN NECESSARY
+			# AND LED TO OTHER ISSUES, SO I PIVOTED INTO SOMETHING ELSE
 
-				if array_of_word_scores[index.to_i] > winning_score
-					winning_index = index.to_i
-					winning_score = array_of_word_scores[index.to_i]
-				end
+			# winning_score = 0
+			# winning_index = 0
+			# winning_scores_array = []
+
+			# # Finds the highest score(and corresponding index) in the word scores array
+			# array_of_word_scores.each_index do |index|
+
+			# 	if array_of_word_scores[index.to_i] > winning_score
+			# 		winning_index = index.to_i
+			# 		winning_score = array_of_word_scores[index.to_i]
+			# 	end
+			# end
+
+			# # checks to see if winning score is a duplicate
+			# array_of_word_scores.each_index do |index|
+			# 	if array_of_word_scores[index.to_i] == winning_score
+			# 		winning_scores_array.push(index)
+			# 	end
+			# end
+
+			# if winning_scores_array.length > 1 # then there are duplicate winners
+			# 	winning_scores_array.each do |index|
+			# 		winning_word_length = array_of_words_by_letter[index.to_i].length
+			# 	end
 			
-			end
+			# else
+			# 	winning_word = array_of_words_by_letter[winning_index.to_i].join
 
-			winning_word = array_of_words_by_letter[winning_index.to_i].join
+			# 	return winning_word
+			# end
+
+			#______________________________________________________
+
+
+			sorted_array = array_of_words.sort_by {|word| word.length}
+
+			winning_word = sorted_array.max_by {|word| Scrabble.score(word)}
 
 			return winning_word
+			
 
-		end
+		end # end highest_score_from method
 
 
 	end # end Scrabble class
