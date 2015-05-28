@@ -1,32 +1,63 @@
 require './lib/scrabble.rb'
 
 describe Scrabble do
-  context "Scoring letters" do
+
+  context "Scoring words" do
 
     it "returns Error if the word has too many letters" do
       expect(Scrabble::Scrabble.score("watermelon")).to eq("Error")
     end
 
-    # it "returns Error if the word doesn't have only letters" do
+    it "returns Error if nothing is entered" do
+      expect(Scrabble::Scrabble.score("")).to eq("Error")
+    end
+
+    # it "returns Error if the word has numbers in it" do
     #   expect(Scrabble::Scrabble.score("app3le")).to eq("Error")
+    # end
+
+    # it "returns Error if the word contains special characters" do
+    #   expect(Scrabble::Scrabble.score("ap@le")).to eq("Error")
     # end
 
     # it "returns 1 for a" do
     #   expect(Scrabble::Scrabble.score("a")).to eq(1)
     # end
-    #
+
     # it "returns 4 for ap" do
     #   expect(Scrabble::Scrabble.score("ab")).to eq(4)
     # end
+
     [
       ["a",  1],
-      ["ab", 4]
+      ["ab", 4],
+      ["apple", 9],
+      ["A", 1],
     ].each do |word, score|
       it "returns #{score} for #{word}" do
         expect(Scrabble::Scrabble.score(word)).to eq(score)
       end
     end
+  end
 
+  context "Highest scoring word" do
+
+    # it "returns an array of values" do
+    #   expect(Scrabble::Scrabble.highest_score_from(["apple", "app", "le"])).to eq([9, 7, 2])
+    # end
+
+    # it "returns a hash of words and their values" do
+    #   expect(Scrabble::Scrabble.highest_score_from(["apple", "app", "le"])).to eq({"apple"=>9, "app"=>7, "le"=>2})
+    # end
+
+    it "returns the word with the highest value" do
+      expect(Scrabble::Scrabble.highest_score_from(["apple", "app", "le"])).to eq("apple")
+    end
+
+    it "returns the shorter word if two words have the same highest value" do
+      expect(Scrabble::Scrabble.highest_score_from(["app","apple", "jo", "le"])).to eq("jo")
+    end
 
   end
+
 end

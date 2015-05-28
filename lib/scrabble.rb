@@ -7,28 +7,43 @@ VALUES = {"a"=> 1, "b"=> 3, "c"=> 3, "d"=> 2, "e"=> 1, "f"=> 4, "g"=> 2, "h"=> 4
 
 
     def self.score(word)
-      #letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
-      if word.length > 7 #|| letters.each { |letter| word.include?(letter) == false}
+      if word.length > 7 || word.length < 1
         return "Error"
       end
-      # return "Error" if (word.length > 7) || if word.include?(letters) == false
 
       word_score = []
       #word_array = word.downcase.split(//) # makes an [] with each letter as its own element
-
-      word.each_char do |letter|
+      word.downcase.each_char do |letter|
         VALUES.each do |key, value|
           if letter == key
             word_score.push(value)
           end
         end
       end
+
       score = word_score.reduce(0, :+)
       return score
+    end
 
+    def self.highest_score_from(array_of_words)
+      array_of_values = []
+      array_of_words.collect do |word|
+        values = self.score(word)
+        array_of_values.push(values)
+      end
+      # return array_of_values
+      hash_of_words = Hash[array_of_words.zip array_of_values]
+      #return hash_of_words
+      # put stuff here to make sure shortest word is returned if same highest score
+      grouped_hash = hash_of_words.group_by { |k,v| v} # groups by value
+      grouped_hash = grouped_hash.max[1] # makes a hash of elements with the max value
 
+      highest_score = grouped_hash.min_by { |k,v| k.length}[0]
 
+      #highest_score = hash_of_words.max_by { |k,v| v }[0]
+      return highest_score
 
     end
+
   end
 end
