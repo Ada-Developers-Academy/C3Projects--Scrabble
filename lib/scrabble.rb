@@ -62,11 +62,11 @@ def self.highest_score_from(array_of_words)
     value_array << [value, word]
   end
 
-  #sorts array of word/score pairs and sets the array with the highest score as max_word_array
+  #sorts value_array and sets the array with the highest score as max_word_array
   value_array = value_array.sort
   max_word_array = value_array[-1]
 
-  #compares word/score array with max_word_array to check for ties in scores
+  #compares scores in value_array with max_word_array to check for ties in scores
   tied_words = []
   value_array.each do |array|
     if max_word_array[0] == array[0]
@@ -74,8 +74,7 @@ def self.highest_score_from(array_of_words)
     end
   end
 
-  #finds smallest word of the tie
-  smallest = tied_words.min_by { |word| word.length }
+  smallest_word = tied_words.min_by { |word| word.length }
 
   #loops through tied words to check if any are equal to 7 letters
   tied_words.each do |word|
@@ -85,7 +84,7 @@ def self.highest_score_from(array_of_words)
   end
 
   # if none of the tied words are equal to 7, the smallest word is returned
-  return smallest
+  return smallest_word
 end
 
 end #class end
