@@ -39,6 +39,7 @@ module Scrabble
 		end
 
 		def draw_tiles(number)
+			return "ERROR -- not enough tiles" if tiles.length < number
 			drawn_tiles = []
 			number.times do
 				tile, index = select_tile

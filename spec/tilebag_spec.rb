@@ -40,6 +40,10 @@ describe "TileBag behavior" do
 			it "collection is empty once all tiles selected" do
 				expect(tilebag.tiles_remaining).to eq(0)
 			end
+
+			it "cannot draw more tiles than in tilebag" do
+				expect(tilebag.draw_tiles(2)).to eq("ERROR -- not enough tiles")
+			end
 		end
 	end
 end
