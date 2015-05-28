@@ -2,8 +2,10 @@ module Scrabble
   class TileBag
     attr_reader :tiles
 
+
     ## -------------------------------------------------------------------------
     # CLASS METHODS
+
 
     def initialize
       create_tiles
@@ -11,15 +13,13 @@ module Scrabble
                     # but who shuffles a deck just once?
     end
 
+
     ## -------------------------------------------------------------------------
     # INSTANCE METHODS
 
-    def draw_tiles(number) #!Q checking for valid numbers?
-      shuffle_tiles
 
-      # unless (number.to_s >= "0") && (number.to_s <= "9")
-      #   return "THAT IS NOT A VALID NUMBER"
-      # end
+    def draw_tiles(number)
+      shuffle_tiles
 
       if (number > 0) && (number <= 7)
         tiles = @tiles.pop(number)
@@ -29,12 +29,17 @@ module Scrabble
       end
     end
 
+
     def tiles_remaining
       return @tiles.length
     end
 
+
+    private
     ## -------------------------------------------------------------------------
     # PRIVATE METHODS
+
+
     def create_tiles
       tiles = []
 
@@ -57,7 +62,10 @@ module Scrabble
       @tiles = tiles
 
       shuffle_tiles
+
+      return true
     end
+
 
     def shuffle_tiles
       temp_storage = @tiles.dup

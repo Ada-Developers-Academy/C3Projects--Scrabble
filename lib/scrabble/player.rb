@@ -2,8 +2,10 @@ module Scrabble
   class Player
     attr_reader :name, :plays, :tiles
 
+
     ## -------------------------------------------------------------------------
     # CLASS METHODS
+
 
     def initialize(name)
       @bag_o_tiles = TileBag.new
@@ -11,11 +13,13 @@ module Scrabble
       @plays = []
       @tiles = []
 
-      # draw_tiles(@bag_o_tiles)
+      draw_tiles(@bag_o_tiles)
     end
+
 
     ## -------------------------------------------------------------------------
     # INSTANCE METHODS
+
 
     def play(word)
       unless won?
@@ -26,10 +30,9 @@ module Scrabble
 
         if (score.class == Fixnum)
           @plays.push(word)
-          # puts "Great! Your word, #{ word }, was worth #{ score } points."
-          # puts "That brings your score up to #{ total_score }!"
         else
           # puts score
+          return false
         end
 
         return true
@@ -76,11 +79,7 @@ module Scrabble
     end
 
 
-    # Create specs for (minimum 2) and add to the Player class the following instance methods:
-    # #tiles a collection of letters that the player can play (max 7)
-    # #draw_tiles(tile_bag) fills tiles array until it has 7 letters from the given tile bag
-
-    def draw_tiles(tile_bag) #!Q do I need to check whether tile bag is a real tile bag?
+    def draw_tiles(tile_bag)
       max_tiles = 7
 
       tiles_count = @tiles.length
@@ -92,8 +91,6 @@ module Scrabble
           @tiles.push(tile)
         end
 
-        print @tiles
-
         return true
       else
         return false
@@ -101,9 +98,10 @@ module Scrabble
     end
 
 
-    # private
+    private
     ## -------------------------------------------------------------------------
     # PRIVATE METHODS
+
 
     def find_word_record
       best_word = nil

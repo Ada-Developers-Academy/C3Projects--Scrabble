@@ -2,6 +2,8 @@ module Scrabble
   class Scrabble
     ## -------------------------------------------------------------------------
     # CONSTANTS
+
+
     LETTER_SCORES = [
       { points: 1,  letters: %w{a e i o u l n r s t} },
       { points: 2,  letters: %w{d g} },
@@ -12,13 +14,11 @@ module Scrabble
       { points: 10, letters: %w{q z} }
     ]
 
-    ## -------------------------------------------------------------------------
-    # INSTANCE METHODS
-
-    # do we need these?
 
     ## -------------------------------------------------------------------------
     # CLASS METHODS
+
+
     def self.highest_score_from(array_of_words)
       best_score = 0
       best_word = nil
@@ -92,6 +92,7 @@ module Scrabble
     private
     ## -------------------------------------------------------------------------
     # PRIVATE METHODS
+
 
     def self.score_letter(letter) # can class methods be private?
       LETTER_SCORES.each do |set|

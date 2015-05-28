@@ -1,6 +1,3 @@
-# #tiles a collection of letters that the player can play (max 7)
-# #draw_tiles(tile_bag) fills tiles array until it has 7 letters from the given tile bag
-
 require "./lib/scrabble/player"
 
 describe "PLAYER" do
