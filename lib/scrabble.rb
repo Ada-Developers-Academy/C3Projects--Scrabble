@@ -32,17 +32,21 @@ VALUES = {"a"=> 1, "b"=> 3, "c"=> 3, "d"=> 2, "e"=> 1, "f"=> 4, "g"=> 2, "h"=> 4
         array_of_values.push(values)
       end
       # return array_of_values
-      hash_of_words = Hash[array_of_words.zip array_of_values]
-      #return hash_of_words
-      # put stuff here to make sure shortest word is returned if same highest score
+      hash_of_words = Hash[array_of_words.zip array_of_values]#return hash_of_words
+
       grouped_hash = hash_of_words.group_by { |k,v| v} # groups by value
       grouped_hash = grouped_hash.max[1] # makes a hash of elements with the max value
+      # put stuff here to make sure shortest word is returned if same highest score
+      grouped_keys = grouped_hash.sort_by { |k,v| k.length} # groups keys by length
+      longest_key = grouped_keys.max[0]
 
+      if longest_key.length == 7
+        return longest_key
+      else
       highest_score = grouped_hash.min_by { |k,v| k.length}[0]
-
       #highest_score = hash_of_words.max_by { |k,v| v }[0]
       return highest_score
-
+    end
     end
 
   end
