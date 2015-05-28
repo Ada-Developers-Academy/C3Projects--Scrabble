@@ -21,10 +21,10 @@ module Scrabble
       score
     end
 
-  # self.highest_score_from(array_of_words): returns the word in the array with the highest score.
-  # Note that it’s better to use fewer tiles, so if the top score is tied between multiple words, pick the one with the fewest letters.
-  # Note that there is a greater bonus for using all seven letters. If the top score is tied between multiple words and one used all seven letters, choose the one with seven letters over the one with fewer tiles.
-  # If the there are multiple words that are the same score and same length, pick the first one in supplied list
+    # self.highest_score_from(array_of_words): returns the word in the array with the highest score.
+    # Note that it’s better to use fewer tiles, so if the top score is tied between multiple words, pick the one with the fewest letters.
+    # Note that there is a greater bonus for using all seven letters. If the top score is tied between multiple words and one used all seven letters, choose the one with seven letters over the one with fewer tiles.
+    # If the there are multiple words that are the same score and same length, pick the first one in supplied list
     def self.highest_score_from(array_of_words)
       score_check = array_of_words.group_by { |word| Scrabble.score(word) }
       top_words = score_check[score_check.keys.max] # returns an array of word(s) that have the max score
@@ -50,20 +50,12 @@ module Scrabble
 
     # returns true if there's a word with 7 chars
     def self.seven_chars?(tied_words)
-      if tied_words[7] != nil # could be re-written as return true if tied_words[7] != nil
-        true
-      else
-        false
-      end
+      tied_words[7] != nil
     end
 
     # CURRENTLY UNUSED
     def self.tied?(tied_words)
-      if tied_words.length == 1 # could be re-written as return true if tied_words.length != 1
-        false
-      else
-        true
-      end
+      tied_words.length != 1
     end
 
     def self.find_7_chars_winner(original_words, tied_words) ## shift this into .handle_ties??
