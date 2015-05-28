@@ -81,37 +81,63 @@ module Scrabble
 	  		Scrabble.get_points(word)
 	  	end
 
+	  	# def self.get_scores(array_of_words)
+		  # 	all_score_word_pairs = []
+		  # 	array_of_words.each do |word|
+		  # 		# guard clause for invalid word in array
+		  # 		return nil unless Scrabble.valid_input?(word)
+
+		  # 		all_score_word_pairs << [Scrabble.score(word), word]
+		  # 	end
+		  # 	all_score_word_pairs
+	  	# end
+
 	  	def self.get_scores(array_of_words)
-		  	all_score_word_pairs = []
+		  	all_score_word_pairs = {}
 		  	array_of_words.each do |word|
 		  		# guard clause for invalid word in array
 		  		return nil unless Scrabble.valid_input?(word)
 
-		  		all_score_word_pairs << [Scrabble.score(word), word]
+		  		all_score_word_pairs[word] = Scrabble.score(word)
 		  	end
 		  	all_score_word_pairs
 	  	end
 
+	  	# def self.high_scores(all_score_word_pairs)
+	  	# 	top_score = all_score_word_pairs.max[0]
+	  	# 	high_score_pairs = all_score_word_pairs.find_all { 
+	  	# 		|score, word| score == top_score 
+	  	# 	}
+	  	# end
+
+	  	# def self.high_scores(all_score_word_pairs)
+	  	# 	top_pair = all_score_word_pairs.max_by { |score, word| score }
+	  	# 	top_score = top_pair[0]
+	  	# 	high_score_pairs = all_score_word_pairs.find_all { 
+	  	# 		|score, word| score == top_score 
+	  	# 	}
+	  	# end
+
 	  	def self.high_scores(all_score_word_pairs)
-	  		top_score = all_score_word_pairs.max[0]
+	  		top_score = all_score_word_pairs.values.max
 	  		high_score_pairs = all_score_word_pairs.find_all { 
-	  			|score, word| score == top_score 
+	  			|word, score| score == top_score 
 	  		}
 	  	end
 
 	  	def self.seven_letter_word(high_score_pairs)
 	  		seven_letter_word = high_score_pairs.find { 
-		  		|score, word| word.length == 7 
+		  		|word, score| word.length == 7 
 		  	}
 		  	if seven_letter_word
-		  		return seven_letter_word.last
+		  		return seven_letter_word[0]
 		  	else
 		  		return nil
 		  	end
 	  	end
 
 	  	def self.highest_word(high_score_pairs)
-	  		score, winning_word = high_score_pairs.min_by { |score, word| word.length }
+	  		winning_word, score = high_score_pairs.min_by { |word, score| word.length }
 		  	winning_word
 	  	end
 
