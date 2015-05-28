@@ -1,7 +1,7 @@
 require './lib/scrabble'
 
-describe "Determining scoring for tiles" do
-  context "self.score_letter method" do
+describe "When determining scoring for tiles in Scrabble class" do
+  context ".score_letter" do
 
     Scrabble::Scrabble::SCORE_CHART[1].each do |letter|
       it "returns point value of 1 for letter #{letter}" do
@@ -48,7 +48,7 @@ describe "Determining scoring for tiles" do
   end
 
 
-  context "self.score method" do
+  context ".score" do
     it "returns score of 6 for ADB" do
       expect(Scrabble::Scrabble.score("ADB")).to eq (6)
     end
@@ -65,9 +65,13 @@ describe "Determining scoring for tiles" do
       expect(Scrabble::Scrabble.score("CAMP")).to eq (10)
     end
 
+    it "returns score of 0 for empty string" do
+      expect(Scrabble::Scrabble.score("")).to eq (0)
+    end
+
   end
 
-  context "self.highest_score_from method" do
+  context ".highest_score_from" do
     it "returns word with fewer letters if points are tied" do
       expect(Scrabble::Scrabble.highest_score_from(["CAMP", "Q", "no"])).to eq ("Q")
     end
@@ -79,7 +83,35 @@ describe "Determining scoring for tiles" do
     it "returns first word if two words have the same score and length" do
       expect(Scrabble::Scrabble.highest_score_from(["CAT", "BAT", "AT"])).to eq ("CAT")
     end
+  end
+end
 
+
+describe "For Player class" do
+  subject { Scrabble::Player.new("Bob") }
+
+  context ".new" do
+    it "creates an instance of the Player class" do
+      expect(subject).to be_a (Scrabble::Player)
+    end
+  end
+
+  context ".name" do
+    it "returns @name for instance of Player" do
+      expect(subject.name).to eq ("Bob")
+    end
+  end
+
+  context ".plays" do
+    it "returns array of words that have been played" do
+      expect(subject.plays).to eq ([])
+    end
+  end
+
+  context ".play(word)" do
+    it "adds word to the @plays array" do
+      expect(subject.play("blahblah")).to eq (["blahblah"])
+    end
   end
 
 

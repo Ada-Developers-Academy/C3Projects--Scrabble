@@ -1,7 +1,4 @@
 module Scrabble
-  # require your gems and classes here
-
-  # hash for keep tracking of point value for each letter
 
   class Scrabble
 
@@ -19,13 +16,13 @@ module Scrabble
 
     # method to determine score of individual letter
     def self.score_letter(letter)
-      # runs through the SCORE_CHART hash
-      SCORE_CHART.each do |point_value, corresponding_letters|
-        # if the inputted letter matches up with a letter in the array, then return the corresponding point value
-        if corresponding_letters.include?(letter)
-          return point_value
+        # runs through the SCORE_CHART hash
+        SCORE_CHART.each do |point_value, corresponding_letters|
+          # if the given letter matches up with a letter in the array, then return the corresponding point value
+          if corresponding_letters.include?(letter)
+            return point_value
+          end
         end
-      end
     end
 
 
@@ -80,7 +77,28 @@ module Scrabble
         highest_scoring_words[0]
       end
     end
+  end
 
+
+  class Player
+    attr_accessor :name, :plays, :won, :total_score
+
+    def initialize(name)
+      @name = name
+      @plays = []
+      @won = false
+      @total_score = 0
+    end
+
+    def play(word)
+      # if the player has not won, push word into the array
+      if @won == false
+        @plays.push(word)
+      # if the player has won, return false
+      elsif @won == true
+        return false
+      end
+    end
 
   end
 end
