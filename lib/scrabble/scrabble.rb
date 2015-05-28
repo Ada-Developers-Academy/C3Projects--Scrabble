@@ -34,61 +34,56 @@ module Scrabble
 
 
     def self.score(word)
-      word_letters = word.upcase.split(//)
+
+      # VALIDATION GOES HERE
+
+      word_tiles = word.upcase.split(//)
       scores = []
-      word_letters.each do |letter|
+      word_tiles.each do |letter|
         if TILE_VALUES.has_key?(letter)
           scores << TILE_VALUES[letter]
         end
       end
       # sum values of letters to score word
       return scores.reduce(:+)
-    end
+    end # end method self.score
 
 
     def self.highest_score_from(array_of_words)
-      scored_words = {}
-      score = 0
 
-      # scores each word, puts the word and it's score in a hash
+      best_word = ""
+
       array_of_words.each do |word|
-        score = self.score(word)
-        scored_words[word] = score
-        puts scored_words
-      end
-      all_scores = scored_words.values
 
-      # for testing
-      highest_scores = all_scores.find_all { |scores| scores == all_scores.max } # for testing
-      puts highest_scores # for testing
+        # VALIDATION GOES HERE
 
-      # finds and returns word(s) with maximum score(s)
-      highest_words = []
-      scored_words.each do |word, score|
-        if score == all_scores.max
-          highest_words << word
+        self.score(word)
+
+        # if first run, set best to first
+        if best_word == ""
+          best_word = word
+        # prefer first highest scoring word
+        elsif self.score(best_word) < self.score(word)
+          best_word = word
+        # if scores equal, compare lengths
+        elsif self.score(best_word) == self.score(word)
+            # prefer first word to use 7 tiles
+            if best_word.length == 7
+              # return best_word
+            # then prefer first word with fewest tiles
+            elsif best_word.length < word.length
+              # return best_word
+            elsif best_word.length > word.length
+              best_word = word
+            end
         end
-      end
-      return highest_words
+
+      end # end iteration array_of_words
+
+      return best_word
+
+    end # end method self.highest_score_from
 
 
-      # score each word - DONE
-      # return highest scored word - DONE
-        # if scores are the same
-          # count word length
-            # if same length, return first
-            # elsif
-              # if < 7, return lowest word
-              # else 7, return it
-    end
-
-
-    # Future methods to write to avoid a billion
-    # nested if statements inside highest_score_from:
-    # * method to return highest scored words
-    # * method to count word lengths
-    # * method to return fewest/7 letter word ...?
-
-
-  end # class Scrabble
-end # module Scrabble
+  end # end class Scrabble
+end # end module Scrabble
