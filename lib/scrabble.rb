@@ -1,6 +1,4 @@
 module Scrabble
-  # require your gems and classes here
-  # require_relative 'scrabble/whatevs'
 
   # constant scoring for scrabble
  LETTERS = {
@@ -14,23 +12,38 @@ module Scrabble
  }
 
   class Scrabble
+
+    def self.is_valid?(input_letters)
     # confirming that input is valid, only accepting letters
-    def self.is_valid?(word)
-      if ["a".."z", "A".."Z"].include?(word)
-        return word
-      else
-        return "error"
+
+      if input_letters == []
+        return "please type something in."
+        exit
       end
+
+      possible_letters = %w(q w e r t y u i o p a s d f g h j k l z x c v b n m Q W E R T Y U I O P A S D F G H J K L Z X C V B N M)
+
+      input_letters.each do |letter|
+
+        if possible_letters.include?(letter)
+          return input_letters
+        else
+          return "Error, not valid letters."
+          exit
+        end
+      end
+
     end
 
     def self.score(word)
-      # make everything uppercase to compare to contant scoring
-      # ********* why doesn't word = word.upcase! ***********
+      total_points = 0
       word.upcase!
-      # calling the validating method is_valid?(word)
       # splitting word into an array of letters
       input_letters = word.split(//)
-      total_points = 0
+      
+      # calling the validating method is_valid?(word)
+      is_valid?(input_letters)
+
       # for each letter in the input_letters array, iterate over it
       input_letters.each do |letter|
         LETTERS.each do |points, letters|
@@ -47,33 +60,36 @@ module Scrabble
     end
 
     def self.highest_score_from(array_of_words)
+    # return the word with the highest score (with caveats)
       scrabble_hash = {}
+      hi_score_array = []
 
       array_of_words.each do |word|
         score = 0
-        # calling class method score to score the words from array
+        # calling self.score to score the words from array
         score = score(word)
-        length = word.length
-        scrabble_hash[word] = [score, length]
+        # scrabble_hash will be key = word, value = score
+        scrabble_hash[word] = score
       end
 
-      hi_score = scrabble_hash.max_by {|word, (score, length)| score} # returns array
+      # Find the highest score from the scrabble_hash
+      hi_score = scrabble_hash.max_by {|word, score| score} # returns hi_score array
 
-      hi_score_array = []
-
-      scrabble_hash.each do |word, (score, length)|
-        if score == hi_score[1][0]
+      scrabble_hash.each do |word, score|
+        if score == hi_score[1]
+        # when the score = hi_score, push word into the array
           hi_score_array.push(word)
         end
       end
 
       hi_score_array.each do |word|
-
+      # if the length of the word is 7, it's the winner!
         if word.length == 7
           return word
         end
       end
 
+      # the winner is the max score with the least amount of letters
       winner_word =  hi_score_array.min_by {|word| word.length}
       return winner_word
 
@@ -82,5 +98,3 @@ module Scrabble
   end
 
 end
-
-x = Scrabble::Scrabble.highest_score_from(["KK", "Z"])
