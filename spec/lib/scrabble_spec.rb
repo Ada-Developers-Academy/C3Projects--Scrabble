@@ -24,7 +24,6 @@ describe Scrabble::Scrabble do
 
     end
 
-# if revising, assign array to a variable., e.g., scores_and_words = [[1, "a"], ...], within a context. Same with all repeated specs. See example from J+K.
     [
       [1, "a"],
       [1, "e"],
