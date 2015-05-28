@@ -29,27 +29,27 @@ module Scrabble
      score_to_word_hash = word_value_pairs.group_by { |pairs| pairs[0] }
      highest_words = score_to_word_hash.max_by{|score, pair| score}
      highest_words.flatten!.keep_if{|element| element.class == String}
-     # FUNCTIONING 7 LETTER RETURN --------------
-      highest_words.each do |word|
-          if word.length == 7
-            return word
-          end
-        end
-      return highest_words[0]
-
-    # INCORPORATE SHORTEST WORD ------------------
-    #  length_pairs = []
-    #  highest_words.sort_by do |word|
-      #  length = word.length
-      #  length_pairs << [length, word]
+     # INCORPORATE SHORTEST WORD and 7 LETTER MAX------------------
+      length_pairs = []
+      highest_words.sort_by do |word|
+        length = word.length
+        length_pairs << [length, word]
+         end
+         hash = length_pairs.group_by {|array| array[0]}
+         if (hash.max_by{|length, word| length}).include?(7)
+           return (hash[7]).flatten![1]
+         else
+           array = hash.to_a.sort.keep_if{|element| element.class == Array}
+           array.flatten!.keep_if{|element| element.class == String}
+           return array[0]
+         end
+     # INITIAL FUNCTIONING 7 LETTER RETURN --------------
+      # highest_words.each do |word|
+          # if word.length == 7
+            # return word
+          # end
         # end
-      #  if length_pairs[0].include?(7)
-      #
-      #  if array.last.length == 7
-        #  return array.last
-      #  else
-        #  return array.first
-      #  end
+      # return highest_words[0]
    end
 
 
