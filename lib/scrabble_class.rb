@@ -19,7 +19,10 @@ module Scrabble
       word_array = word.chars.map { |each| each.downcase}
       raise ArgumentError.new "You can only use standard English letters" unless word_array.all? { |letter| SCORE[letter] }
 
-      # assigning a point value to each letter in the array
+      # check that the string is between 1 and 7 letters
+      raise ArgumentError.new "You must play between 1 and 7 letters" unless word_array.length >= 1 && word_array.length <= 7
+
+      # Finally a valid word! Assigning a point value to each letter in the array
       word_array.each do |letter|
         points = SCORE[letter]
         # adds points for each letter to a total_points variable
