@@ -36,6 +36,7 @@ module Scrabble #require your gems and classes here # require_relative 'scrabble
     end
 
     def self.score(word)
+
       score_array = [] # empty array to iterate through each letter of the split word
 
       split_letter_array = letters_in_word(word) #assign word.split array to variable
@@ -50,19 +51,28 @@ module Scrabble #require your gems and classes here # require_relative 'scrabble
       return sum
     end
 
-    def self.highest_score_from(array_of_words) #pick subset from array of words that match a condition
+    def self.highest_score_from(array_of_words)
 
-      highest_score_word = array_of_words.max_by { |word| score(word) } #picks highest scoring words
-      matching_words = array_of_words.select { |word| score(word) == score(highest_score_word) }
-      #all words with highest score-- tie
-      matching_words.min_by { |word| word.length } #this breaks the tie
-      
-      matching_words.select { |word| word.length == 7 }
+      highest_score = array_of_words.max_by { |word| score(word) }
+      #picks highest scoring words from array_of_words
 
+      tied_words = array_of_words.select { |word| score(word) == score(highest_score) }
+      #select all words with highest score including ties
 
+      minimum_words = tied_words.min_by { |word| word.length }
+      # from tie_words array, it finds the word with the least lettters
+
+      seven_letters = tied_words.find { |word| word.length == 7}
+      # tried to find the word with 7 letters from tied_words array
+
+      tied_words.each do |word|
+        if word.length == 7
+          seven_letters
+        elsif word.length < 7
+          return minimum_words
+        end
+      end
     end
-
-
 
   end
 

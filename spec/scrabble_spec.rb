@@ -43,8 +43,16 @@ describe "Letters & Scores" do
     expect(Scrabble::Scrabble.highest_score_from(["dog", "apple"])).to eq("apple")
   end
 
-  it "break a tie with the winner using fewer tiles" do
+  it "checks to see if input is a valid character"
+    expect(Scrabble::Scrabble.score("2")).to eq("Enter a valid word")
+  end
+
+  it "breaks a tie with the winner using fewer tiles" do
     expect(Scrabble::Scrabble.highest_score_from(["kk", "z"])).to eq("z")
+  end
+
+  it "breaks a tie with the winner having 7 tiles over fewer" do
+    expect(Scrabble::Scrabble.highest_score_from(["z", "aaaaddd"])).to eq("aaaaddd")
   end
 
 end
