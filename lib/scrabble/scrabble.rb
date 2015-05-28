@@ -15,20 +15,20 @@ module Scrabble
       word.upcase!  # done so I don't need to .upcase every time
 
       word_array = word.split(//)  # breaks word into an array of letters
-      score = 0
+      points = 0
 
       # Adds respective value to score if letter is included in the constant.
       word_array.each do |letter|
-        score += 1 if ONE_POINT.include?(letter)
-        score += 2 if TWO_POINTS.include?(letter)
-        score += 3 if THREE_POINTS.include?(letter)
-        score += 4 if FOUR_POINTS.include?(letter)
-        score += 5 if FIVE_POINTS.include?(letter)
-        score += 8 if EIGHT_POINTS.include?(letter)
-        score += 10 if TEN_POINTS.include?(letter)
+        points += 1 if ONE_POINT.include?(letter)
+        points += 2 if TWO_POINTS.include?(letter)
+        points += 3 if THREE_POINTS.include?(letter)
+        points += 4 if FOUR_POINTS.include?(letter)
+        points += 5 if FIVE_POINTS.include?(letter)
+        points += 8 if EIGHT_POINTS.include?(letter)
+        points += 10 if TEN_POINTS.include?(letter)
       end
 
-      return score
+      return points
     end
 
     # RETURNS THE WORD IN THE ARRAY WITH THE HIGHEST SCORE
