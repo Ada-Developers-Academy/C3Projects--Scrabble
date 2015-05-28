@@ -52,8 +52,8 @@ describe 'Scrabble::Scrabble.highest_score_from' do
       expect(Scrabble::Scrabble.match_scores_and_words(["ax", "play", "quick","hafiz", "jeez"])).to eq(["9 : ax", "9 : play", "20 : quick", "20 : hafiz", "20 : jeez"])
     end
 
-    it "Displays the winning word" do
-      expect(Scrabble::Scrabble.top_word(["ax", "play", "quick", "hafiz", "jeez"])).to eq("hafiz")
+    it "Displays the winning word without ties" do
+      expect(Scrabble::Scrabble.top_word(["ax", "play", "quick"])).to eq("quick")
     end
   end
 
