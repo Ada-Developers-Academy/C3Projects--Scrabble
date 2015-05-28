@@ -1,33 +1,32 @@
-require './lib/scrabble/player-class.rb'
+require './lib/scrabble.rb'
 
-describe "initialize(name)" do
-  it "creates a new instance of the player class with the name 'Harry'" do
-    expect(Scrabble::Player.new("Harry").class).to be(Player)
+describe "Player" do
+  player = Scrabble::Player.new("Harry")
+
+  describe "initialize(name)" do
+    it "returns the name, #name" do
+      expect(player.name).to eq("Harry")
+    end
+
+    it "returns an array of the played words, #plays" do
+      expect(player.plays.class).to be(Array)
+    end
   end
-end
 
-describe "#name" do
-  it "returns the instance variable, name" do
-    player = Scrabble::Player.new("Harry")
-    expect(player.name).to eq("Harry")
-  end
-end
-
-describe "#plays" do
-  it "returns an array of the played words" do
-    player = Scrabble::Player.new("Harry")
-    expect(player.plays.class).to be(Array)
-  end
-end
-
-describe "#play(word)" do
-  it "adds the newly played word to the play array" do
-    player = Scrabble::Player.new("Harry")
+  describe "playing Scrabble" do
     player.play("hello")
-    expect(player.plays).to eq(["hello"])
+    player.play("big")
+
+    it "adds the newly played word to the play array, #play(word)" do
+      expect(player.plays).to eq(["hello", "big"])
+    end
+
+    it "totals the score of all the words played, #total_score" do
+      expect(player.total_score).to eq(14)
+    end
   end
 
-  # it "returns false if the player has won" do
-  #   expect(player.play(""))
-  # end
+  describe "winning" do
+    
+  end
 end
