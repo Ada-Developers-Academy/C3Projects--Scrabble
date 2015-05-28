@@ -73,22 +73,31 @@ describe "Player behavior" do
 		end
 		
 		# tile tests
-		context "player is drawing tiles" do
+		context "about drawing tiles" do
 			let(:tilebag) { Scrabble::TileBag.new}
 
-			before(:each) do
-				player.draw_tiles(tilebag)
-			end
-
-			it "has #tiles" do
-				expect(player.tiles.length).to eq(7)
+			it "starts with no tiles" do
+				expect(player.tiles.length).to eq(0)
 			end
 
 			it "can draw tiles from tile bag" do
 				expect(player.draw_tiles(tilebag)).to_not be_nil
 			end
 
-			## test for if 7 tiles already
+			context "player has drawn tiles" do
+				
+				before(:each) do
+					player.draw_tiles(tilebag)
+				end
+
+				it "now has 7 tiles" do
+					expect(player.tiles.length).to eq(7)
+				end
+				## test for if 7 tiles already
+				it "can't draw more than seven tiles" do
+					expect(player.draw_tiles(tilebag)).to eq("You already have 7 tiles")
+				end
+			end
 		end
 	end
 end
