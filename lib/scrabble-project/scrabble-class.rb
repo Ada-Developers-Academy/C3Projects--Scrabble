@@ -15,13 +15,6 @@ module Scrabble
 
     LETTERS = ("a".."z").to_a
 
-    # attr_accessor :score, :word_array
-    #
-    # def initialize
-    #   @score = 0
-    #   @word_array = []
-    # end
-
     def self.get_points(word_array)
       # set initial value of score
       score = 0
