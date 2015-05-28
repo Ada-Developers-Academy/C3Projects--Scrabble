@@ -37,7 +37,7 @@ module Scrabble
 
       # If one has 7 characters, it wins
       seven_chars = check_for_7_chars(array_of_words, tied_grouped_by_length)
-      return seven_chars if seven_chars
+      return seven_chars if seven_chars # nil is falsey
 
       # Otherwise, find shortest word
       least_chars = find_shortest(array_of_words, tied_grouped_by_length)
@@ -47,16 +47,15 @@ module Scrabble
 
     def self.check_for_7_chars(original_words, tied_words)
       if tied_words[7] # there are words with 7 characters
-        return determine_win_if_7_tiles(original_words, tied_words[7])
+        tied_words = tied_words[7]
+
+        if tied_words.length == 1 # there's no tie, return word
+          return tied_words[0]
+        else # there's a tie, return the 7-tile word that shows up first in the original array of words
+          return Scrabble.find_first_in_original(original_words, tied_words)
+        end
       end
-    end
-
-    def self.determine_win_if_7_tiles(original_words, seven_char_top_words)
-      # if there's no tie, return word
-      return seven_char_top_words[0] if seven_char_top_words.length == 1
-
-      # if there's a tie, return the 7-tile word that shows up first in the original array of words
-      return Scrabble.find_first_in_original(original_words, seven_char_top_words)
+      # if there are no 7-char words, it returns nil.
     end
 
     def self.find_shortest(original_words, tied_words)
@@ -66,16 +65,15 @@ module Scrabble
       if shortest_tied_words.length == 1 # if true, there is only one shortest word. No ties.
         return shortest_tied_words[0]
       else # there are ties for shortest word with highest score
-        # return the word that shows up first
         return Scrabble.find_first_in_original(original_words, shortest_tied_words)
       end
 
     end
 
     def self.find_first_in_original(original_words, tied_words)
-      original_words.each do |word|  # loop through original array....
-        tied_words.each do |top_word|         # and compare each word to the list of ties....
-          return word if top_word == word     # and if the original array word matches a tie, return the that word.
+      original_words.each do |word|       # loop through original array....
+        tied_words.each do |top_word|     # and compare each word to the list of ties....
+          return word if top_word == word # and if the original array word matches a tie, return the that word.
         end
       end
     end
