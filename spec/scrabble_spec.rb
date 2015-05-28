@@ -49,6 +49,9 @@ describe "picks the word with the highest score from a list" do
 		expect(Scrabble::Scrabble.highest_score_from(["c!at", "bane", "pane"])).to eq("ERROR -- invalid word in input")
 	end
 
+	it "picks the first word in a tie" do
+	end
+
 end
 
 describe "validate user input" do
