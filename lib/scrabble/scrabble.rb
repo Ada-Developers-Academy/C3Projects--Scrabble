@@ -105,33 +105,10 @@ module Scrabble
 	  		high_score_pairs 		= Scrabble.high_scores(all_score_word_pairs)
 
 		  	# pick a seven-letter word in case of a tie
-		  	top_word = Scrabble.seven_letter_word(high_score_pairs)
+		  	top_word 				= Scrabble.seven_letter_word(high_score_pairs)
 	  		return top_word if top_word
 		  	# else pick the shortest word
 		  	Scrabble.highest_word(high_score_pairs)
 	  	end
-
-	  	# def self.highest_score_from(array_of_words)
-		  # 	all_scores = []
-		  # 	array_of_words.each do |word|
-		  # 		# guard clause for invalid word in array
-		  # 		return "ERROR -- invalid word in input" unless Scrabble.valid_input?(word)
-
-		  # 		all_scores << [Scrabble.score(word), word]
-		  # 	end
-
-		  # 	# find the set of words with the highest score
-		  # 	high_scores = all_scores.find_all { |score, word| score == all_scores.max[0] }
-
-		  # 	# pick a seven-letter word in case of a tie
-		  # 	seven_letter_word = high_scores.find { |score, word| word.length == 7 }
-		  # 	if seven_letter_word
-		  # 			return seven_letter_word.last
-		  # 	# pick the shortest word
-		  # 	else
-		  # 		highest_word = high_scores.min_by { |score, word| word.length }
-		  # 		highest_word.last
-		  # 	end
-	  	# end
 	end
 end
