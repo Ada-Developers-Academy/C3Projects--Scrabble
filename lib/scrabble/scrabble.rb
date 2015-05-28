@@ -11,8 +11,33 @@ module Scrabble
 
     # .score(word): returns the total score value for the given word [breakfast]
     def self.score(word) # word is input as a string (case insensitive)
-      letters = word.downcase.chars
+      letters = Scrabble.convert_input(word)
       letters.inject(0){ |sum, letter| sum + VALUES[letter.to_sym] }
+    end
+
+    # returns the word as an array of lowercase letters, if input is acceptable
+    def self.convert_input(word)
+      Scrabble.acceptable_input_check(word)
+      word.downcase.chars
+    end
+
+    # checks word for not-allowed content. If contains, prompts for new input until accepted.
+    def self.acceptable_input_check(word)
+      # checks for nil, special characters. NOTE: '' is treated as zero, and is an accepted input.
+      status = (
+      if word.is_a?(String) # checks for nil input, arrays, integers (not in a string), etc.
+        word.chars.each do |letter|
+          return false unless ('a'..'z').include?(letter) || ('A'..'Z').include?(letter) #.downcase doesn't work on integers
+        end
+        word.length <= 7
+      end
+      )
+
+      unless status
+        puts "You entered #{word}. This is not accepted input. Please choose a new word (letters only)."
+        new_word = $stdin.gets.chomp # TODO: will need to be re-written when query methods / error message needs change. # Specs written to not prompt in terminal for new input :)
+        status = self.acceptable_input_check(new_word)
+      end
     end
 
     # .highest_score_from(array_of_words): returns the word in the array with the highest score [breakfast]

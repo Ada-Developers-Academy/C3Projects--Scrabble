@@ -1,5 +1,41 @@
 describe Scrabble::Scrabble do
 
+  describe '.convert_input(word)' do
+    it 'converts word into an array of lowercase letters' do
+      expect(Scrabble::Scrabble.convert_input("CaTs")).to eq(["c","a","t","s"])
+    end
+  end
+
+  describe ".acceptable_input_check" do
+    before do
+      $stdin = StringIO.new("cat\n")
+    end
+
+    after do
+      $stdin = STDIN
+    end
+
+    it "does not accept nil" do
+      expect(Scrabble::Scrabble.acceptable_input_check(nil)).to eq(nil)
+    end
+
+    it "does not accept words > 7 letters long" do
+      expect(Scrabble::Scrabble.acceptable_input_check('qwertyui')).to eq(nil)
+    end
+
+    it "does not accept 9" do
+      expect(Scrabble::Scrabble.acceptable_input_check(9)).to eq(nil)
+    end
+
+    it "does not accept 'g9ph'" do
+      expect(Scrabble::Scrabble.acceptable_input_check('g9ph')).to eq(false)
+    end
+
+    it "does not accept []" do
+      expect(Scrabble::Scrabble.acceptable_input_check([])).to eq(nil)
+    end
+  end
+
   describe 'indirectly-tested class methods are defined' do
     METHOD_LIST = [:handle_ties, :find_first_in_original]
     METHOD_LIST.each do |method_name|
