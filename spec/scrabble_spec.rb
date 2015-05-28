@@ -12,13 +12,13 @@ describe Scrabble do
       expect(Scrabble::Scrabble.score("")).to eq("Error")
     end
 
-    # it "returns Error if the word has numbers in it" do
-    #   expect(Scrabble::Scrabble.score("app3le")).to eq("Error")
-    # end
-    #
-    # it "returns Error if the word contains special characters" do
-    #   expect(Scrabble::Scrabble.score("ap@le")).to eq("Error")
-    # end
+    it "returns Error if the word has numbers in it" do
+      expect(Scrabble::Scrabble.score("app3le")).to eq("Error")
+    end
+
+    it "returns Error if the word contains special characters" do
+      expect(Scrabble::Scrabble.score("ap@le")).to eq("Error")
+    end
 
     # it "returns 1 for a" do
     #   expect(Scrabble::Scrabble.score("a")).to eq(1)
@@ -33,7 +33,7 @@ describe Scrabble do
       ["ab", 4],
       ["apple", 9],
       ["A", 1],
-      ["BANANA", 8]
+      ["BAnaNA", 8]
     ].each do |word, score|
       it "returns #{score} for #{word}" do
         expect(Scrabble::Scrabble.score(word)).to eq(score)
