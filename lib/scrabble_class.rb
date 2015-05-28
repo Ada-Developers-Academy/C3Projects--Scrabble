@@ -13,22 +13,36 @@ module Scrabble
 
     def self.score(word)
       total_points = 0
+      # check to see that the input is actually a string (not nil or a number)
       raise ArgumentError.new "You can only use strings" unless word.class == String
 
+      # check that the string only contains valid English letters, no numbers or symbols
       word_array = word.chars.map { |each| each.downcase}
       raise ArgumentError.new "You can only use standard English letters" unless word_array.all? { |letter| SCORE[letter] }
 
+      #assigning a point value
       word_array.each do |letter|
         points = SCORE[letter]
         total_points += points
-        puts points
+        # puts points
       end
       return total_points
     end
 
 
     def self.highest_score_from(array_of_words)
+    equal_words = []
+    words_hash = Hash[array_of_words.map {|word, total_points| [word, self.score(word)]}]
+    max_quantity = words_hash.values.max
+    max_words = words_hash.select {|k, v| v == max_quantity}.keys
+      if max_words.length == 1
+        return max_words[0]
+      else
+        return max_words
+      end
     end
+
+
 
 
   end
