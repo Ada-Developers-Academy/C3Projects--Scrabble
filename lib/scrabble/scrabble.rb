@@ -27,47 +27,62 @@ module Scrabble
   # If the there are multiple words that are the same score and same length, pick the first one in supplied list
     def self.highest_score_from(array_of_words)
       score_check = array_of_words.group_by { |word| Scrabble.score(word) }
-      top_words_by_score = score_check[score_check.keys.max] # returns an array of word(s) that have the max score
+      top_words = score_check[score_check.keys.max] # returns an array of word(s) that have the max score
 
-      # If there are no ties, return the top word
-      return top_words_by_score[0] if top_words_by_score.length == 1
-
-      # Handle ties
-      tied_grouped_by_length = top_words_by_score.group_by { |words| words.length }
-
-      # If one has 7 characters, it wins
-      seven_chars = check_for_7_chars(array_of_words, tied_grouped_by_length)
-      return seven_chars if seven_chars # nil is falsey
-
-      # Otherwise, find shortest word
-      least_chars = find_shortest(array_of_words, tied_grouped_by_length)
-      return least_chars
-
-    end
-
-    def self.check_for_7_chars(original_words, tied_words)
-      if tied_words[7] # there are words with 7 characters
-        tied_words = tied_words[7]
-
-        if tied_words.length == 1 # there's no tie, return word
-          return tied_words[0]
-        else # there's a tie, return the 7-tile word that shows up first in the original array of words
-          return Scrabble.find_first_in_original(original_words, tied_words)
-        end
+      # if there are no ties, return the top word
+      if top_words.length == 1
+        top_words[0]
+      else # handle ties
+        Scrabble.handle_ties(array_of_words, top_words)
       end
-      # if there are no 7-char words, it returns nil.
     end
 
-    def self.find_shortest(original_words, tied_words)
+    def self.handle_ties(original_words, tied_words)
+      tied_words_grouped_by_length = tied_words.group_by { |words| words.length }
+
+      if Scrabble.seven_chars?(tied_words_grouped_by_length) # If one has 7 characters, it wins
+        tied_words = tied_words[7]
+        Scrabble.find_7_chars_winner(original_words, tied_words)
+      else # Otherwise, find shortest word
+        Scrabble.find_shortest_winner(original_words, tied_words_grouped_by_length)
+      end
+    end
+
+    # returns true if there's a word with 7 chars
+    def self.seven_chars?(tied_words)
+      if tied_words[7] != nil # could be re-written as return true if tied_words[7] != nil
+        true
+      else
+        false
+      end
+    end
+
+    # CURRENTLY UNUSED
+    def self.tied?(tied_words)
+      if tied_words.length == 1 # could be re-written as return true if tied_words.length != 1
+        false
+      else
+        true
+      end
+    end
+
+    def self.find_7_chars_winner(original_words, tied_words) ## shift this into .handle_ties??
+      if tied_words.length == 1 # there's no tie, return word
+        tied_words[0]
+      else # there's a tie, return the 7-tile word that shows up first in the original array of words
+        Scrabble.find_first_in_original(original_words, tied_words)
+      end
+    end
+
+    def self.find_shortest_winner(original_words, tied_words) ## shift this into .handle_ties??
       shortest_word_length = tied_words.keys.min
       shortest_tied_words = tied_words[shortest_word_length]
 
       if shortest_tied_words.length == 1 # if true, there is only one shortest word. No ties.
-        return shortest_tied_words[0]
+        shortest_tied_words[0]
       else # there are ties for shortest word with highest score
-        return Scrabble.find_first_in_original(original_words, shortest_tied_words)
+        Scrabble.find_first_in_original(original_words, shortest_tied_words)
       end
-
     end
 
     def self.find_first_in_original(original_words, tied_words)

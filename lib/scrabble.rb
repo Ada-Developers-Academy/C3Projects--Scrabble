@@ -9,7 +9,7 @@ module Scrabble
 
   # puts Scrabble.highest_score_from(['michael', 'zy', 'zoog', 'zoo', 'yellow', 'jest'].shuffle)
   # puts Scrabble.highest_score_from(['michael', 'jesters', 'zy', 'zoog', 'zoo', 'yellow', 'jest'])
-  puts Scrabble.highest_score_from(['zy', 'zoog', 'jest', 'home', 'first', 'seven', 'doll', 'all'])
+  # puts Scrabble.highest_score_from(['zy', 'zoog', 'jest', 'home', 'first', 'seven', 'doll', 'all'])
   # puts Scrabble.score('zoog')
   # ARRAY = ['pi', 'goo', 'pi']
   # puts Scrabble.highest_score_from(ARRAY)
