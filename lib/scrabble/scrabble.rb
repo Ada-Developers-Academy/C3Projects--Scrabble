@@ -11,13 +11,13 @@ module Scrabble
 
     # .score(word): returns the total score value for the given word [breakfast]
     def self.score(word) # word is input as a string (case insensitive)
-      letters = Scrabble.convert_input(word)
+      letters = convert_input(word)
       letters.inject(0){ |sum, letter| sum + VALUES[letter.to_sym] }
     end
 
     # returns the word as an array of lowercase letters, if input is acceptable
     def self.convert_input(word)
-      Scrabble.acceptable_input_check(word)
+      acceptable_input_check(word)
       word.downcase.chars
     end
 
@@ -42,14 +42,14 @@ module Scrabble
 
     # .highest_score_from(array_of_words): returns the word in the array with the highest score [breakfast]
     def self.highest_score_from(array_of_words)
-      score_check = array_of_words.group_by { |word| Scrabble.score(word) }
+      score_check = array_of_words.group_by { |word| score(word) }
       top_words = score_check[score_check.keys.max] # returns an array of word(s) that have the max score
 
       # if there are no ties, return the top word
       if top_words.length == 1
         top_words[0]
       else # handle ties
-        Scrabble.handle_ties(array_of_words, top_words)
+        handle_ties(array_of_words, top_words)
       end
     end
 
@@ -64,7 +64,7 @@ module Scrabble
         if tied_7_char_words.length == 1 # if true, there's only one 7-character word
           tied_7_char_words[0]
         else # there's a tie
-          Scrabble.find_first_in_original(original_words, tied_7_char_words)
+          find_first_in_original(original_words, tied_7_char_words)
         end
 
       # [breakfast]: Note that it’s better to use fewer tiles, so if the top score is tied between multiple words, pick the one with the fewest letters.
@@ -74,7 +74,7 @@ module Scrabble
         if shortest_tied_words.length == 1 # if true, there is only one shortest word
           shortest_tied_words[0]
         else # there are ties for shortest word with highest score
-          Scrabble.find_first_in_original(original_words, shortest_tied_words)
+          find_first_in_original(original_words, shortest_tied_words)
         end
       end
     end
