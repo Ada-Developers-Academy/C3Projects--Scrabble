@@ -34,7 +34,7 @@ module Scrabble
       end
     end
 
-    # chooses winning word if there's a tie for highest-scoring [helper for .highest_score_from]
+    # chooses winning word if there's a tie for highest-scoring
     def self.handle_ties(original_words, top_words)
       grouped_ties = top_words.group_by { |words| words.length }
 
@@ -42,9 +42,9 @@ module Scrabble
       if grouped_ties[7] != nil # does >= 1 word have 7 characters?
         tied_7_char_words = grouped_ties[7]
 
-        if tied_7_char_words.length == 1 # there's no tie, return word
+        if tied_7_char_words.length == 1 # if true, there's only one 7-character word
           tied_7_char_words[0]
-        else # there's a tie, return the 7-tile word that shows up first in the original array of words
+        else # there's a tie
           Scrabble.find_first_in_original(original_words, tied_7_char_words)
         end
 
@@ -52,7 +52,7 @@ module Scrabble
       else
         shortest_tied_words = grouped_ties[ grouped_ties.keys.min ]
 
-        if shortest_tied_words.length == 1 # if true, there is only one shortest word. No ties.
+        if shortest_tied_words.length == 1 # if true, there is only one shortest word
           shortest_tied_words[0]
         else # there are ties for shortest word with highest score
           Scrabble.find_first_in_original(original_words, shortest_tied_words)

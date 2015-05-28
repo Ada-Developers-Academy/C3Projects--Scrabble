@@ -1,6 +1,6 @@
 describe Scrabble::Scrabble do
 
-  describe 'class methods are defined' do
+  describe 'indirectly-tested class methods are defined' do
     METHOD_LIST = [:handle_ties, :find_first_in_original]
     METHOD_LIST.each do |method_name|
       it "responds to .#{method_name}" do
@@ -10,7 +10,7 @@ describe Scrabble::Scrabble do
   end
 
   describe '.score(word)' do
-    it "returns 9 for `.score('play')`" do
+    it "returns 9 for 'play'" do
       expect(Scrabble::Scrabble.score('play')).to eq(9)
     end
 
@@ -39,27 +39,25 @@ describe Scrabble::Scrabble do
       expect(Scrabble::Scrabble.highest_score_from(['zz', 'aa', 'cat', 'dog'].shuffle)).to eq('zz')
     end
 
-#?? context: when words tie ??
+    context "when words tie" do
+      it "selects the word with 7 characters" do
+        expect(Scrabble::Scrabble.highest_score_from(['michael', 'zy', 'zoog', 'zoo', 'yellow', 'jest'].shuffle)).to eq('michael')
+      end
 
-    it "when words tie, selects the word with 7 characters" do
-      expect(Scrabble::Scrabble.highest_score_from(['michael', 'zy', 'zoog', 'zoo', 'yellow', 'jest'].shuffle)).to eq('michael')
+      it "selects the word with fewer characters (if neither has 7 chars)" do
+        expect(Scrabble::Scrabble.highest_score_from(['zy', 'zoog', 'jest', 'home', 'first', 'seven', 'doll', 'all'].shuffle)).to eq('zy')
+      end
     end
 
-    it "when two 7-tile words tie, select word shown first in the array" do
-      expect(Scrabble::Scrabble.highest_score_from(['zoo', 'michael', 'yellow', 'jesters', 'jest', 'zy', 'zoog'])).to eq('michael')
-    end
+    context "when words of same length tie" do
+      it "select word shown first in the array (7-char words)" do
+        expect(Scrabble::Scrabble.highest_score_from(['zoo', 'michael', 'yellow', 'jesters', 'jest', 'zy', 'zoog'])).to eq('michael')
+      end
 
-    it "when words tie, selects the word with fewer characters" do
-      expect(Scrabble::Scrabble.highest_score_from(['zy', 'zoog', 'jest', 'home', 'first', 'seven', 'doll', 'all'].shuffle)).to eq('zy')
+      it "select word shown first in the array (<7-char words)" do
+        expect(Scrabble::Scrabble.highest_score_from(['all', 'first', 'doll', 'seven'])).to eq('first')
+      end
     end
-
-    it "when two <7-tile words tie and are same length, select word shown first in the array" do
-      expect(Scrabble::Scrabble.highest_score_from(['all', 'first', 'doll', 'seven'])).to eq('first')
-    end
-
   end
-
-  # describe '.seven_chars?()' do
-  # end
 
 end
