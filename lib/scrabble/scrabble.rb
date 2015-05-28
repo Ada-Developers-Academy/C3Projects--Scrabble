@@ -35,9 +35,12 @@ module Scrabble
 
     def self.score(word)
 
-      # VALIDATION GOES HERE
+      stripped_word = word.gsub(/\W+/, '')
+      word_tiles = stripped_word.upcase.split(//)
+      if word_tiles.length > 7
+        return nil
+      end
 
-      word_tiles = word.upcase.split(//)
       scores = []
       word_tiles.each do |letter|
         if TILE_VALUES.has_key?(letter)
@@ -54,8 +57,6 @@ module Scrabble
       best_word = ""
 
       array_of_words.each do |word|
-
-        # VALIDATION GOES HERE
 
         self.score(word)
 
