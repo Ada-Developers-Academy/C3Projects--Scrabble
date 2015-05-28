@@ -40,6 +40,15 @@ describe Scrabble::Scrabble do
     it "raises an ArgumentError if parameter is not a string"  do
       expect {Scrabble::Scrabble.score(nil)}.to raise_error(ArgumentError)
     end
+
+    it "raises an ArgumentError if string is longer than 7 letters"  do
+      expect {Scrabble::Scrabble.score("argumentative")}.to raise_error(ArgumentError)
+    end
+
+    it "raises an ArgumentError if string is shorter than 1 letters"  do
+      expect {Scrabble::Scrabble.score("")}.to raise_error(ArgumentError)
+    end
+
   end
 
 
