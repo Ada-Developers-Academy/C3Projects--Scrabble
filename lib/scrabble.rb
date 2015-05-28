@@ -1,4 +1,4 @@
-module Scrabble #require your gems and classes here # require_relative 'scrabble/whatevs'
+module Scrabble ##require your gems and classes here # require_relative 'scrabble/whatevs'
 
   SCOREBOARD = {
     "A" => 1,
@@ -37,22 +37,31 @@ module Scrabble #require your gems and classes here # require_relative 'scrabble
 
     def self.score(word)
 
-      score_array = [] # empty array to iterate through each letter of the split word
+      # empty array to iterate through each letter of the split word
+      score_array = []
 
-      split_letter_array = letters_in_word(word) #assign word.split array to variable
-      split_letter_array.each do |letter| #for each letter in the array of individual letters,
-        score_array.push(SCOREBOARD[letter.upcase]) #push the matching letters from SCOREBOARD to score array
+      #assign split word array to a variable
+      split_letter_array = letters_in_word(word)
+
+      #for each letter in the array of individual letters, I pushed the matching letters from SCOREBOARD to score_array
+      #SCOREBOARD[letter.upcase] gives me the score value from my SCOREBOARD hash
+      split_letter_array.each do |letter|
+        score_array.push(SCOREBOARD[letter.upcase])
       end
 
-      sum = 0 #start sum to be at 0
+
+      sum = 0
+      # for each letter
       score_array.each do |score|
-        sum += score #adds all the letter scores together
+        sum += score.to_i #adds all the letter scores together
       end
+      #returns the sum/score of all letters
       return sum
     end
 
     def self.highest_score_from(array_of_words)
 
+      #picks highest scoring words from array_of_words
       highest_score = array_of_words.max_by { |word| score(word) }
       #picks highest scoring words from array_of_words
 
@@ -69,8 +78,9 @@ module Scrabble #require your gems and classes here # require_relative 'scrabble
         if word.length == 7
           seven_letters
         elsif word.length < 7
-          return minimum_words
+          minimum_words
         end
+        return seven_letters || minimum_words
       end
     end
 
