@@ -49,7 +49,7 @@ describe "Letters & Scores" do
   end
 
   it "gets the highest score from array of words" do
-    expect(Scrabble::Scrabble.highest_score_from(["z", "kk", "apple"])).to eq("z")
+    expect(Scrabble::Scrabble.highest_score_from(["dog", "apple"])).to eq("apple")
   end
 
   it "gets the shorter word in a tie" do
@@ -66,6 +66,18 @@ describe "Letters & Scores" do
 
   it "picks the first word when length and score are the same, even when they're 7 letter words" do
     expect(Scrabble::Scrabble.highest_score_from(["letters", "lettere", "lllllll"])).to eq("letters")
+  end
+
+  it "it puts an error when a word contains invalid characters" do
+    expect(Scrabble::Scrabble.score("")).to eq("Must pick a letter!")
+  end
+
+  it "it puts an error when a word contains numbers" do
+    expect(Scrabble::Scrabble.score("1")).to eq("Must pick a letter!")
+  end
+
+  it "it doesn't give a score if array_of_words is empty" do
+    expect(Scrabble::Scrabble.highest_score_from([])).to eq([])
   end
 
 end
