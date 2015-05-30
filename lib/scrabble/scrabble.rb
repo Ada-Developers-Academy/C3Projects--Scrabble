@@ -29,30 +29,13 @@ module Scrabble
      score_to_word_hash = word_value_pairs.group_by { |pairs| pairs[0] }
      highest_words = score_to_word_hash.max_by{|score, pair| score}
      highest_words.flatten!.keep_if{|element| element.class == String}
-     # INCORPORATE SHORTEST WORD and 7 LETTER MAX------------------
-      length_pairs = []
-      highest_words.sort_by do |word|
-        length = word.length
-        length_pairs << [length, word]
-         end
-         hash = length_pairs.group_by {|array| array[0]}
-         if (hash.max_by{|length, word| length}).include?(7)
-           return (hash[7]).flatten![1]
-         else
-           array = hash.to_a.sort.keep_if{|element| element.class == Array}
-           array.flatten!.keep_if{|element| element.class == String}
-           return array[0]
-         end
-     # INITIAL FUNCTIONING 7 LETTER RETURN --------------
-      # highest_words.each do |word|
-          # if word.length == 7
-            # return word
-          # end
-        # end
-      # return highest_words[0]
+     shortest, longest = highest_words.minmax_by {|word| word.length}
+     if longest.length == 7
+       return longest
+     else
+       return shortest
+     end
    end
-
-
 
     def self.letter_to_point(letter)
       CONVERSIONS.find do |point, letter_array|
