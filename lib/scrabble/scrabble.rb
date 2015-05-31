@@ -67,8 +67,9 @@ module Scrabble
     # scores single letter to point
     def self.letter_to_point(letter)
       CONVERSIONS.find do |point, letter_array|
-        letter_array.include?(letter.upcase)
+        if letter_array.include?(letter.upcase)
           return point
+        end
       end
     end
 
