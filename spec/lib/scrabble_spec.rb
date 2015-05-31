@@ -39,6 +39,12 @@ describe Scrabble::Scrabble do
    it "returns 4 points for letter 'W'" do
      expect(Scrabble::Scrabble.letter_to_point("W")).to eq(4)
    end
+  end
 
+  context "invalid input" do
+
+    it "returns 'INVALID INPUT' for blank space" do
+      expect(Scrabble::Scrabble.score(" ")).to eq("INVALID INPUT")
+    end
   end
 end
