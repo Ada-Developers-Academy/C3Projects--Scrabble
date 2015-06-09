@@ -21,7 +21,6 @@ describe Scrabble::Scrabble do
         expect(Scrabble::Scrabble.score(invalid_input)).to eq("ERROR: Invalid input. Either your word has more that 7 letters or you entered something ridiculous. You only have 7 tiles, and Scrabble uses WORDS!")
         end
       end
-
     end
 
     [
@@ -53,7 +52,10 @@ describe Scrabble::Scrabble do
 
     context "tie for highest score, none are 7 letters long" do
       it "returns shortest word" do
-        expect(Scrabble::Scrabble.highest_score_from(["dog", "cat", "hi"])).to eq("hi")
+        expect(Scrabble::Scrabble.highest_score_from(["dog", "cat", "hi"].shuffle)).to eq("hi")
+      end
+      it "returns shortest word" do
+        expect(Scrabble::Scrabble.highest_score_from(["pasta", "koi", "letter"].shuffle)).to eq("koi")
       end
     end
 
@@ -65,7 +67,13 @@ describe Scrabble::Scrabble do
 
     context "tie for highest score, one is 7 letters long" do
       it "returns 7-letter word with highest score" do
-        expect(Scrabble::Scrabble.highest_score_from(["q", "mob", "tastier", "kg", "cat", "hi"])).to eq("tastier")
+        expect(Scrabble::Scrabble.highest_score_from(["q", "mob", "tastier", "kg", "cat", "hi"].shuffle)).to eq("tastier")
+      end
+    end
+
+    context "tie for highest score, more than one is 7 letters long" do
+      it "returns the first 7-letter word" do
+        expect(Scrabble::Scrabble.highest_score_from(["pasta", "letters", "tastier", "koi"])).to eq("letters")
       end
     end
 

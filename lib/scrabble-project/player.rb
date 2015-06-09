@@ -13,10 +13,9 @@ module Scrabble
 
     def play(word)
       @plays.push(word)
-      return @plays
     end
 
-    def total_score     # This method doesn't work! I got as far as making it, but not as far as making it work. 
+    def total_score     # This method doesn't work! I got as far as making it, but not as far as making it work.
       @plays.each do |word|
       @total_score += (Scrabble::Scrabble.score(word))
       end

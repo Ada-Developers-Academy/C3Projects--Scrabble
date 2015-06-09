@@ -20,7 +20,7 @@ module Scrabble
       score = 0
 
       # convert to string, make letters lower case, & push letters to array
-      word_array = word.to_s.downcase.split("").push
+      word_array = word.downcase.chars
 
       # for each letter in word_array, check POINTS and add to total to create score
       word_array.each do |letter|
@@ -38,7 +38,7 @@ module Scrabble
     def self.valid_input?(word)
       word = word.to_s.downcase
 
-      if (word == "") || (word == nil) || (word.length > 7) || (word.split("").all? { |letter| !LETTERS.include?(letter) })
+      if (word == "") || (word == nil) || (word.length > 7) || (word.chars.all? { |letter| !LETTERS.include?(letter) })
         valid = false
       else
         valid = true
@@ -60,7 +60,8 @@ module Scrabble
 
       # score words and group by score value.
       grouped_hash = array_of_words.group_by do |word|
-          score(word) end
+        score(word)
+      end
 
       # create max_group, the words from the hash item with the max value.
       max_group = grouped_hash.max[1]
