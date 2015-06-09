@@ -2,7 +2,7 @@ require './lib/scrabble.rb'
 
 describe Scrabble do
 
-  context "Scoring words" do
+  context "Scoring words with errors" do
 
     it "returns Error if the word has too many letters" do
       expect(Scrabble::Scrabble.score("watermelon")).to eq("Error")
@@ -19,15 +19,10 @@ describe Scrabble do
     it "returns Error if the word contains special characters" do
       expect(Scrabble::Scrabble.score("ap@le")).to eq("Error")
     end
+  end
 
-    # it "returns 1 for a" do
-    #   expect(Scrabble::Scrabble.score("a")).to eq(1)
-    # end
-
-    # it "returns 4 for ap" do
-    #   expect(Scrabble::Scrabble.score("ab")).to eq(4)
-    # end
-
+  context "Scoring words" do
+    
     [
       ["a",  1],
       ["ab", 4],
