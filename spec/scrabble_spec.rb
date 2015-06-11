@@ -22,7 +22,7 @@ describe Scrabble do
   end
 
   context "Scoring words" do
-    
+
     [
       ["a",  1],
       ["ab", 4],
@@ -41,7 +41,7 @@ describe Scrabble do
     # it "returns an array of values" do
     #   expect(Scrabble::Scrabble.highest_score_from(["apple", "app", "le"])).to eq([9, 7, 2])
     # end
-
+    #
     # it "returns a hash of words and their values" do
     #   expect(Scrabble::Scrabble.highest_score_from(["apple", "app", "le"])).to eq({"apple"=>9, "app"=>7, "le"=>2})
     # end

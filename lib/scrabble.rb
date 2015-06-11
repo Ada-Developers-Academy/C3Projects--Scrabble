@@ -5,18 +5,9 @@ VALUES = {"a"=> 1, "b"=> 3, "c"=> 3, "d"=> 2, "e"=> 1, "f"=> 4, "g"=> 2, "h"=> 4
   class Scrabble
 
     def self.score(word)
-      word = word.downcase
+      word = word. downcase
 
-      if word.length > 7 || word.length < 1
-        return "Error"
-      end
-
-      word_array = word.split(//) # makes an [] with each letter as its own element
-      word_array.each do |character|
-        unless ("a".."z").include?(character)
-          return "Error"
-        end
-      end
+      return "Error" if self.validate?(word) == false
 
       word_score = 0
       word.each_char do |letter|
@@ -31,13 +22,13 @@ VALUES = {"a"=> 1, "b"=> 3, "c"=> 3, "d"=> 2, "e"=> 1, "f"=> 4, "g"=> 2, "h"=> 4
     end
 
     def self.highest_score_from(array_of_words)
-      array_of_values = []
+      hash_of_words = {}
       array_of_words.collect do |word|
         value = self.score(word)
-        array_of_values.push(value)
+        hash_of_words[word] = value
       end
       # return array_of_values
-      hash_of_words = Hash[array_of_words.zip array_of_values]#return hash_of_words with the words as the keys and their point value as the value
+      # hash_of_words = Hash[array_of_words.zip array_of_values]#return hash_of_words with the words as the keys and their point value as the value
 
       grouped_hash = hash_of_words.group_by { |key, value| value} # groups by value
       grouped_hash = grouped_hash.max[1] # makes a hash of elements with the max value
@@ -48,8 +39,24 @@ VALUES = {"a"=> 1, "b"=> 3, "c"=> 3, "d"=> 2, "e"=> 1, "f"=> 4, "g"=> 2, "h"=> 4
       if longest_key.length == 7
         return longest_key
       else
-      highest_score = grouped_hash.min_by { |key, value| key.length}[0] # the shortest key from the max value hash
+        highest_score = grouped_hash.min_by { |key, value| key.length}[0] # the shortest key from the max value hash
         return highest_score
+      end
+    end
+
+    private
+
+    def self.validate?(word)
+
+      if word.length > 7 || word.length < 1
+        return false
+      end
+
+      word_array = word.split(//) # makes an [] with each letter as its own element
+      word_array.each do |character|
+        unless ("a".."z").include?(character)
+          return false
+        end
       end
     end
 
