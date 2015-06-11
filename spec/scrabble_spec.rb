@@ -45,7 +45,7 @@ describe "Find highest score in an array" do
 
   context "if two words have the same score:" do
       it "returns word with fewer tiles" do
-       expect(Scrabble::Scrabble.highest_score_from(["ok", "dog", "win"])).to eq("ok")
+       expect(Scrabble::Scrabble.highest_score_from(["dog","ok","win"])).to eq("ok")
       end
 
       it "unless one word is 7 letters in length, in which case it returns that word" do
