@@ -27,8 +27,6 @@ VALUES = {"a"=> 1, "b"=> 3, "c"=> 3, "d"=> 2, "e"=> 1, "f"=> 4, "g"=> 2, "h"=> 4
         value = self.score(word)
         hash_of_words[word] = value
       end
-      # return array_of_values
-      # hash_of_words = Hash[array_of_words.zip array_of_values]#return hash_of_words with the words as the keys and their point value as the value
 
       grouped_hash = hash_of_words.group_by { |key, value| value} # groups by value
       grouped_hash = grouped_hash.max[1] # makes a hash of elements with the max value
