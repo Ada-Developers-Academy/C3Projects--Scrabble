@@ -22,22 +22,22 @@ module Scrabble
         if alphabet.include?(word[index])
           POINTS.each do |letter, point|
             word.each do |word_letter|
-             if word.length > 7
-              return "Please enter a valid word."
-             elsif word_letter == letter
-              score = score + point
-             end
+              if word.length > 7
+                return "Please enter a valid word."
+              elsif word_letter == letter
+                score = score + point
+              end
             end
           end
         else
           return "Please enter a valid word."
         end
-      if word.length == 7
-        score += 50
+        if word.length == 7
+          score += 50
+        end
+        return score
+        puts "You received #{score} points for #{word}."
       end
-      return score
-      puts "You received #{score} points for #{word}."
-     end
     end
 
     # Returns the word in the array with the highest score
@@ -52,7 +52,7 @@ module Scrabble
         word.length
       end
       sorted_array.max_by do |word|
-       self.score(word)
+        self.score(word)
       end
     end
 
