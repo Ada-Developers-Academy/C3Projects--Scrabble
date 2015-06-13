@@ -40,7 +40,7 @@ describe Scrabble::Scrabble do
   end
 
   describe "This method returns the word in a provided array with the highest score" do
-    
+
     context "In Scrabble, the highest score wins" do
       it "returns the word 'horse' with the highest score" do
         expect(Scrabble::Scrabble.highest_score_from(["cat", "horse"])).to eq("horse")

@@ -10,12 +10,12 @@ describe Scrabble::Player do
       end
     end
 
-  # describe "Instance Methods"
-  #   context "Player respond to call of plays method - collects words in Array" do
-  #     it "responds to :plays" do
-  #       expect(player).to respond_to :plays
-  #     end
-  #   end
+    # describe "Instance Methods"
+    #   context "Player respond to call of plays method - collects words in Array" do
+    #     it "responds to :plays" do
+    #       expect(player).to respond_to :plays
+    #     end
+    #   end
 
   end
 end
