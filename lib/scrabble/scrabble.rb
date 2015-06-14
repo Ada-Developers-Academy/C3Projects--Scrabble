@@ -10,29 +10,26 @@ module Scrabble
 		  	"y" => 4, "z" => 10
 	  	}
 
-	  	VALID_LETTERS = POINTS.keys.reduce(:+)
-
-	  	# def initialize
-	  	# end
+	  	VALID_LETTERS = POINTS.keys.join
+	  	MAX_LENGTH = 7
 
 	 	def self.process_input(word)
-	 		word_letters = word.downcase.split("")
+	 		word.downcase.chars
 	 	end
 
 
 		def self.valid_input?(word)
 	  		# guard clause for empty string or nil input
-		  	return false if word == "" || word == nil
+		  	raise ArgumentError.new("Input cannot be empty or nil.") if 
+		  		word == "" || word == nil
 
 		  	word_letters = self.process_input(word)
-		  	return false if word_letters.find { |letter| !VALID_LETTERS.include?(letter) }
-			
-		  	true
+		  	raise ArgumentError.new("Invalid input - alphabetic characters only.") if 
+		  		word_letters.find { |letter| !VALID_LETTERS.include?(letter) }
 	  	end
 
-	  	def self.check_length(word)
-		  	return false unless word.length <= 7
-		  	true
+	  	def self.validate_length(word)
+		  	raise ArgumentError.new("Word must be #{MAX_LENGTH} or fewer letters in length.") unless word.length <= MAX_LENGTH
 	  	end
 
 		def self.get_points(word)
@@ -45,10 +42,10 @@ module Scrabble
 
 	  	def self.score(word)
 		  	# guard clause for non-alphabetic user input
-	  		return "ERROR -- invalid input" unless Scrabble.valid_input?(word)
+	  		Scrabble.valid_input?(word)
 
 	  		# guard clause for word over 7 letters
-	  		return "ERROR -- too long" unless Scrabble.check_length(word)
+	  		Scrabble.validate_length(word)
 
 	  		# return score for valid word
 	  		Scrabble.get_points(word)
@@ -56,7 +53,7 @@ module Scrabble
 
 	  	def self.get_high_scores(array_of_words)
 	  		score_groups = array_of_words.group_by do |word|
-		  		return nil unless Scrabble.valid_input?(word)	  			
+		  		Scrabble.valid_input?(word)	  			
 	  			Scrabble.score(word)
 	  		end
 
@@ -65,26 +62,23 @@ module Scrabble
 	  		score_groups[top_score].flatten	# top words
 	  	end
 
-	  	def self.seven_letter_word(high_score_words)
-	  		seven_letter_word = high_score_words.find do 
-		  		|word, score| word.length == 7 
-		  	end
+	  	def self.find_seven_letter_word(array_of_words)
+	  		array_of_words.find {|word, score| word.length == MAX_LENGTH }
 	  	end
 
-	  	def self.highest_word(high_score_words)
-	  		high_score_words.min_by { |word| word.length }
+	  	def self.shortest_word(array_of_words)
+	  		array_of_words.min_by { |word| word.length }
 	  	end
 
 	  	def self.highest_score_from(array_of_words)
-	  		high_score_words	= Scrabble.get_high_scores(array_of_words)
-	  		# guard clause for invalid word in array
-	  		return "ERROR -- invalid word in input" unless high_score_words
-	  		
+	  		high_score_words = Scrabble.get_high_scores(array_of_words)
+			return high_score_words[0] if high_score_words.length == 1	  		
 		  	# pick a seven-letter word in case of a tie
-		  	top_word 			= Scrabble.seven_letter_word(high_score_words)
-	  		return top_word if top_word
+		  	seven_letter_word = Scrabble.find_seven_letter_word(high_score_words)
+		  	return seven_letter_word if seven_letter_word
+		  	# return seven_letter_word if seven_letter_word = Scrabble.find_seven_letter_word(high_score_words)
 		  	# else pick the shortest word
-		  	Scrabble.highest_word(high_score_words)
+		  	Scrabble.shortest_word(high_score_words)
 	  	end
 	end
 end

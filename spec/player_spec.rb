@@ -19,7 +19,7 @@ describe "Player behavior" do
 		end
 
 		it "returns an error if an invalid word is played" do
-			expect(player.play("appl!e")).to eq("ERROR -- invalid input")
+			expect{ player.play("appl!e") }.to raise_error(ArgumentError)
 		end
 
 		context "player has not yet won" do

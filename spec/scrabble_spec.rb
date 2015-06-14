@@ -56,7 +56,7 @@ describe "picks the word with the highest score from a list" do
 	end
 
 	it "rejects array of words if any word is invalid" do
-		expect(Scrabble::Scrabble.highest_score_from(["c!at", "bane", "pane"])).to eq("ERROR -- invalid word in input")
+		expect{ Scrabble::Scrabble.highest_score_from(["c!at", "bane", "pane"]) }.to raise_error(ArgumentError)
 	end
 
 	it "picks the first word in a tie" do
@@ -66,21 +66,14 @@ end
 
 describe "validate user input" do
 
-	[
-		["a1pple",	"ERROR -- invalid input"],
-		["a#1pple",	"ERROR -- invalid input"],
-		["ap ple", 	"ERROR -- invalid input"],
-		["",		"ERROR -- invalid input"],
-		[nil,		"ERROR -- invalid input"],
-		["apple",	9]
-	].each do |word, error|
-		it "returns #{error} when user input is #{word}" do
-			expect(Scrabble::Scrabble.score(word)).to eq(error)
+	["a1pple", "a#1pple", "ap ple", "", nil].each do |input|
+		it "raises ArgumentError when user input is #{input}" do
+			expect{ Scrabble::Scrabble.score(input) }.to raise_error(ArgumentError)
 		end
 	end
 
 	it "rejects words over 7 letters long" do
-		expect(Scrabble::Scrabble.score("elephant")).to eq("ERROR -- too long")
+		expect{ Scrabble::Scrabble.score("elephant") }.to raise_error(ArgumentError)
 	end
 
 end

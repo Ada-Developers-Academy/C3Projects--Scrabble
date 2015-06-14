@@ -11,10 +11,9 @@ module Scrabble
 		end
 
 		def play(word)
-			# guard clause for if word is invalid
-			return "ERROR -- invalid input" unless Scrabble.valid_input?(word)
+			Scrabble.valid_input?(word)
 			# guard clause for if player has already won
-			return false if won? == true
+			return false if won?
 			@plays << word
 		end
 
@@ -32,7 +31,7 @@ module Scrabble
 		end
 
 		def highest_scoring_word
-			return false if @plays == []
+			return false if @plays.empty?
 			Scrabble.highest_score_from(@plays)
 		end
 
