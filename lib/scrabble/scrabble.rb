@@ -41,13 +41,10 @@ module Scrabble
 		end
 
 	  	def self.score(word)
-		  	# guard clause for non-alphabetic user input
 	  		Scrabble.valid_input?(word)
 
-	  		# guard clause for word over 7 letters
 	  		Scrabble.validate_length(word)
 
-	  		# return score for valid word
 	  		Scrabble.get_points(word)
 	  	end
 
@@ -72,12 +69,11 @@ module Scrabble
 
 	  	def self.highest_score_from(array_of_words)
 	  		high_score_words = Scrabble.get_high_scores(array_of_words)
-			return high_score_words[0] if high_score_words.length == 1	  		
-		  	# pick a seven-letter word in case of a tie
+			return high_score_words[0] if high_score_words.length == 1
+
 		  	seven_letter_word = Scrabble.find_seven_letter_word(high_score_words)
 		  	return seven_letter_word if seven_letter_word
-		  	# return seven_letter_word if seven_letter_word = Scrabble.find_seven_letter_word(high_score_words)
-		  	# else pick the shortest word
+
 		  	Scrabble.shortest_word(high_score_words)
 	  	end
 	end
