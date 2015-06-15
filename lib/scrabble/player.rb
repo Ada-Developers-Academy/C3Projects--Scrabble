@@ -4,6 +4,8 @@ module Scrabble
 		attr_accessor :plays, :tiles
 		attr_reader :name
 
+		MAX_TILES = 7
+
 		def initialize(name)
 			@name 	= name
 			@plays 	= []
@@ -12,27 +14,22 @@ module Scrabble
 
 		def play(word)
 			Scrabble.valid_input?(word)
-			# guard clause for if player has already won
-			return false if won?
-			@plays << word
+
+			return false if won? # guard clause for if player has already won
+			plays << word
 		end
 
 		def total_score
-			total_score = 0
-			@plays.each do |word|
-				total_score += Scrabble.score(word)
-			end
-			total_score
+			plays.inject(0) { |sum, word| sum + Scrabble.score(word) }
 		end
 
 		def won?
-			return true if total_score >= 100
-			false
+			total_score >= 100
 		end
 
 		def highest_scoring_word
-			return false if @plays.empty?
-			Scrabble.highest_score_from(@plays)
+			return false if plays.empty?
+			Scrabble.highest_score_from(plays)
 		end
 
 		def highest_word_score
@@ -40,10 +37,10 @@ module Scrabble
 		end
 
 		def draw_tiles(tilebag)
-			return "You already have 7 tiles" if @tiles.length == 7
-			number_of_empty_slots = 7 - @tiles.length
+			return "You already have #{MAX_TILES} tiles" if tiles.length >= MAX_TILES
+			number_of_empty_slots = MAX_TILES - tiles.length
 			tilebag.draw_tiles(number_of_empty_slots).each do |tile|
-				@tiles.push(tile)
+				tiles << tile
 			end
 		end
 	end

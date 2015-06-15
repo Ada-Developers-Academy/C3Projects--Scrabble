@@ -35,9 +35,7 @@ module Scrabble
 		def self.get_points(word)
 		  	word_letters = Scrabble.process_input(word)
 
-		  	word_score = word_letters.inject(0) do |sum, letter|
-		  		sum + POINTS[letter]
-		  	end
+		  	word_letters.inject(0) { |sum, letter| sum + POINTS[letter] }
 		end
 
 	  	def self.score(word)
