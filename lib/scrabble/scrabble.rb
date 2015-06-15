@@ -61,7 +61,7 @@ module Scrabble
 	  		array_of_words.find {|word, score| word.length == MAX_LENGTH }
 	  	end
 
-	  	def self.shortest_word(array_of_words)
+	  	def self.get_shortest_word(array_of_words)
 	  		array_of_words.min_by { |word| word.length }
 	  	end
 
@@ -72,7 +72,7 @@ module Scrabble
 		  	seven_letter_word = Scrabble.find_seven_letter_word(high_score_words)
 		  	return seven_letter_word if seven_letter_word
 
-		  	Scrabble.shortest_word(high_score_words)
+		  	Scrabble.get_shortest_word(high_score_words)
 	  	end
 	end
 end
