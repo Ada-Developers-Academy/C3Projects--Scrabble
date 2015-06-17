@@ -10,11 +10,11 @@ describe 'Scrabble::Scrabble.score' do
 
     # Mahalo to Alice for the "zamboni" 7-letter, 20-point word!
     it "Converts the letters into scores" do
-    expect(Scrabble::Scrabble.convert_scores("zamboni")).to eq(20)
+      expect(Scrabble::Scrabble.convert_scores("zamboni")).to eq(20)
     end
 
     it "Returns the total score for the word" do
-    expect(Scrabble::Scrabble.score("ax")).to eq(9)
+      expect(Scrabble::Scrabble.score("ax")).to eq(9)
     end
 
   end
@@ -22,20 +22,20 @@ describe 'Scrabble::Scrabble.score' do
   context "Checking word edge cases" do
 
     it "Returns error with numerical entries" do
-    expect(Scrabble::Scrabble.score("4")).to eq("Numb3rs don't c0unt!")
+      expect(Scrabble::Scrabble.score("4")).to eq("Numb3rs don't c0unt!")
     end
 
     it "Returns error with weird character entries" do
-    expect(Scrabble::Scrabble.split_word("pl@y")).to eq("$top typing we!rd.")
+      expect(Scrabble::Scrabble.split_word("pl@y")).to eq("$top typing we!rd.")
     end
 
     it "Returns error with nil or empty entry" do
-    expect(Scrabble::Scrabble.score(nil)).to eq("Yeah, silence is golden. But I still need a word")
-    expect(Scrabble::Scrabble.score("")).to eq("Yeah, silence is golden. But I still need a word")
+      expect(Scrabble::Scrabble.score(nil)).to eq("Yeah, silence is golden. But I still need a word")
+      expect(Scrabble::Scrabble.score("")).to eq("Yeah, silence is golden. But I still need a word")
     end
 
     it "Returns error when word exceeds 7 letters" do
-    expect(Scrabble::Scrabble.score("sesquipedalian")).to eq("Your word exceeds 7 letters! What are you, a sesquipedalian? (I Googled it for you: noun, a person who uses big words)")
+      expect(Scrabble::Scrabble.score("sesquipedalian")).to eq("Your word exceeds 7 letters! What are you, a sesquipedalian? (I Googled it for you: noun, a person who uses big words)")
     end
 
   end

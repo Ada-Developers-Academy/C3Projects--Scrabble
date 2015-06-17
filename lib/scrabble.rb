@@ -31,7 +31,7 @@ module Scrabble
 
   class Scrabble
 
-  private
+    private
 #_______ Handling individual words _______
 
     #Turns the word into an array of letters
