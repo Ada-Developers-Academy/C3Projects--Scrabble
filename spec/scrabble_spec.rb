@@ -69,7 +69,7 @@ describe 'Scrabble::Scrabble.highest_score_from' do
     end
 
     it "Checks for seven" do
-      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "quick", "hafiz", "zamboni"])).to eq("Congrats, zamboni gives you a seven word bonus!")
+      expect(Scrabble::Scrabble.highest_score_from(["ax", "play", "quick", "hafiz", "zamboni"])).to eq("zamboni")
     end
   end
 end

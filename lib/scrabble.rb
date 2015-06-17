@@ -31,6 +31,7 @@ module Scrabble
 
   class Scrabble
 
+  private
 #_______ Handling individual words _______
 
     #Turns the word into an array of letters
@@ -39,9 +40,9 @@ module Scrabble
 
       # Guard clause for weird characters
       letters.each {|letter|
-        unless letter >= "A" && letter <= "z"
-          return "$top typing we!rd."
-        end
+      unless ("A".."z").include?(letter)
+        return "$top typing we!rd."
+      end
       }
     end
 
@@ -52,7 +53,7 @@ module Scrabble
 
       # Push corresponding scores into array
       letter_array.each do |letter|
-      tile_scores.push(SCORE_TABLE[letter])
+        tile_scores.push(SCORE_TABLE[letter])
       end
 
       # Find the sum of the score array
@@ -60,9 +61,7 @@ module Scrabble
       tile_scores.each do |score|
         sum += score
       end
-
       sum
-
     end
 
     def self.score(word)
@@ -110,7 +109,7 @@ module Scrabble
 
       # Guard clause for a seven-letter win
       if long_word[1].length == 7
-        return "Congrats, #{long_word[1]} gives you a seven word bonus!"
+        return long_word[1]
       else
         short_word[1]
       end
@@ -126,12 +125,12 @@ module Scrabble
 
     # The second breakfast requirement...finally :P
     def self.highest_score_from(array_of_words)
-    # Grab the [score : word ] array
-    words_scores = match_scores_and_words(array_of_words)
+      # Grab the [score : word ] array
+      words_scores = match_scores_and_words(array_of_words)
 
-    #Snags the top score number
-    top_score_pair = words_scores.sort[0].split(" : ")
-    top_score = top_score_pair[0]
+      #Snags the top score number
+      top_score_pair = words_scores.sort[0].split(" : ")
+      top_score = top_score_pair[0]
 
       #Edge clauses for short words and same-length words
       if words_scores.select {|pair| pair.include? top_score}
@@ -140,7 +139,7 @@ module Scrabble
       else
         # Single top-score words
         top_word(array_of_words)
-      end
-    end
-  end
-end
+      end # conditional
+    end # method
+  end # class
+end # module
