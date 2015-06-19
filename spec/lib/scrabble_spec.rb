@@ -39,12 +39,28 @@ describe Scrabble::Scrabble do
    it "returns 4 points for letter 'W'" do
      expect(Scrabble::Scrabble.letter_to_point("W")).to eq(4)
    end
+
+   it "returns shortest word for same score (not 7 letters)" do
+     expect(Scrabble::Scrabble.highest_score_from("zya", "monkey")).to eq("zya")
+   end
+
+   it "returns 7 letter word for same score" do
+     expect(Scrabble::Scrabble.highest_score_from("zya", "dddgggb", "monkey")).to eq("dddgggb")
+   end
+
+   it "returns first word for same score and same length" do
+     expect(Scrabble::Scrabble.highest_score_from("cat", "bat", "mat")).to eq("cat")
+   end
   end
 
   context "invalid input" do
 
     it "returns 'INVALID INPUT' for blank space" do
       expect(Scrabble::Scrabble.score(" ")).to eq("INVALID INPUT")
+    end
+
+    it "returns 'INVALID INPUT' for symbols" do
+      expect(Scrabble::Scrabble.score("%%")).to eq("INVALID INPUT")
     end
   end
 end
