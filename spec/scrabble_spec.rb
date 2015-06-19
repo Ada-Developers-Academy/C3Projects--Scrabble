@@ -10,7 +10,7 @@ describe 'Scrabble::Scrabble.score' do
 
     # Mahalo to Alice for the "zamboni" 7-letter, 20-point word!
     it "Converts the letters into scores" do
-      expect(Scrabble::Scrabble.convert_scores("zamboni")).to eq(20)
+      expect(Scrabble::Scrabble.score("zamboni")).to eq(20)
     end
 
     it "Returns the total score for the word" do
@@ -53,7 +53,7 @@ describe 'Scrabble::Scrabble.highest_score_from' do
     end
 
     it "Displays the winning word without ties" do
-      expect(Scrabble::Scrabble.top_word(["yo", "play", "hafiz"])).to eq("hafiz")
+      expect(Scrabble::Scrabble.highest_score_from(["yo", "play", "hafiz"])).to eq("hafiz")
     end
   end
 
