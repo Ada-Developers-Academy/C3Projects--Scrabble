@@ -1,6 +1,6 @@
 require './lib/scrabble'
 
-describe Scrabble::Scrabble do
+describe Scrabble::Scrabble.score do
 
   describe "This method returns the score of a given word" do
 
