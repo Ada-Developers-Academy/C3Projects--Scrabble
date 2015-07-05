@@ -1,6 +1,6 @@
 require './lib/scrabble/tilebag'
 
-describe "TileBag class" do
+describe Scrabble::TileBag do
 
   let(:bag) {
     x = Scrabble::TileBag.new

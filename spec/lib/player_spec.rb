@@ -1,6 +1,6 @@
 require './lib/scrabble/player'
 
-describe "Player class" do
+describe Scrabble::Player do
   let(:patricia) {
     x = Scrabble::Player.new("Patricia")
     x.play("good") # 6 pts
