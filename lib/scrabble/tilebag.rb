@@ -4,18 +4,14 @@ module Scrabble
 
 
     ## -------------------------------------------------------------------------
-    # CLASS METHODS
+    # INSTANCE METHODS
 
 
     def initialize
       create_tiles
       shuffle_tiles # yes, I do call this inside create_tiles
-                    # but who shuffles a deck just once?
+                    # but who shuffles a deck just once? >_>
     end
-
-
-    ## -------------------------------------------------------------------------
-    # INSTANCE METHODS
 
 
     def draw_tiles(number)
