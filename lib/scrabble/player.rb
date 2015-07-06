@@ -21,13 +21,7 @@ module Scrabble
     end
 
     def total_score
-      final_score = 0
-
-      @played_words.each do |word|
-        final_score += Scrabble.score(word)
-      end
-
-      return final_score
+      @played_words.reduce(0) { |final_score, word| final_score + Scrabble.score(word) }
     end
 
     def won?

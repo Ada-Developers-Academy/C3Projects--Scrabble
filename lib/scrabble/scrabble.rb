@@ -25,7 +25,6 @@ module Scrabble
             end
           end
         else
-          # strange - this `return` is required for an rspec test to pass…?
           return nil
         end
       end
