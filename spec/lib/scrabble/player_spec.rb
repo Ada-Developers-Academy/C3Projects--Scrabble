@@ -6,8 +6,8 @@ describe "PLAYER" do
     @player = Scrabble::Player.new("George")
   end
 
-  context "CAN HAS EXIST! (Player.new)" do
-    it "is an instance of Player." do
+  context "an instance of Player can exist:" do
+    it "truly" do
       expect(@player).to be_an_instance_of(Scrabble::Player)
     end
 
@@ -27,7 +27,7 @@ describe "PLAYER" do
     end
   end
 
-  context "CAN HAS TILES!" do
+  context "a Player can have tiles:" do
     before :each do
       @bag_o_tiles = Scrabble::TileBag.new
     end
@@ -40,16 +40,20 @@ describe "PLAYER" do
     end
 
     it "cannot draw past 7 tiles." do
-      # !Q how to prove?
+      bag_o_tiles_before = @bag_o_tiles.tiles.length
+
       3.times do
         @player.draw_tiles(@bag_o_tiles)
       end
 
+      bag_o_tiles_after = @bag_o_tiles.tiles.length
+
       expect(@player.tiles.length).to eq(7)
+      expect(bag_o_tiles_before).to eq(bag_o_tiles_after)
     end
   end
 
-  context "CAN PLAY WORDS!" do
+  context "a Player can play words:" do
     before :each do
       @player.play("banana") # 8 +
       @player.play("oranges") # 8 == 16 +
@@ -57,7 +61,7 @@ describe "PLAYER" do
       @player.play("pleaser") # 9 == 41
     end
 
-    it "player can play valid words," do
+    it "can play valid words," do
       before = @player.plays.length
       expect(@player.play("apple")).to eq(true) # though score is 9!
       expect(@player.plays.length).to eq(before + 1)
@@ -83,7 +87,7 @@ describe "PLAYER" do
     end
   end
 
-  context "CAN HAS SCORES AND BESTS!" do
+  context "a Player can have scores & best scores:" do
     before :each do
       @player.play("banana") # 8 +
       @player.play("oranges") # 8 == 16 +
@@ -91,11 +95,11 @@ describe "PLAYER" do
       @player.play("pleaser") # 9 == 41
     end
 
-    it "player has a score, which can be checked!" do
+    it "has a score, which can be checked." do
       expect(@player.total_score).to eq(41)
     end
 
-    it "player can check for the highest scoring word from its own plays!" do
+    it "can check for the highest scoring word from its own plays." do
       expect(@player.highest_scoring_word).to eq("quarter")
 
       @player.play("quirky")
@@ -103,7 +107,7 @@ describe "PLAYER" do
       expect(@player.highest_scoring_word).to eq("quirky")
     end
 
-    it "player can also find the score of the highest scoring word!" do
+    it "can also find the score of the highest scoring word." do
       expect(@player.highest_word_score).to eq(16)
 
       @player.play("quirky")
@@ -112,7 +116,7 @@ describe "PLAYER" do
     end
   end
 
-  context "CAN WIN THE GAME!" do
+  context "a Player can win its game:" do
     before :each do
       @player.play("banana") # 8 +
       @player.play("oranges") # 8 == 16 +
@@ -122,7 +126,7 @@ describe "PLAYER" do
       @player.play("quizzes") # 34 == 97
     end
 
-    it "player wins when score surpasses 100 points." do
+    it "player wins when score surpasses 100 points," do
       expect(@player.won?).to eq(false)
 
       @player.play("apple") # 9 + 97 == 106

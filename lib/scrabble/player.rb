@@ -4,7 +4,7 @@ module Scrabble
 
 
     ## -------------------------------------------------------------------------
-    # CLASS METHODS
+    # INSTANCE METHODS
 
 
     def initialize(name)
@@ -15,10 +15,6 @@ module Scrabble
 
       draw_tiles(@bag_o_tiles)
     end
-
-
-    ## -------------------------------------------------------------------------
-    # INSTANCE METHODS
 
 
     def play(word)
