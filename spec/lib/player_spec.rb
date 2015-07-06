@@ -1,13 +1,13 @@
 require './lib/scrabble/player'
 
 describe Scrabble::Player do
-  let(:patricia) {
-    x = Scrabble::Player.new("Patricia")
-    x.play("good") # 6 pts
-    x.play("game") # 7 pts
-    x.play("girl") # 5 pts
-    return x
-  }
+  let(:patricia) { Scrabble::Player.new("Patricia") }
+
+  before(:each) do
+    patricia.play("good") # 6 pts
+    patricia.play("game") # 7 pts
+    patricia.play("girl") # 5 pts
+  end
 
   describe "self.new(name)" do
     it "creates a new instance of Player" do
