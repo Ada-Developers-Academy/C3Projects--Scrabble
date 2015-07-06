@@ -12,12 +12,12 @@ module Scrabble
       if @playing
         @played_words.push(word)
       else
-        return false
+        false
       end
     end
 
     def plays
-      return @played_words
+      @played_words
     end
 
     def total_score
@@ -35,7 +35,7 @@ module Scrabble
         @playing = false
         return true
       else
-        return false
+        false
       end
     end
 

@@ -2,10 +2,7 @@ require './lib/scrabble/tilebag'
 
 describe Scrabble::TileBag do
 
-  let(:bag) {
-    x = Scrabble::TileBag.new
-    return x
-  }
+  let(:bag) { Scrabble::TileBag.new }
 
   describe "#self.new" do
     it "creates an instance of TileBag" do

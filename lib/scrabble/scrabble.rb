@@ -25,6 +25,7 @@ module Scrabble
             end
           end
         else
+          # strange - this `return` is required for an rspec test to pass…?
           return nil
         end
       end
@@ -44,11 +45,11 @@ module Scrabble
       scores.keep_if { |key, value| value == winning_score }
 
       if scores.length == 1
-        return scores.keys[0]
+        scores.keys[0]
       else
         scores.each { |word, score| return word if word.length == 7 }
 
-        return scores.keys.min_by { |word| word.length }
+        scores.keys.min_by { |word| word.length }
       end
     end
 

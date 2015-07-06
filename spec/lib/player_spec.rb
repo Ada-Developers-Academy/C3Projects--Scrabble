@@ -55,13 +55,14 @@ describe Scrabble::Player do
 
   describe "#won?" do
     context "when player has > 100 points" do
-      let(:patricia) {
-        x = Scrabble::Player.new("Patty")
+      # new `let` is necessary because of the scope of this `context`
+      let(:patricia) { Scrabble::Player.new("Patty") }
+
+      before(:each) do
         9.times do
-          x.play("quit") # 13 pts
+          patricia.play("quit") # 13 pts
         end
-        return x
-      }
+      end
 
       it "stops playing Scrabble" do
         # need to call to activate re-assignment
@@ -76,13 +77,13 @@ describe Scrabble::Player do
     end
 
     context "when player has < 100 points" do
-      let(:ron) {
-        x = Scrabble::Player.new("Ron")
+      let(:ron) { Scrabble::Player.new("Ron") }
+
+      before(:each) do
         4.times do
-          x.play("boo") # 5 pts
+          ron.play("boo") # 5 pts
         end
-        return x
-      }
+      end
 
       it "returns false" do
         expect(ron.won?).to eq(false)

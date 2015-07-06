@@ -18,7 +18,7 @@ module Scrabble
     end
 
     def tiles_remaining
-      return @tiles.values.inject { |sum, n| sum + n }
+      @tiles.values.inject { |sum, n| sum + n }
     end
   end
 end
